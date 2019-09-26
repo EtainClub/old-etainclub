@@ -44,14 +44,17 @@ export default () => {
     // if the app is foreground, we need to navigate the screen
     const listenerFG = firebase.notifications().onNotification(notification => {
       console.log('onNotification', notification);
-      Alert.alert(
-        t('AppScreen.title'),
-        t('AppScreen.message'),
-        [
-          {text: t('yes'), onPress: () => NavigationService.navigate('Help', {notificationBody: notification})},
-        ],
-        {cancelable: true},
-      );
+      // check sanity: senderId exists?
+      if (notification.data.senderId) {
+        Alert.alert(
+          t('AppScreen.title'),
+          t('AppScreen.message'),
+          [
+            {text: t('yes'), onPress: () => NavigationService.navigate('Help', {notificationBody: notification})},
+          ],
+          {cancelable: true},
+        );
+      }
     });
 
     // notification opened (listen for notification is clicked/ tapped/ opened in foreground and backgroud)
@@ -60,8 +63,11 @@ export default () => {
       .notifications()
       .onNotificationOpened(notificationOpen => {
         console.log('onNotificationOpened', notificationOpen);
-        // navigate to Help screen
-        NavigationService.navigate('Help', {notificationBody: notificationOpen.notification});
+        // check sanity: senderId exists?
+        if (notificationOpen.notification.data.senderId) {
+          // navigate to Help screen
+          NavigationService.navigate('Help', {notificationBody: notificationOpen.notification});
+        }
       });
 
     listenerForAppClosed();
@@ -95,8 +101,11 @@ export default () => {
         console.log('notification id is the same');
       } else {
         console.log('navigating to helpscreen...');
-        // navigate to Help screen
-        NavigationService.navigate('Help', {notificationBody: notification});
+        // check sanity: senderId exists?
+        if (notification.data.senderId) {
+          // navigate to Help screen
+          NavigationService.navigate('Help', {notificationBody: notification});
+        }
       }
     }
   };

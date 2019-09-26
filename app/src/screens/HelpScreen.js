@@ -15,7 +15,7 @@ const HelpScreen = ({ navigation }) => {
   // get navigation params
   const notificationBody = navigation.getParam('notificationBody');
   const senderId = notificationBody.data.senderId;
-  
+
   // setup language
   const { t } = useTranslation();
   // use context
