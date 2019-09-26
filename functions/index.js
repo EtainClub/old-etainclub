@@ -10,13 +10,13 @@ exports.sendMessage = functions.firestore
   .document('/cases/{caseId}').onCreate( async (snap, context) => {
     const promise = new Promise((resolve, reject) => {  
       i18n.init({
-        lng: 'en', 
+        lng: 'ko', 
         fallbackLng: 'en',
         debug: true, 
         resources: {
             ko: {
               translation: {
-                header: '이타인클럽 도움요청',
+                header: '이타인클럽 도움요청(Help Wanted)',
               },
             },
             en: {

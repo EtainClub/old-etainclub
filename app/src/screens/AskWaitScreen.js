@@ -5,7 +5,7 @@ import { Text, Button, Input, Card, Overlay } from 'react-native-elements';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
-
+import * as RNLocalize from 'react-native-localize';
 
 // custom libraries
 import { Context as AskContext } from '../context/AskContext';
@@ -84,6 +84,23 @@ const AskWaitScreen = ({ navigation }) => {
     }
   }
 
+  showTimer = () => {
+    // detect language
+    const lang = RNLocalize.getLocales()[0].languageCode;
+    if (lang === 'en') {
+      return (
+        <Text style={styles.timeText}>
+          {t('AskWaitScreen.time')}: {moment(timeElapsed).format('mm [M] ss [S]')}
+        </Text>
+      );
+    }
+    return (
+      <Text style={styles.timeText}>
+        {t('AskWaitScreen.time')}: {moment(timeElapsed).format('mm [분] ss [초]')}
+      </Text>
+    );
+  };
+
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
       <NavigationEvents
@@ -94,9 +111,7 @@ const AskWaitScreen = ({ navigation }) => {
         {showSpinner()}
       </Card>
       <Card>
-        <Text style={styles.timeText}>
-            {t('AskWaitScreen.time')}: {moment(timeElapsed).format('mm [M] ss [S]')}
-        </Text>
+        {showTimer()}
         <Overlay
           overlayStyle={styles.modal}
           isVisible={showModal}
