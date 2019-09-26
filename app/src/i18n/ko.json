@@ -51,14 +51,14 @@
       "profileTitle": "프로필",
       "askCases": "도움 요청 내역",
       "helpCases": "도움 내역",
-      "locationPlaceholder": "지역을 업데이트하세요",      
-      "votes": "추천수", 
+      "locationPlaceholder": "지역을 업데이트하세요",
+      "votes": "추천수",
     },
     "AskScreen": {
       "header": "이티인클럽",
       "button": "도움 요청하기",
       "guideText": "요청 메시지를 입력하세요",
-      "placeholder": "도움 요청 예: 컴퓨터가 갑자기 켜지지 않습니다. 전원 버튼을 눌러도 딸깍 소리가 않나요. 도움 부탁드립니다.",
+      "placeholder": "도움 요청 예: 컴퓨터 전원 버튼을 눌러도 켜지지 않습니다. 도와주세요.",
     },
     "AskWaitScreen": {
       "header": "도움 요청 중입니다",
@@ -68,10 +68,9 @@
     },
     "HelpScreen": {
       "header": "도움 요청이 왔습니다",
-      "askTitle": "도움 요청 내용",
       "acceptButton": "도와주기",
       "declineButton": "다음에 하기",
-      "acceptMessage": "의뢰인과 연결하시겠습니까?",
+      "acceptMessage": "의뢰인과 채팅으로 연결됩니다",
       "senderCardTitle": "의뢰인 정보",
       "msgCardTitle": "요청 내용",
       "askCases": "도움 요청 내역",
@@ -94,25 +93,12 @@
       "skillDomain": "도움분야",
       "skillDomainDesc": "도움 줄 수 있는 분야(5개)를 추가합니다",
       "appendButton": "추가",
-      "skillPlaceholder": "도움분야를 입력하세요",
+      "skillPlaceholder": "예: 안드로이드 앱 설치",
       "location": "활동지역",
       "locationDesc": "활동 지역 최대 2개를 추가합니다",
-      "locationPlaceholder": "활동지역을 입력하세요",
-      "noMoreSkill": "도움분야가 이미 5개입니다",
-      "noMoreLocation": "활동지역이 이미 2개입니다",
+      "locationPlaceholder": "예: 수원 영통구",
       "acceptMessage": "정보를 업데이트 하시겠습니까?",
       "updateButton": "업데이트",
-      "inputSkill": "도움 분야를 입력하세요",
-      "inputLocation": "활동 지역을 입력하세요"
-    },
-    "ProfileEditScreen": {
-      "header": "프로필 수정",
-      "updateButton": "확인",
-      "nameLabel": "닉네임",
-      "namePlaceholder": "닉네임을 입력하세요",
-      "pickerTitle": "아바타 사진을 선택하세요",
-      "cancelPicker": "아바타 선택이 취소됐습니다",
-      "pickerError": "문제가 발생했습니다",
     },
     "ChatScreen": {
       "header": "채팅",
@@ -122,29 +108,11 @@
       "voteButton": "도움자 추천",
       "cannotVote": "스스로 추천할 수 없습니다",
       "voted": "도움자를 추천하였습니다",
-      "votedAlready": "이미 추천하셨습니다" 
+      "votedAlready": "이미 추천하셨습니다"
     },
     "ChatListScreen": {
       "header": "채팅 리스트",
       "search": "검색어를 입력하세요",
-    },
-    "FeedScreen": {
-      "header": "피드 스크린",
-      "search": "검색어를 입력하세요",
-    },
-    "ProfileContractScreen": {
-      "header": "사용자 프로필",
-      "skillDomain": "도움분야",
-      "skillDomainDesc": "도움 줄 수 있는 분야(5개)를 추가합니다",
-      "appendButton": "추가",
-      "skillPlaceholder": "예:컴퓨터 문제 해결",
-      "location": "활동지역",
-      "locationDesc": "활동 지역 최대 2개를 추가합니다",
-      "locationPlaceholder": "예: 서울",
-      "noMoreSkill": "도움분야가 이미 5개입니다",
-      "noMoreLocation": "활동지역이 이미 2개입니다",
-      "acceptMessage": "정보를 업데이트 하시겠습니까?",
-      "contractButton": "업데이트"
     },
   },
 }

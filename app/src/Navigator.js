@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import i18next from 'i18next';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
@@ -5,8 +6,78 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import * as RNLocalize from 'react-native-localize';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// import custom libraries
+import ResolveAuthScreen from './screens/ResolveAuthScreen';
+import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
+import AskScreen from './screens/AskScreen';
+import AskWaitScreen from './screens/AskWaitScreen';
+import HelpScreen from './screens/HelpScreen';
+import AccountScreen from './screens/AccountScreen';
+import AccountEditScreen from './screens/AccountEditScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ChatScreen from './screens/ChatScreen';
+import ChatListScreen from './screens/ChatListScreen';
+
+const askFlow = createStackNavigator({
+  AskMain: AskScreen,
+  AskWait: AskWaitScreen,
+}, {headerLayoutPreset: 'center'});
+
+askFlow.navigationOptions = {
+  tabBarIcon: <Icon2 name='hands-helping' size={20} />
+};
+
+const profileFlow = createStackNavigator({
+  Account: AccountScreen,
+  AccountEdit: AccountEditScreen,
+  ProfileContract: ProfileScreen
+}, {headerLayoutPreset: 'center'});
+
+profileFlow.navigationOptions = {
+  title: '채팅',
+  headerLayoutPreset: 'center',
+  tabBarIcon: <Icon name='comments' size={20} />
+};
+
+const chatFlow = createStackNavigator({
+  ChatList: ChatListScreen,
+  Chatting: ChatScreen,
+}, {headerLayoutPreset: 'center'});
+
+profileFlow.navigationOptions = {
+  title: '프로필',
+  tabBarIcon: <Icon name='user' size={20} />
+};
+
+const switchNavigator = createSwitchNavigator({
+  ResolveAuth: ResolveAuthScreen,
+  loginFlow: createStackNavigator({
+    Signin: SigninScreen,
+    Signup: SignupScreen,
+  }),
+  Help: HelpScreen,
+  mainFlow: createBottomTabNavigator({
+    Ask: askFlow,
+    Chat: chatFlow,
+    Profile: profileFlow,
+  }),
+});
+
+export default createAppContainer(switchNavigator);
+*/
+
+import React from 'react';
+import i18next from 'i18next';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
+import * as RNLocalize from 'react-native-localize';
+
 // import custom libraries
 import ResolveAuthScreen from './screens/ResolveAuthScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -71,5 +142,4 @@ const switchNavigator = createSwitchNavigator({
 });
 
 export default createAppContainer(switchNavigator);
-
 

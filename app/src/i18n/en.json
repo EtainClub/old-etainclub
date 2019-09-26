@@ -1,26 +1,34 @@
 {
   "translation": {
-    "title": "Etainclub",
+    "title": "etainclub",
     "yes": "Yes",
     "no": "No",
-    "IndexScreen": {
-      "title": "Etainclub",
-      "change": "Change language",
-      "test": "This is English",
+    "minute": "Minute",
+    "second": "Second",
+    "case": "Case",
+    "location": "Location",
+    "confirm": "Confirm",
+    "save": "Save",
+    "close": "Close",
+    "erase": "Remove",
+    "unknownLocation": "Unknown",
+    "AppScreen": {
+      "title": "Help Wanted",
+      "message": "Do you want to see the details?"
     },
     "SigninScreen": {
-      "header": "Login",
+      "header": "Sign In",
       "email": "E-mail",
       "password": "Password",
-      "confirm_password": "Confirm Password",
-      "button": "Login",
+      "confirm_password": "Confirm password",
+      "button": "Sign in",
       "SignupMsg": "No account? Sign up here",
     },
     "SignupScreen": {
-      "header": "Sign up",
+      "header": "Sign Up",
       "email": "E-mail",
       "password": "Password",
-      "confirm_password": "Confirm Password",
+      "confirm_password": "Confirm password",
       "button": "Sign up",
       "SigninMsg": "Already have an account? Sign in here",
     },
@@ -33,57 +41,74 @@
     },
     "AccountScreen": {
       "header": "Account Info",
-      "signoutButton": "Log out",
+      "signoutButton": "Sign out",
       "profileButton": "Update Profile",
       "profileTitle": "Profile",
       "askCases": "Request Cases",
       "helpCases": "Help Cases",
+      "locationPlaceholder": "Update location",      
+      "votes": "Votes", 
     },
     "AskScreen": {
-      "header": "Request Screen",
-      "button": "Request Help",
-      "guideText": "Write request message",
-      "placeholder": "Request example: My computer suddenly did not boot up. When I press the power button, I do not hear the click sound. Could you help?"
-    },
-    "FeedScreen": {
-      "header": "Feed",
-      "search": "Write search term",
+      "header": "etainclub",
+      "button": "Help",
+      "guideText": "Type what you need",
+      "placeholder": "e.g. My computer does not boot up. Help!!!",
     },
     "AskWaitScreen": {
-      "header": "Requesting help...",
-      "time": "Elapsed time",
+      "header": "Requesting Help",
+      "time": "Time elapsed",
       "button": "Cancel request",
-      "cancelMessage": "Do you want to cancel the request?",
+      "cancelMessage": "Do you wnat to cancel?",
     },
     "HelpScreen": {
-      "header": "Help Screen",
-      "askTitle": "Request message",
-      "acceptButton": "Accept",
-      "declineButton": "Do it next",
-      "acceptMessage": "The client will be connected to you. Accept?"
+      "header": "Help Wanted",
+      "acceptButton": "Help",
+      "declineButton": "Nex time",
+      "acceptMessage": "You will be connected to the client",
+      "senderCardTitle": "Client Info",
+      "msgCardTitle": "Message",
+      "askCases": "Request cases",
+      "helpCases": "Help cases",
+      "alreadyAccepted": "This has already been assigned",
+      "canceledByClient": "The client canceled it",
+      "votes": "Votes",
+    },
+    "AccountEditScreen": {
+      "header": "Change Profile",
+      "updateButton": "Confirm",
+      "nameLabel": "Username(requried)",
+      "namePlaceholder": "Type username",
+      "pickerTitle": "Choose an avatar",
+      "cancelPicker": "Canceled",
+      "pickerError": "Something is wrong",
     },
     "ProfileScreen": {
       "header": "User Profile",
-      "skillDomain": "Skill Domain",
-      "skillDomainDesc": "Add skill domains up to 5",
+      "skillDomain": "What You Can Help",
+      "skillDomainDesc": "Add up to 5 domains",
       "appendButton": "Add",
-      "skillPlaceholder": "Write skill domain",
+      "skillPlaceholder": "e.g. App installation",
       "location": "Location",
-      "locationDesc": "Add your locations up to 2",
-      "locationPlaceholder": "Write location",
-      "noMoreSkill": "Skill domains are already 5",
-      "noMoreLocation": "Locations are already 2",
-      "acceptMessage": "Do you want to update DB?",
-      "contractButton": "Update smart contract"
+      "locationDesc": "Add up to 2 locations",
+      "locationPlaceholder": "e.g. Marylebone, London",
+      "acceptMessage": "Do you want to update?",
+      "updateButton": "Update",
     },
-    AskNoticeScreen: {
-      menu: '요청 확인 스크린'
+    "ChatScreen": {
+      "header": "Chat",
+      "pickerTitle": "Choose a photo to send",
+      "cancelPicker": "Canceled",
+      "pickerError": "Something is wrong",
+      "voteButton": "Vote for helper",
+      "cannotVote": "You can vote for yourself",
+      "voted": "Voted",
+      "votedAlready": "Already voted" 
     },
-    HelpNoticeScreen: {
-      menu: '도움 확인 스크린'
-    },
-    StoryDetailScreen: {
-      menu: '스토리 상세 스크린'
+    "ChatListScreen": {
+      "header": "Chat List",
+      "search": "Type keywords",
     },
   },
 }
+

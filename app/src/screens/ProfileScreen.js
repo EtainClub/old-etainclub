@@ -98,7 +98,7 @@ const ProfileScreen = ({ navigation }) => {
           key={skill.id} 
           item={skill.name} 
           id={id}
-          placeholder={t('ProfileScreen.inputSkill')} 
+          placeholder={t('ProfileScreen.skillPlaceholder')} 
           handleStateChange={handleSkillStateChange} />
       );
     }
@@ -157,7 +157,7 @@ const ProfileScreen = ({ navigation }) => {
           key={location.id} 
           item={location.name} 
           id={id}
-          placeholder={t('ProfileScreen.inputLocation')} 
+          placeholder={t('ProfileScreen.locationPlaceholder')} 
           handleStateChange={handleLocationStateChange} />
       );
     }

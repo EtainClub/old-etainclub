@@ -74,6 +74,7 @@ AskScreen.navigationOptions = () => {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    tabbarLabel: '도움 요청',
   };
 };
 
