@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 import firebase from 'react-native-firebase'; 
 // cumstom libraries
 import createDataContext from './createDataContext';
-import { navigate } from '../navigationRef';
 
 // initial skill state
 const INIT_SKILL = {
