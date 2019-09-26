@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     borderColor: 'grey',
-    borderWidth: 3
+    borderWidth: 3,
   },
   guideText: {
     fontSize: 24,
