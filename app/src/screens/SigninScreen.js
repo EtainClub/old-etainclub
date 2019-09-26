@@ -1,0 +1,103 @@
+import React, { useContext, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native'; 
+import { NavigationEvents } from 'react-navigation';
+import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text, Input, Button } from 'react-native-elements';
+import SplashScreen from 'react-native-splash-screen';
+// custom libraries
+import { Context as AuthContext } from '../context/AuthContext';
+import Spacer from '../components/Spacer';
+
+const SigninScreen = ({ navigation }) => {
+  SplashScreen.hide();
+  // setup language
+  const { t } = useTranslation();
+
+  // use auth context; state, action, default value
+  const { state, signin, clearError } = useContext( AuthContext );
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+ 
+  return (
+    <View>
+      <NavigationEvents
+        onWillBlur={clearError}
+      />
+      <Spacer>
+        <Text h3>{t('SigninScreen.header')}</Text>
+      </Spacer>
+      <Spacer>
+        <Input label={t('SigninScreen.email')} 
+          leftIcon={
+            <Icon
+              name='envelope-o'
+              size={24}
+              color='black'
+            />
+          }
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </Spacer>
+      <Spacer>
+        <Input label={t('SigninScreen.password')}  
+          leftIcon={
+            <Icon
+              name='lock'
+              size={24}
+              color='black'
+            />
+          }
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </Spacer>
+      {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null}
+      <Spacer>
+        <Button title={t('SigninScreen.button')} 
+          titleStyle={{ fontSize: 24, fontWeight: 'bold' }}
+          loading={state.loading}
+          onPress={() => {signin({ email, password, navigation })} }
+        />
+      </Spacer>
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+        <Spacer>
+          <Text style={styles.textLink}>{t('SigninScreen.SignupMsg')}</Text>
+        </Spacer>
+      </TouchableOpacity>
+    </View>
+  );  
+};
+
+SigninScreen.navigationOptions = () => {
+  return {
+    header: null
+  }
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    marginBottom: 100
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: 'red',
+    marginLeft: 15,
+    marginTop: 15
+  },
+  textLink: {
+    color: 'blue',
+    fontSize: 20
+  }
+});
+
+export default SigninScreen;

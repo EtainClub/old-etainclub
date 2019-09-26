@@ -1,0 +1,89 @@
+{
+  "translation": {
+    "title": "Etainclub",
+    "yes": "Yes",
+    "no": "No",
+    "IndexScreen": {
+      "title": "Etainclub",
+      "change": "Change language",
+      "test": "This is English",
+    },
+    "SigninScreen": {
+      "header": "Login",
+      "email": "E-mail",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "button": "Login",
+      "SignupMsg": "No account? Sign up here",
+    },
+    "SignupScreen": {
+      "header": "Sign up",
+      "email": "E-mail",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "button": "Sign up",
+      "SigninMsg": "Already have an account? Sign in here",
+    },
+    "AuthContext": {
+      "PasswordError": "Password is not matched",
+      "SignupError": "Error occured during sign up process",
+      "SigninError": "Error occured during login process",
+      "SigninTokenError": "Login error (Failed to get token)",
+      "getPushTokenError": "Failed to get push token"
+    },
+    "AccountScreen": {
+      "header": "Account Info",
+      "signoutButton": "Log out",
+      "profileButton": "Update Profile",
+      "profileTitle": "Profile",
+      "askCases": "Request Cases",
+      "helpCases": "Help Cases",
+    },
+    "AskScreen": {
+      "header": "Request Screen",
+      "button": "Request Help",
+      "guideText": "Write request message",
+      "placeholder": "Request example: My computer suddenly did not boot up. When I press the power button, I do not hear the click sound. Could you help?"
+    },
+    "FeedScreen": {
+      "header": "Feed",
+      "search": "Write search term",
+    },
+    "AskWaitScreen": {
+      "header": "Requesting help...",
+      "time": "Elapsed time",
+      "button": "Cancel request",
+      "cancelMessage": "Do you want to cancel the request?",
+    },
+    "HelpScreen": {
+      "header": "Help Screen",
+      "askTitle": "Request message",
+      "acceptButton": "Accept",
+      "declineButton": "Do it next",
+      "acceptMessage": "The client will be connected to you. Accept?"
+    },
+    "ProfileScreen": {
+      "header": "User Profile",
+      "skillDomain": "Skill Domain",
+      "skillDomainDesc": "Add skill domains up to 5",
+      "appendButton": "Add",
+      "skillPlaceholder": "Write skill domain",
+      "location": "Location",
+      "locationDesc": "Add your locations up to 2",
+      "locationPlaceholder": "Write location",
+      "noMoreSkill": "Skill domains are already 5",
+      "noMoreLocation": "Locations are already 2",
+      "acceptMessage": "Do you want to update DB?",
+      "contractButton": "Update smart contract"
+    },
+    AskNoticeScreen: {
+      menu: '요청 확인 스크린'
+    },
+    HelpNoticeScreen: {
+      menu: '도움 확인 스크린'
+    },
+    StoryDetailScreen: {
+      menu: '스토리 상세 스크린'
+    },
+  },
+}
