@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 import {NavigationEvents, SafeAreaView} from 'react-navigation';
 import {ListItem, Divider} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -53,7 +53,7 @@ const ChatListScreen = ({navigation}) => {
           let docItem = doc.data();
           // check sanity, acceptance
           if (!docItem.accepted) {
-            console.log('Warning the case is not accepted!!!');
+            console.log('Warning the case is not accepted!!!', docItem);
           } else {
             console.log('[ChatListScreen] docItem', docItem);
             docItem.docId = doc.id;
@@ -93,21 +93,25 @@ const ChatListScreen = ({navigation}) => {
 
   const renderSenderChatList = () => {
     return (
+      <View style={{height: 300}}>
       <FlatList
         keyExtractor={item => item.docId}
         data={askCases}
         renderItem={renderItem}
       />
+      </View>
     );
   };
 
   const renderHelperChatList = () => {
     return (
+      <View style={{height: 300}}>
       <FlatList
         keyExtractor={item => item.docId}
         data={helpCases}
         renderItem={renderItem}
       />
+      </View>
     );
   };
 

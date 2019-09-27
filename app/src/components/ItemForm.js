@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, CheckBox } from 'react-native-elements';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {Input} from 'react-native-elements';
 
 const ItemForm = (props) => {
   // to check the main item
