@@ -72,7 +72,7 @@ export default createAppContainer(switchNavigator);
 import React from 'react';
 import i18next from 'i18next';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';

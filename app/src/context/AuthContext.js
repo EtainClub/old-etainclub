@@ -57,18 +57,18 @@ const trySigninWithToken = dispatch => {
 const clearError = dispatch => () => {
   console.log('clear error dispatch');
   // dispatch clear action
-  dispatch({ type: 'clear_error' });
+  dispatch({type: 'clear_error'});
 };
 
-// signup 
+// signup
 const signup = dispatch => {
   // use language
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  return async ({ email, password, confirm_password, navigation }) => {
+  return async ({email, password, confirm_password, navigation}) => {
     // start auth action
     dispatch({
-      type: 'start_auth'
+      type: 'start_auth',
     });
 
     // check password
@@ -76,123 +76,131 @@ const signup = dispatch => {
       console.log('signup password is not matched');
       dispatch({
         type: 'add_error',
-        payload: t('AuthContext.PasswordError')
+        payload: t('AuthContext.PasswordError'),
       });
       return;
     }
     // create an account using firebase
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(user => {
-      console.log('firebase signup', user);
-      // get the ID token
-      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
-      .then( async (token) => {
-        console.log('signup firebase id token', token);
-        await AsyncStorage.setItem('token', token);
-        // signup action
-        dispatch({
-          type: 'signup',
-          payload: token
-        });
-        // navigate
-        navigation.navigate('Signin');
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        console.log('firebase signup', user);
+        // get the ID token
+        firebase
+          .auth()
+          .currentUser.getIdToken(/* forceRefresh */ true)
+          .then(async token => {
+            console.log('signup firebase id token', token);
+            await AsyncStorage.setItem('token', token);
+            // signup action
+            dispatch({
+              type: 'signup',
+              payload: token,
+            });
+            // navigate
+            navigation.navigate('Signin');
+          })
+          .catch(error => {
+            console.log(error);
+            dispatch({
+              type: 'add_error',
+              payload: t('AuthContext.SignupError'),
+            });
+          });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         dispatch({
           type: 'add_error',
-          payload: t('AuthContext.SignupError')
+          payload: t('AuthContext.SignupError'),
         });
       });
-    })
-    .catch((error) => {
-      console.log(error);
-      dispatch({
-        type: 'add_error',
-        payload: t('AuthContext.SignupError')
-      });
-    });
   };
 };
 
 // sign in
 const signin = dispatch => {
   // use language
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  return async ({ email, password, navigation }) => {
+  return async ({email, password, navigation}) => {
     // start auth action
     dispatch({
-      type: 'start_auth'
+      type: 'start_auth',
     });
     // login using firebase
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((res) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
         // get the ID token
-        const { currentUser } = firebase.auth();
+        const {currentUser} = firebase.auth();
         currentUser.getIdToken(/* forceRefresh */ true)
-          .then( async (token) => {
+          .then(async token => {
             console.log('sigin firebase id token', token);
             await AsyncStorage.setItem('token', token);
             //// get message push token
             // request permission
             firebase.messaging().requestPermission();
             // get the device push token
-            firebase.messaging().getToken()
-            .then(pushToken => {
-              console.log('push token', pushToken);
-              //// create a new user doc or update token if the user exists
-              const userRef = firebase.firestore().collection('users').doc(currentUser.uid);
-              userRef.get()
-              .then((docSnapshot) => {
-                console.log('[signin] doc snapshot', docSnapshot);
-                if (docSnapshot.exists) {
-                  console.log('[signin] doc exist');
-                  userRef.update({ pushToken });
-                } else {
-                  console.log('[signin] doc does not exist');
-                  userRef.set({ 
-                    pushToken,
-                    name: '',
-                    avatarUrl: '',
-                    askCount: 0,
-                    helpCount: 0,
-                    votes: 0
+            firebase
+              .messaging()
+              .getToken()
+              .then(pushToken => {
+                console.log('push token', pushToken);
+                //// create a new user doc or update token if the user exists
+                const userRef = firebase.firestore().collection('users').doc(currentUser.uid);
+                userRef.get()
+                .then(docSnapshot => {
+                  console.log('[signin] doc snapshot', docSnapshot);
+                  if (docSnapshot.exists) {
+                    console.log('[signin] doc exist');
+                    userRef.update({pushToken});
+                  } else {
+                    console.log('[signin] doc does not exist');
+                    userRef.set({ 
+                      pushToken,
+                      name: '',
+                      avatarUrl: '',
+                      askCount: 0,
+                      helpCount: 0,
+                      votes: 0
+                    });
+                  }
+                  // update the state with
+                  dispatch({
+                    type: 'signin',
+                    payload: {token, pushToken},
                   });
-                }
-                // update the state with
-                dispatch({
-                  type: 'signin',
-                  payload: { token, pushToken }
+                  // navigate to the main flow
+                  navigation.navigate('mainFlow'); 
+                })
+                .catch(error => {
+                  console.log('[signin] cannot get user doc', error);
                 });
-                // navigate to the main flow
-                navigation.navigate('mainFlow'); 
-              })
+              }) // end of pushToken
               .catch(error => {
-                console.log('[signin] cannot get user doc', error);
+                console.log('getPushToken', error);
+                dispatch({
+                  type: 'add_error',
+                  payload: t('AuthContext.getPushTokenError'),
+                });
               });
-            }) // end of pushToken
-            .catch((error) => {
-              console.log('getPushToken', error);
-              dispatch({
-                type: 'add_error',
-                payload: t('AuthContext.getPushTokenError')
-              }); 
-            });   
           }) // end of token
-          .catch((error) => {
+          .catch(error => {
             console.log('getToken', error);
             dispatch({
               type: 'add_error',
-              payload: t('AuthContext.SigninTokenError')
-            });  
+              payload: t('AuthContext.SigninTokenError'),
+            });
           });
       }) // end of signin
-      .catch((error) => {
+      .catch(error => {
         console.log('signin', error);
         dispatch({
           type: 'add_error',
-          payload: t('AuthContext.SigninError')
+          payload: t('AuthContext.SigninError'),
         });
       });
   };
