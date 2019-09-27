@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import {StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {NavigationEvents, SafeAreaView} from 'react-navigation';
-import {ListItem} from 'react-native-elements';
+import {ListItem, Divider} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
 import firebase from 'react-native-firebase';
@@ -13,14 +14,21 @@ const ChatListScreen = ({navigation}) => {
   const {t} = useTranslation();
   // state
   const [search, setSearch] = useState('');
-  const [cases, setCases] = useState([]);
-
+  const [askCases, setAskCases] = useState([]);
+  const [helpCases, setHelpCases] = useState([]);
+  // set navigation params
   useEffect(() => {
+    //
+    updateChatList();
+    navigation.setParams({updateChatList});
+  }, []);
+
+  const updateChatList = () => {
     // get chat list of sender
     getCaseList('senderId');
     // get chat list of heper
     getCaseList('helperId');
-  }, []);
+  };
 
   const getCaseList = async userIdType => {
     console.log('getting chat list');
@@ -55,7 +63,11 @@ const ChatListScreen = ({navigation}) => {
           }
         });
         // update state
-        setCases(matchedCases);
+        if (userIdType === 'senderId') {
+          setAskCases(matchedCases);
+        } else {
+          setHelpCases(matchedCases);
+        }
         console.log('matchedCases', matchedCases);
       })
       .catch(error => {
@@ -79,24 +91,36 @@ const ChatListScreen = ({navigation}) => {
     />
   );
 
-  const renderChatList = () => {
+  const renderSenderChatList = () => {
     return (
       <FlatList
         keyExtractor={item => item.docId}
-        data={cases}
+        data={askCases}
+        renderItem={renderItem}
+      />
+    );
+  };
+
+  const renderHelperChatList = () => {
+    return (
+      <FlatList
+        keyExtractor={item => item.docId}
+        data={helpCases}
         renderItem={renderItem}
       />
     );
   };
 
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
-      {renderChatList()}
+    <SafeAreaView forceInset={{top: 'always'}}>
+      {renderSenderChatList()}
+      <Divider style={{backgroundColor: 'grey', height: 3}} />
+      {renderHelperChatList()}
     </SafeAreaView>
   );
 };
 
-ChatListScreen.navigationOptions = () => {
+ChatListScreen.navigationOptions = ({navigation}) => {
   return {
     title: i18next.t('ChatListScreen.header'),
     headerStyle: {
@@ -106,7 +130,19 @@ ChatListScreen.navigationOptions = () => {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    headerRight: (
+      <TouchableOpacity
+        onPress={navigation.getParam('updateChatList')}
+      >
+      <Icon
+        style={{marginRight: 25}}
+        name="refresh"
+        size={30}
+        color={'#353535'}
+      />
+      </TouchableOpacity>
+    ),
   };
-};
+}
 
 export default ChatListScreen;

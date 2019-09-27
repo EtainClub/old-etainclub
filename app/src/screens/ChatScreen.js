@@ -287,7 +287,7 @@ onVotePress = async ({ caseId, helperId }) => {
   });
 }
 
-ChatScreen.navigationOptions = ({ navigation }) => {
+ChatScreen.navigationOptions = ({navigation}) => {
   const caseId = navigation.getParam('caseId');
   const helperId = navigation.getParam('helperId');
 

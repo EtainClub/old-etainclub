@@ -67,7 +67,7 @@
     "HelpScreen": {
       "header": "Help Wanted",
       "acceptButton": "Help",
-      "declineButton": "Nex time",
+      "declineButton": "Next time",
       "acceptMessage": "You will be connected to the client",
       "senderCardTitle": "Client Info",
       "msgCardTitle": "Message",
@@ -111,6 +111,7 @@
     "ChatListScreen": {
       "header": "Chat List",
       "search": "Type keywords",
+      "refresh": "Refresh"
     },
   },
 }

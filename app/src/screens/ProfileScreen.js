@@ -240,12 +240,15 @@ const ProfileScreen = ({ navigation }) => {
       );  
     }
     return (
+      <TouchableOpacity
+        onPress={onSkillAddPress}
+      >  
       <Icon
         name='pencil'
         size={30}
         color={'#353535'}
-        onPress={onSkillAddPress}
       />
+      </TouchableOpacity>
     );
   }
 
@@ -258,12 +261,15 @@ const ProfileScreen = ({ navigation }) => {
       );  
     }
     return (
+      <TouchableOpacity
+        onPress={onLocationAddPress}
+      >
       <Icon
         name='pencil'
         size={30}
         color={'#353535'}
-        onPress={onLocationAddPress}
       />
+      </TouchableOpacity>
     );
   }
 

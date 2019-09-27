@@ -110,10 +110,10 @@ const HelpScreen = ({ navigation }) => {
       />
       <View style={styles.rowContainer}>
         <Card 
-          containerStyle={styles.senderCard} 
-          wrapperStyle={{ borderColor: 'blue', flex: 1 }}
+          containerStyle={styles.senderCard}
+          wrapperStyle={{borderColor: 'blue', flex: 1}}
           title={t('HelpScreen.senderCardTitle')}
-          titleStyle={{ fontSize: 24, fontWeight: 'bold' }}    
+          titleStyle={{fontSize: 24, fontWeight: 'bold'}}
         >          
           <Spacer>
           <View style={styles.itemContainer}>
@@ -122,9 +122,9 @@ const HelpScreen = ({ navigation }) => {
               size={20}
               color={'#353535'}
             />
-            <View style={{ paddingLeft: 12 }}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{t('location')}: 
-                {senderLocation ? senderLocation : t('unknownLocation')}</Text>
+            <View style={{paddingLeft: 12}}>
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>{t('location')}:</Text> 
+              <Text style={{fontSize: 20, fontWeight: 'bold'}}>{senderLocation ? senderLocation : t('unknownLocation')}</Text>
             </View>
           </View>
           </Spacer>
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
 //    justifyContent: 'flex-start',
-    height: 350,
+    height: 400,
     marginTop: 50,
   },
   senderCard: {

@@ -106,11 +106,12 @@
       "voteButton": "도움자 추천",
       "cannotVote": "스스로 추천할 수 없습니다",
       "voted": "도움자를 추천하였습니다",
-      "votedAlready": "이미 추천하셨습니다"
+      "votedAlready": "이미 추천하셨습니다",
     },
     "ChatListScreen": {
       "header": "채팅 리스트",
       "search": "검색어를 입력하세요",
+      "refresh": "새로고침"
     },
   },
 }
