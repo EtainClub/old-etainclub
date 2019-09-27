@@ -47,10 +47,10 @@
       "signoutButton": "Sign out",
       "profileButton": "Update Profile",
       "profileTitle": "Profile",
-      "askCases": "Request Cases",
-      "helpCases": "Help Cases",
+      "askCases": "Requested Cases",
+      "helpCases": "Helped Cases",
       "locationPlaceholder": "Update location",      
-      "votes": "Votes", 
+      "votes": "Votes",
     },
     "AskScreen": {
       "header": "etainclub",
