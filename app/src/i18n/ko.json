@@ -12,11 +12,9 @@
     "close": "닫기",
     "erase": "지우기",
     "unknownLocation": "알수없음",
-    "IndexScreen": {
-      "title": "이타인클럽",
-      "change": "언어 바꾸기",
-      "test": "한글입니다",
-    },
+    "askTab": "도움요청",
+    "chatTab": "채팅",
+    "userTab": "사용자",
     "AppScreen": {
       "title": "도움 요청 알림",
       "message": "도움 요청 내용을 보시겠습니까?"

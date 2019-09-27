@@ -12,6 +12,9 @@
     "close": "Close",
     "erase": "Remove",
     "unknownLocation": "Unknown",
+    "askTab": "Help",
+    "chatTab": "Chats",
+    "userTab": "User",
     "AppScreen": {
       "title": "Help Wanted",
       "message": "Do you want to see the details?"
