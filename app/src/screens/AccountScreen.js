@@ -102,7 +102,12 @@ const AccountScreen = ({ navigation }) => {
         console.log('No matching docs');
         return;
       }
-      askCount = snapshot.size;
+      // count but ignore not accepted case
+      snapshot.forEach(doc => {
+        if (doc.accepted) {
+          askCount++;
+        }
+      });
       console.log('askcount', askCount);
     })
     .catch(error => {

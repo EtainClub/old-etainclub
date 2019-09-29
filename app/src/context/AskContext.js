@@ -175,7 +175,7 @@ const removeCase = async ({ caseId }) => {
   });
 }
 
-countAskCases = async ({ userId }) => {
+const countAskCases = async ({userId}) => {
   // reference to cases
   const casesRef = firebase.firestore().collection('cases');
   // query
@@ -186,15 +186,19 @@ countAskCases = async ({ userId }) => {
       console.log('No matching docs');
       return;
     }
-    askCount = snapshot.size;
+    // count but ignore not accepted case
+    snapshot.forEach(doc => {
+      if (doc.accepted) {
+        askCount++;
+      }
+    });
     console.log('[AskContext] askCount', askCount);
   })
   .catch(error => {
     console.log('cannot query ask cases', error);
   });
-  
   return askCount;
-}
+};
 
 // monitor acceptance
 const monitorAcceptance = dispatch => {
@@ -218,22 +222,22 @@ const monitorAcceptance = dispatch => {
           // update state
           dispatch({ type: 'request_accepted' });
          
-          // count ask 
-          countAskCases({ userId })
-          .then(askCount => {
-            const userRef = firebase.firestore().doc(`users/${userId}`);
-            // update the ask count of the current user
-            userRef.update({ askCount });           
-          });
+          // count ask cases
+          countAskCases({userId})
+            .then(askCount => {
+              const userRef = firebase.firestore().doc(`users/${userId}`);
+              // update the ask count of the current user
+              userRef.update({askCount});
+            });
 
           // navigate to chat screen with param of user as client
-          navigation.navigate('Chatting', { chatUserId: 1, caseId, helperId: docSnapshot.data().helperId });
+          navigation.navigate('Chatting', {chatUserId: 1, caseId, helperId: docSnapshot.data().helperId});
           // unsubscribe
           unsubscribe();
         }
       }, error => {
         console.log('Encountered error on listening to accepted field change', error);
-      }); 
+      });
   };
 };
 
