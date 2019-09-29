@@ -77,7 +77,8 @@ https://cafe.naver.com/etainclub/250
 바로 여러분 한 분 한 분 참여를 통해서요. 지금 참여해 주세요.
 
 이타인클럽에 참여를 희망하시는 분은 네이버카페로 문의를 주시거나 etainclub@gmail.com으로 연락주세요.
-[이타인클럽 - 우리 동네를 바꾸는 도움 선순환 운동](https://cafe.naver.com/etainclub)
+### 이타인클럽 - 우리 동네를 바꾸는 도움 선순환 운동
+https://cafe.naver.com/etainclub
 
 ![](https://cafeskthumb-phinf.pstatic.net/MjAxOTAzMDFfMjE1/MDAxNTUxMzY2ODIxNzQ3.CX5_996rr5iJdxmVsGtGn0YNtXSq7RYjtguBnfoan7gg.wWDFbMOUyKsWOPMaQMJJ4Cv4m3c9AgwzdzLBDtHTxu4g.JPEG.etainclub/occupations-professions.jpg?type=w1080)
 
