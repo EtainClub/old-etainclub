@@ -1,4 +1,5 @@
 ![](https://cafeptthumb-phinf.pstatic.net/MjAxOTAzMDFfMTAx/MDAxNTUxMzcwNDQyMDE3.ZJFrXIfFr4_pC23QAzZN20W4iPfOrVFzlFsRMBTwGaog.4cFGWLp_2scDrIC2slj4-jLTUUXJBjA_JU9WKfRd7Iog.JPEG.etainclub/Zskj99Ky2UEeKnigNyJbzko7dF8ZFrtSKp8KZGvhNkXMR8Q5FcEEgFCkqW6qYcXcdsN8HDRSWRq8Gt1yQbKymv4ziBZjtvf6CPXngteaNfvz9BM3buH8.jpg?type=w740)
+
 우리는 손이 두 개 입니다. 하나는 나 자신을 돕기 위한 손이고, 다른 하나는 다른 사람을 돕기 위한 손입니다. - 작가 미상
 
 ## 지금의 우리 동네
@@ -35,6 +36,34 @@
 
 참고. 블록체인 부분은 향후 개발 예정에 있습니다.
 
+## 이타인클럽앱 (안드로이드앱) 
+- 지원기기: 안드로이드
+- 안드로이드는 8(oreo), 9(pie), 10(x)에서 테스트되었습니다. 하위 버전은 테스트 미진행.
+- 지원언어: 한글, 영어 (사용자 언어 설정에 따라 자동 변경)
+- 기본 동작 테스트만 된 상태입니다. 아마 상당한 버그 및 개선점이 있을 것입니다. 사용해 보시고 의견 주시면 고맙겠습니다.
+- 설치파일은 현재 파일 형태로 배포되고 있습니다.
+- 앱 설치 파일은 기기별 조금 다릅니다. 최신폰은 아마 64비트일 것입니다. 제가 안드로이드 9에서 설치해봤는데 두 파일모두 설치가 됩니다.
+  - 64비트 기기: https://firebasestorage.googleapis.com/v0/b/etainclub-896c9.appspot.com/o/apk%2Fetainclub-arm64-v8a-release.apk?alt=media&token=27743058-0746-4643-8165-5020dd0a47f9
+  - 32비트기기: https://firebasestorage.googleapis.com/v0/b/etainclub-896c9.appspot.com/o/apk%2Fetainclub-armeabi-v7a-release.apk?alt=media&token=84ec176e-8cd0-4cf0-b10b-b84bf03da847
+
+
+## 이타인클럽앱 사용법
+사용법은 매우 간단합니다. 카카오택시나 우버앱처럼 메시지를 다수에게 보내고 그 중 가장 먼저 응답한 사람과 채팅으로 연결되는 방식입니다.
+1. [요청자] 도움 요청 메시지를 작성하고 전송
+2. [요청자] 요청이 수락될 때까지 대기하거나 요청 취소합니다.
+3. [도움자] 도움 요청 노티피케이션이 도착하면 수락할지 거절할지 산택합니다.
+4. [도움자] 수락하면 요청자와 1:1 채팅창으로 연결됩니다.
+5. [요청자, 도움자] 서로 요청 내용, 도움 방법, 시간 , 일정 등에 대해 얘기합니다.
+
+https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMTQg/MDAxNTY5NjM0NjgzMzM3.gIuQhEysXgD-jD08A_E0iYfPlb-vI5kZUmspCtkjIFYg.2nX2VRC2gjv0V-wnNqVNYqPqDjwRmeGpTzApLwzfcuAg.JPEG/externalFile.jpg?type=w740
+
+https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjM1/MDAxNTY5NjM1MTUwNDc1.XOB9sDxSoqPxXBgVQ_j-lKUHJSaanPCsemAErGBWlw0g.DMqqAvyRyLOBge7jtP5XWwluqrQsIhBO4coC3ZCKLDcg.JPEG/externalFile.jpg?type=w740
+
+https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjAx/MDAxNTY5NjM1MTUzMDc0.zDx09HOzJU5ZqBOGba25M2eBNoHMzxpxnkSvIMdfn1Ig.QZAE-GQQKGcDkhiAMQwJMxB2hibLWSVB8BJT5jteiKsg.JPEG/externalFile.jpg?type=w740
+
+보다 상세한 내용은 아래를 참고해주세요.
+https://cafe.naver.com/etainclub/250
+
 ## 앞으로의 우리 동네
 우리 동네 이웃 한 사람 한 사람이 참여할수록 우리 동네는 이렇게 변해갈 수 있습니다.
 - 카카오택시 부르듯이 도움이 필요한 사람과 도움을 줄 수 있는 사람 연결
@@ -46,6 +75,11 @@
 지금 여러분의 이웃들은 여러분의 도움을 필요로 하고 있습니다.
 우리 동네 이야기는 지금 부터 시작됩니다. 
 바로 여러분 한 분 한 분 참여를 통해서요. 지금 참여해 주세요.
+
+이타인클럽에 참여를 희망하시는 분은 네이버카페로 문의를 주시거나 etainclub@gmail.com으로 연락주세요.
+**이타인클럽 - 우리 동네를 바꾸는 도움 선순환 운동**
+https://cafe.naver.com/etainclub
+https://cafeskthumb-phinf.pstatic.net/MjAxOTAzMDFfMjE1/MDAxNTUxMzY2ODIxNzQ3.CX5_996rr5iJdxmVsGtGn0YNtXSq7RYjtguBnfoan7gg.wWDFbMOUyKsWOPMaQMJJ4Cv4m3c9AgwzdzLBDtHTxu4g.JPEG.etainclub/occupations-professions.jpg?type=w1080
 
 ## 도움 요청
 이타인클럽앱은 React Native로 개발되었습니다.
