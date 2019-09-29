@@ -55,11 +55,11 @@
 4. [도움자] 수락하면 요청자와 1:1 채팅창으로 연결됩니다.
 5. [요청자, 도움자] 서로 요청 내용, 도움 방법, 시간 , 일정 등에 대해 얘기합니다.
 
-https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMTQg/MDAxNTY5NjM0NjgzMzM3.gIuQhEysXgD-jD08A_E0iYfPlb-vI5kZUmspCtkjIFYg.2nX2VRC2gjv0V-wnNqVNYqPqDjwRmeGpTzApLwzfcuAg.JPEG/externalFile.jpg?type=w740
+![](https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMTQg/MDAxNTY5NjM0NjgzMzM3.gIuQhEysXgD-jD08A_E0iYfPlb-vI5kZUmspCtkjIFYg.2nX2VRC2gjv0V-wnNqVNYqPqDjwRmeGpTzApLwzfcuAg.JPEG/externalFile.jpg?type=w740)
 
-https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjM1/MDAxNTY5NjM1MTUwNDc1.XOB9sDxSoqPxXBgVQ_j-lKUHJSaanPCsemAErGBWlw0g.DMqqAvyRyLOBge7jtP5XWwluqrQsIhBO4coC3ZCKLDcg.JPEG/externalFile.jpg?type=w740
+![](https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjM1/MDAxNTY5NjM1MTUwNDc1.XOB9sDxSoqPxXBgVQ_j-lKUHJSaanPCsemAErGBWlw0g.DMqqAvyRyLOBge7jtP5XWwluqrQsIhBO4coC3ZCKLDcg.JPEG/externalFile.jpg?type=w740)
 
-https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjAx/MDAxNTY5NjM1MTUzMDc0.zDx09HOzJU5ZqBOGba25M2eBNoHMzxpxnkSvIMdfn1Ig.QZAE-GQQKGcDkhiAMQwJMxB2hibLWSVB8BJT5jteiKsg.JPEG/externalFile.jpg?type=w740
+![](https://cafeptthumb-phinf.pstatic.net/MjAxOTA5MjhfMjAx/MDAxNTY5NjM1MTUzMDc0.zDx09HOzJU5ZqBOGba25M2eBNoHMzxpxnkSvIMdfn1Ig.QZAE-GQQKGcDkhiAMQwJMxB2hibLWSVB8BJT5jteiKsg.JPEG/externalFile.jpg?type=w740)
 
 보다 상세한 내용은 아래를 참고해주세요.
 https://cafe.naver.com/etainclub/250
@@ -79,7 +79,7 @@ https://cafe.naver.com/etainclub/250
 이타인클럽에 참여를 희망하시는 분은 네이버카페로 문의를 주시거나 etainclub@gmail.com으로 연락주세요.
 **이타인클럽 - 우리 동네를 바꾸는 도움 선순환 운동**
 https://cafe.naver.com/etainclub
-https://cafeskthumb-phinf.pstatic.net/MjAxOTAzMDFfMjE1/MDAxNTUxMzY2ODIxNzQ3.CX5_996rr5iJdxmVsGtGn0YNtXSq7RYjtguBnfoan7gg.wWDFbMOUyKsWOPMaQMJJ4Cv4m3c9AgwzdzLBDtHTxu4g.JPEG.etainclub/occupations-professions.jpg?type=w1080
+![](https://cafeskthumb-phinf.pstatic.net/MjAxOTAzMDFfMjE1/MDAxNTUxMzY2ODIxNzQ3.CX5_996rr5iJdxmVsGtGn0YNtXSq7RYjtguBnfoan7gg.wWDFbMOUyKsWOPMaQMJJ4Cv4m3c9AgwzdzLBDtHTxu4g.JPEG.etainclub/occupations-professions.jpg?type=w1080)
 
 ## 도움 요청
 이타인클럽앱은 React Native로 개발되었습니다.
