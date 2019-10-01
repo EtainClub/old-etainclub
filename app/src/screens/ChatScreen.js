@@ -65,7 +65,7 @@ const ChatScreen = ({ navigation }) => {
     }
   }, []);
 
-  getUserInfo = async () => {
+  const getUserInfo = async () => {
     const userRef = firebase.firestore().doc(`users/${userId}`);
     await userRef.get()
     .then(doc => {
@@ -78,7 +78,7 @@ const ChatScreen = ({ navigation }) => {
   }
 
   // start listener
-  listenToChat = async () => {
+  const listenToChat = async () => {
     console.log('[chatScreen] listenChat case', caseId);
     unsubscribe = firebase.firestore().collection('cases')
     .doc(`${caseId}`)
@@ -106,7 +106,7 @@ const ChatScreen = ({ navigation }) => {
     console.log('[listenChat]unsubrribe', unsubscribe);
   }
 
-  onSend = async (messages = []) => {
+  const onSend = async (messages = []) => {
     // get the latest message
     const message = messages[0];
     console.log('onSend message', message);
@@ -126,7 +126,7 @@ const ChatScreen = ({ navigation }) => {
     })
   }
 
-  uploadImage = () => {
+  const uploadImage = () => {
     console.log('imgSource', imgSource);
     const ext = imgUri.split('.').pop(); // Extract image extension
     const filename = `${uuid()}.${ext}`; // Generate unique name
@@ -171,7 +171,16 @@ const ChatScreen = ({ navigation }) => {
           }
         },
         error => {
-          alert('Sorry, Try again.', error);
+          console.log('ChatScreen uploading error', error);
+          // alert for failure to upload image
+          Alert.alert(
+            t('ChatScreen.updateErrorTitle'),
+            t('ChatScreen.updateError'),
+            [
+              {text: t('confirm')}
+            ],
+            {cancelable: true},
+          );
         }
       );
   };
@@ -192,11 +201,28 @@ const ChatScreen = ({ navigation }) => {
     ImagePicker.showImagePicker(pickerOptions, (response) => {
       console.log('image response', response);
       if (response.didCancel) {
-        alert(t('ChatScreen.cancelPicker'));
+        // alert for canceling avatar picking
+        Alert.alert(
+          t('ChatScreen.cancelPickerTitle'),
+          t('ChatScreen.cancelPicker'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );        
       } else if (response.error) {
-        alert(t('ChatScreen.pickerError'), response.error);
+        console.log('ChatScreen pickerError', response.error);
+        // alert for avatar picking error
+        Alert.alert(
+          t('ChatScreen.pickerErrorTitle'),
+          t('ChatScreen.pickerError'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
       } else {
-        const source = { uri: response.uri };
+        const source = {uri: response.uri};
         console.log('source', source);
         setImgSource(source);
         setImgUri(response.uri);
@@ -204,7 +230,7 @@ const ChatScreen = ({ navigation }) => {
         uploadImage();
       }
     });
-  }
+  };
 
   renderCustomActions = () => {
     if (true) {
@@ -253,7 +279,15 @@ onVotePress = async ({ caseId, helperId }) => {
   const userId = currentUser.uid;  
   // check the userId
   if (userId === helperId) {
-    alert(i18next.t('ChatScreen.cannotVote'));
+    // alert for cannot vote message
+    Alert.alert(
+      i18next.t('ChatScreen.cannotVoteTitle'),
+      i18next.t('ChatScreen.cannotVote'),
+      [
+        {text: i18next.t('confirm')}
+      ],
+      {cancelable: true},
+    );
     return;
   }  
   // case reference
@@ -274,11 +308,27 @@ onVotePress = async ({ caseId, helperId }) => {
         helperRef.update({
           votes: increment
         });
-        // message box
-        alert(i18next.t('ChatScreen.voted'));
+        // alert for cannot vote message
+        Alert.alert(
+          i18next.t('ChatScreen.votedTitle'),
+          i18next.t('ChatScreen.voted'),
+          [
+            {text: i18next.t('confirm')}
+          ],
+          {cancelable: true},
+        );
       } else {
         // message box
         alert(i18next.t('ChatScreen.votedAlready'));
+        // alert for cannot vote message
+        Alert.alert(
+          i18next.t('ChatScreen.votedAlreadyTitle'),
+          i18next.t('ChatScreen.votedAlready'),
+          [
+            {text: i18next.t('confirm')}
+          ],
+          {cancelable: true},
+        );
       }
     }
   })

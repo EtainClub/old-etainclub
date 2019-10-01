@@ -57,11 +57,28 @@ const AccountEditScreen = ({ navigation }) => {
   updateAvatar = async () => {
     ImagePicker.showImagePicker(pickerOptions, (response) => {
       if (response.didCancel) {
-        alert(t('AccountEditScreen.cancelPicker'));
+        // alert for canceling avatar picking
+        Alert.alert(
+          t('AccountEditScreen.cancelPickerTitle'),
+          t('AccountEditScreen.cancelPicker'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
       } else if (response.error) {
-        alert(t('AccountEditScreen.pickerError'), response.error);
+        console.log('AccountEditScreen.pickerError', response.error);
+        // alert for avatar picking error
+        Alert.alert(
+          t('AccountEditScreen.pickerErrorTitle'),
+          t('AccountEditScreen.pickerError'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
       } else {
-        const source = { uri: response.uri };
+        const source = {uri: response.uri};
         console.log('source', source);
         setImgUri(response.uri);
         // upload the avatar image
@@ -71,7 +88,7 @@ const AccountEditScreen = ({ navigation }) => {
   }
 
   // upload image to firebase storage
-  uploadImage = () => {
+  const uploadImage = () => {
     const ext = imgUri.split('.').pop(); // Extract image extension
     const filename = `${uuid()}.${ext}`; // Generate unique name
 //    setImgLoading(true);
@@ -105,7 +122,16 @@ const AccountEditScreen = ({ navigation }) => {
           }
         },
         error => {
-          alert('Sorry, Try again.', error);
+          console.log('AccountEditScreen uploading error', error);
+          // alert for failure to upload avatar
+          Alert.alert(
+            t('AccountEditScreen.updateErrorTitle'),
+            t('AccountEditScreen.updateError'),
+            [
+              {text: t('confirm')}
+            ],
+            {cancelable: true},
+          );
         }
       );
   };

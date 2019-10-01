@@ -71,7 +71,12 @@ const switchNavigator = createSwitchNavigator({
     Signin: SigninScreen,
     Signup: SignupScreen,
   }),
-  Help: HelpScreen,
+  helpFlow: createStackNavigator(
+    {
+      Help: HelpScreen,
+    },
+    {headerLayoutPreset: 'center'},
+  ),
   mainFlow: createBottomTabNavigator(
     {
       Ask: askFlow,

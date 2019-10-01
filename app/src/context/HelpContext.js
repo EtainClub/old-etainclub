@@ -1,16 +1,16 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
-import firebase from 'react-native-firebase'; 
+import {useTranslation} from 'react-i18next';
+import firebase from 'react-native-firebase';
 import createDataContext from './createDataContext';
 
 //// reducer
 const helpReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'accept_request':
       console.log('[helpReducer] state', state);
-      return { ...state, askAccepted: true, userId: action.payload };
+      return {...state, askAccepted: true, userId: action.payload};
     case 'ask_received':
       console.log('ask_received payload', action.payload);
       return {
@@ -18,27 +18,27 @@ const helpReducer = (state, action) => {
         senderId: action.payload.senderId,
         caseId: action.payload.caseId,
         notificationBody: action.payload.body,
-        notificationTitle: action.payload.title
+        notificationTitle: action.payload.title,
       };
     default:
       return state;
   }
-}
+};
 
 //// actions
 // ask request message received
 const askReceived = dispatch => {
-  return (notification) => {
+  return notification => {
     console.log('askReceived data', notification.data);
     dispatch({
       type: 'ask_received',
-      payload: notification.data
+      payload: notification.data,
     });
   };
 }
 
 // count help cases of the given user
-const countHelpCases = async ({ userId }) => {
+const countHelpCases = async ({userId}) => {
   // reference to cases
   const casesRef = firebase.firestore().collection('cases');
   // query
@@ -61,65 +61,101 @@ const countHelpCases = async ({ userId }) => {
 
 const acceptRequest = dispatch => {
   // use multi language
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  return async ({ caseId, navigation }) => {
+  return async ({caseId, navigation}) => {
     console.log('acceptRequest dispatch caseId', caseId);
     // case ref
     const caseRef = firebase.firestore().collection('cases').doc(`${caseId}`)
     // get user id
-    const { currentUser } = firebase.auth();
+    const {currentUser} = firebase.auth();
     const userId = currentUser.uid;
 
     // check if someone else has accepted the request first
     let accepted = false;
-    await caseRef.get()
-    .then(doc => {
-      // check if doc exists
-      if (!doc.exists) {
-        alert(t('HelpScreen.canceledByClient'));
-        accepted = true;
-        return;        
-      }
-      console.log('[acceptRequest] case doc', doc);
-      accepted = doc.data().accepted;
-      if (accepted) {
-        console.log('[acceptRequest] the request has been aleady accepted', doc);
-        alert(t('HelpScreen.alreadyAccepted'));
-      }      
-    })
-    .catch((error) => {
-      console.log('[acceptRequest]failed to update the document, error:', error);
-      alert(t('HelpScreen.canceledByClient'));
-    });
-    if (accepted ) return;
+    await caseRef
+      .get()
+      .then(doc => {
+        // check if doc exists
+        if (!doc.exists) {
+          // alert for canceled request
+          Alert.alert(
+            t('HelpScreen.canceledTitle'),
+            t('HelpScreen.canceledByClient'),
+            [
+              {text: t('confirm')}
+            ],
+            {cancelable: true},
+          );
+          // use accepted flag to return without further action
+          accepted = true;
+          return;
+        }
+        console.log('[acceptRequest] case doc', doc);
+        accepted = doc.data().accepted;
+        if (accepted) {
+          console.log('[acceptRequest] the request has been aleady accepted', doc);
+          // alert for assigned request
+          Alert.alert(
+          t('HelpScreen.acceptedTitle'),
+          t('HelpScreen.alreadyAccepted'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
+        }
+      })
+      .catch(error => {
+        console.log('[acceptRequest]failed to update the document, error:', error);
+        // alert for canceled request
+        Alert.alert(
+          t('HelpScreen.canceledTitle'),
+          t('HelpScreen.canceledByClient'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
+      });
+    if (accepted) {
+      return;
+    }
 
     // update the cases db with caseId
-    // new approach save helperid and time in case doc
-    await caseRef.update({ accepted: true, helperId: userId, createdAt: new Date() })
-    .then(async () => {
-      // update state
-      dispatch({
-        type: 'accept_request',
-        payload: userId
-      });
+    // new approach: save helperid and time in case doc
+    await caseRef
+      .update({accepted: true, helperId: userId, createdAt: new Date()})
+      .then(async () => {
+        // update state
+        dispatch({
+          type: 'accept_request',
+          payload: userId,
+        });
 
-      // update helpcount of this user
-      countHelpCases({ userId })
-      .then(helpCount => {
-        const userRef = firebase.firestore().doc(`users/${userId}`);
-        // update the ask count of the current user
-        userRef.update({ helpCount });           
+        // update helpcount of this user
+        countHelpCases({userId})
+          .then(helpCount => {
+            const userRef = firebase.firestore().doc(`users/${userId}`);
+            // update the ask count of the current user
+            userRef.update({helpCount});
+          });
+          console.log('[acceptRequest] updated the document');
+          // navigate to chat screen with param to set user as helper
+          navigation.navigate('Chatting', {chatUserId: 2, caseId, helperId: userId});
+      })
+      .catch(error => {
+        console.log('[acceptRequest]failed to update the document, error:', error);
+        // alert for failed to update helper info
+        Alert.alert(
+          t('HelpScreen.updateFailureTitle'),
+          t('HelpScreen.updateFailure'),
+          [
+            {text: t('confirm')}
+          ],
+          {cancelable: true},
+        );
       });
-      
-      console.log('[acceptRequest] updated the document');
-      // navigate to chat screen with param to set user as helper
-      navigation.navigate('Chatting', { chatUserId: 2, caseId, helperId: userId });
-    })
-    .catch((error) => {
-      console.log('[acceptRequest]failed to update the document, error:', error);
-      alert(t('HelpScreen.canceledByClient'));
-    });
   }
 }
 
