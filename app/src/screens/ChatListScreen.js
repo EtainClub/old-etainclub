@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 import {NavigationEvents, SafeAreaView} from 'react-navigation';
-import {ListItem, Divider} from 'react-native-elements';
+import {ListItem, Divider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
@@ -117,8 +117,14 @@ const ChatListScreen = ({navigation}) => {
 
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
+      <View style={{alignItems: 'center', backgroundColor: 'lightgrey'}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>{i18next.t('ChatListScreen.askCases')}</Text>
+      </View>
       {renderSenderChatList()}
       <Divider style={{backgroundColor: 'grey', height: 3}} />
+      <View style={{alignItems: 'center', backgroundColor: 'lightgrey'}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>{i18next.t('ChatListScreen.helpCases')}</Text>
+      </View>
       {renderHelperChatList()}
     </SafeAreaView>
   );

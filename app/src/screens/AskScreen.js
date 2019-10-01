@@ -1,28 +1,28 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationEvents, SafeAreaView } from 'react-navigation';
-import { Text, Button, Input, Card } from 'react-native-elements';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {NavigationEvents, SafeAreaView} from 'react-navigation';
+import {Text, Button, Input, Card} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import SplashScreen from 'react-native-splash-screen';
 
 
 // custom libraries
-import { Context as AskContext } from '../context/AskContext';
+import {Context as AskContext} from '../context/AskContext';
 import Spacer from '../components/Spacer';
 
-const AskScreen = ({ navigation }) => {
+const AskScreen = ({navigation}) => {
   SplashScreen.hide();
   console.log('AskScreen');
   // setup language
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   // use auth context; state, action, default value
-  const { state, requestHelp } = useContext( AskContext );
+  const {state, requestHelp} = useContext(AskContext);
   // state
   const [message, setMessage] = useState('');
 
-  showRemoveIcon = () => {
+  const showRemoveIcon = () => {
 //    if (message !== '') {
       return (
         <Icon
@@ -36,7 +36,7 @@ const AskScreen = ({ navigation }) => {
 //    }
   }
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
+    <SafeAreaView forceInset={{top: 'always'}}>
       <Card>
         <Spacer>
           <View style={styles.guide}>
@@ -53,12 +53,18 @@ const AskScreen = ({ navigation }) => {
         />
       </Card>
       <Spacer>
-        <Button 
-          buttonStyle={{ height: 100 }} 
-          titleStyle={{ fontSize: 30, fontWeight: 'bold' }}
+        <Button
+          buttonStyle={{height: 100}} 
+          titleStyle={{fontSize: 30, fontWeight: 'bold'}}
           title={t('AskScreen.button')}
           loading={state.loading}
-          onPress={() => { console.log('onpress, message', message); requestHelp({ message, navigation })}} />
+          onPress={() => {
+            // prohibit the double requesting
+            if (!state.loading) {
+              requestHelp({message, navigation});
+            }
+          }}
+        />
       </Spacer>
     </SafeAreaView>
   );

@@ -10,6 +10,8 @@ import createDataContext from './createDataContext';
 // reducer
 const askReducer = (state, action) => {
   switch (action.type) {
+    case 'set_loading':
+      return {...state, loading: true};
     case 'request_help':
       console.log('request_help payload', action.payload);
       return { 
@@ -18,17 +20,17 @@ const askReducer = (state, action) => {
         caseId: action.payload.caseId
       };
     case 'send_success':
-      return { 
+      return {
         ...state, loading: false, userId: action.payload,
-        requestAccepted: false 
+        requestAccepted: false, 
       };
     case 'cancel_success':
       // update the case id
-      return { 
-        ...state, 
+      return {
+        ...state,
       };
     case 'request_accepted':
-      return { ...state, requestAccepted: true, loading: false }
+      return {...state, requestAccepted: true, loading: false}
     default:
       return state;
   }
@@ -37,12 +39,17 @@ const askReducer = (state, action) => {
 // ask help
 const requestHelp = dispatch => {
   console.log('requestHelp dispatch');
-  return async ({ message, navigation }) => {
+  return async ({message, navigation}) => {
     // do not request if the message is empty
     if (message === '') {
       console.log('[Ask] message is empty');
       return;
     }
+    // uppdate loading state
+    dispatch({
+      type: 'set_loading',
+    });
+
     // count the previous cases
     let caseId = 0;
     const casesRef = firebase.firestore().collection('cases');
@@ -52,49 +59,50 @@ const requestHelp = dispatch => {
       })
       .catch(error => {
         console.log('Error getting the cases', error);
-      });  
-    
+      });
+
     // initial request message becomes the first all the time
-    sendMessage({ dispatch, caseId, message, navigation });
-  }
+    sendMessage({dispatch, caseId, message, navigation});
+  };
 };
 
 // send message
-const sendMessage = async ({ dispatch, caseId, message, navigation }) => {
+const sendMessage = async ({dispatch, caseId, message, navigation}) => {
   // update state
   dispatch({ 
-    type: 'request_help', 
-    payload: { caseId, message }
+    type: 'request_help',
+    payload: {caseId, message},
   });
 
   /// get user info
   // get current user
-  const { currentUser } = firebase.auth();
+  const {currentUser} = firebase.auth();
   const userId = currentUser.uid;
-  // get user info 
+  // get user info
   let userRef = firebase.firestore().doc(`users/${userId}`);
-  let avatarUrl = "";
-  let userName = "";
-  await userRef.get()
+  let avatarUrl = '';
+  let userName = '';
+  await userRef
+    .get()
     .then(doc => {
       avatarUrl = doc.data().avatarUrl;
       userName = doc.data().name;
     })
     .catch(error => {
       console.log('error', error);
-    })
+    });
   console.log('avatar', avatarUrl);
   console.log('userName', userName);
-  
+
   //// write the message in the firestore
   // get case ref
   const caseRef = firebase.firestore().collection('cases').doc(`${caseId}`);
   // set accepted field
-  await caseRef.set({ 
-    senderId: userId, 
-    message, 
+  await caseRef.set({
+    senderId: userId,
+    message,
     accepted: false,
-    voted: false
+    voted: false,
    });
   // set message
   await caseRef.collection('chats').add({ 

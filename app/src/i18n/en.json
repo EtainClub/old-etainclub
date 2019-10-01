@@ -71,8 +71,8 @@
       "acceptMessage": "You will be connected to the client",
       "senderCardTitle": "Client Info",
       "msgCardTitle": "Message",
-      "askCases": "Request cases",
-      "helpCases": "Help cases",
+      "askCases": "Requested cases",
+      "helpCases": "Helped cases",
       "acceptedTitle": "Assigned Request",
       "alreadyAccepted": "This has already been assigned",
       "canceledTitle": "Canceled Request",
@@ -126,7 +126,9 @@
     "ChatListScreen": {
       "header": "Chat List",
       "search": "Type keywords",
-      "refresh": "Refresh"
+      "refresh": "Refresh",
+      "askCases": "Got Helped Cases",
+      "helpCases": "Helped Cases",
     },
   },
 }
