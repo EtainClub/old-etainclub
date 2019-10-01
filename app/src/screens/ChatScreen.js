@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Alert, Platform} from 'react-native';
 import { NavigationEvents, SafeAreaView } from 'react-navigation';
 import { Text, Button, Input, Card, Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';

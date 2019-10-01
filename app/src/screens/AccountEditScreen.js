@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {View, StyleSheet, Alert} from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { Button, Card, Avatar, Input, Divider, Overlay, Badge } from 'react-native-elements';
 import i18next from 'i18next';
