@@ -37,8 +37,8 @@
     },
     "AuthContext": {
       "PasswordError": "Password is not matched",
-      "SignupError": "Error occured during sign up process",
-      "SigninError": "Error occured during login process",
+      "SignupError": "Error occurred during sign up process",
+      "SigninError": "Error occurred during login process",
       "SigninTokenError": "Login error (Failed to get token)",
       "getPushTokenError": "Failed to get push token"
     },
