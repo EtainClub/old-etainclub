@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'; 
-import { NavigationEvents } from 'react-navigation';
+import { NavigationEvents, SafeAreaView} from 'react-navigation';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +21,7 @@ const SigninScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
  
   return (
-    <View>
+    <SafeAreaView forceInset={{top: 'always'}}>
       <NavigationEvents
         onWillBlur={clearError}
       />
@@ -72,7 +72,7 @@ const SigninScreen = ({ navigation }) => {
           <Text style={styles.textLink}>{t('SigninScreen.SignupMsg')}</Text>
         </Spacer>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );  
 };
 
