@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* etainclubTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* etainclubTests.m */; };
+		07ACEC8FF743EA83E0E1BC91 /* libPods-etainclubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 398A348C7FE84840379011ED /* libPods-etainclubTests.a */; };
 		0F818BD10E2E46BC84EE7D51 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD3A0690F0A94C92A9FB3A67 /* FontAwesome5_Regular.ttf */; };
 		10D618941B8F42C6B7E28355 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7918A7F1D1D5459C98B09481 /* FontAwesome.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -20,21 +21,21 @@
 		2DCD954D1E0B4F2C00145EB5 /* etainclubTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* etainclubTests.m */; };
 		47FBE9DD273742069F5694D0 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3A9A871592F4E9FA660DCD0 /* MaterialCommunityIcons.ttf */; };
 		49A3B438AA72455BA7769632 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 768DCB9ED0EC44959312E9F5 /* Foundation.ttf */; };
-		5B5BB956C6CE8B4388F9CA32 /* libPods-etainclub-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3C16BB4A4DAB93EB5F7081 /* libPods-etainclub-tvOS.a */; };
 		6233A7B99A5E4071B94CB760 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28990DA1FF904A2099A28B82 /* EvilIcons.ttf */; };
-		67B278BE8EB8D0E15BEB5102 /* libPods-etainclub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B24268D2451F2DE5FE8D9F4C /* libPods-etainclub.a */; };
+		7037353856891B242FE3CC5E /* libPods-etainclub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC5013A9994F1A423436355 /* libPods-etainclub.a */; };
 		7083C344365746339DAF8FFD /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21EF735CCF704454AD84349A /* Fontisto.ttf */; };
+		717CE52FB9D4FC55E5B92835 /* libPods-etainclub-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04940DB4D380F15086816ED9 /* libPods-etainclub-tvOS.a */; };
 		878D1680434F4E3C891B0F16 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0237E8E2E481439EA254D9CF /* AntDesign.ttf */; };
 		880F3B843DA2447C8D7426ED /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70AA298D8B4749DB84CDBA7B /* Zocial.ttf */; };
 		9DB5E1B2B67441688F55CE59 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB8AE96A23A448D0B897E0BF /* Feather.ttf */; };
-		9FB3DD4C95083330F7523C6E /* libPods-etainclub-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58224EC4F8ADA8BA5E484DF4 /* libPods-etainclub-tvOSTests.a */; };
 		A293B76402FB46C4B2018702 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 027C2131F090438DA1BB844B /* Ionicons.ttf */; };
 		A2E43B1783844C7184C1858D /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E4DE4FF594ACBAF741D4A /* FontAwesome5_Solid.ttf */; };
 		AB3587C113B54397BCAA8DE3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */; };
 		B17991D29A3A455FA4FA7036 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 347C831F64A94113917998B7 /* Octicons.ttf */; };
-		BA3509E10F67E0846F653057 /* libPods-etainclubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D73278757A45DED47FACBBA1 /* libPods-etainclubTests.a */; };
+		B23753A0234D07A8002AE88D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B237539F234D07A7002AE88D /* GoogleService-Info.plist */; };
 		F25021F780C848529BFA50AA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7EBCF8231846F19BFCE61C /* Entypo.ttf */; };
 		F95D4C9331254E49BA04E1C7 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86B4DFE5D2FE4328B8B4EAF1 /* FontAwesome5_Brands.ttf */; };
+		F9FBFC4A74DB0C231138B19D /* libPods-etainclub-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF7C205A7EC59254D28F4F /* libPods-etainclub-tvOSTests.a */; };
 		FBD115B2A7D9440AA3E91157 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BBA753814D94235A96B0ED5 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -60,10 +61,10 @@
 		00E356EE1AD99517003FC87E /* etainclubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = etainclubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* etainclubTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = etainclubTests.m; sourceTree = "<group>"; };
-		0237E8E2E481439EA254D9CF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		027C2131F090438DA1BB844B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		0B3C16BB4A4DAB93EB5F7081 /* libPods-etainclub-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BC7F3E4D2AEC35CEBE2B190 /* Pods-etainclub-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		01B44BD95AB0FA2934211A6F /* Pods-etainclub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub.release.xcconfig"; path = "Target Support Files/Pods-etainclub/Pods-etainclub.release.xcconfig"; sourceTree = "<group>"; };
+		0237E8E2E481439EA254D9CF /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		027C2131F090438DA1BB844B /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		04940DB4D380F15086816ED9 /* libPods-etainclub-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* etainclub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = etainclub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = etainclub/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = etainclub/AppDelegate.m; sourceTree = "<group>"; };
@@ -71,34 +72,35 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = etainclub/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = etainclub/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = etainclub/main.m; sourceTree = "<group>"; };
-		1C7EBCF8231846F19BFCE61C /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		21EF735CCF704454AD84349A /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		24CF82A184044018C65BC0AE /* Pods-etainclub-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		28990DA1FF904A2099A28B82 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		1C7EBCF8231846F19BFCE61C /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		21EF735CCF704454AD84349A /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		28990DA1FF904A2099A28B82 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* etainclub-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "etainclub-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* etainclub-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "etainclub-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		347C831F64A94113917998B7 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		3D4E4DE4FF594ACBAF741D4A /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		44CE35C6A9C50A26694E901B /* Pods-etainclub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub.release.xcconfig"; path = "Target Support Files/Pods-etainclub/Pods-etainclub.release.xcconfig"; sourceTree = "<group>"; };
-		58224EC4F8ADA8BA5E484DF4 /* libPods-etainclub-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		70AA298D8B4749DB84CDBA7B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		768DCB9ED0EC44959312E9F5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		7918A7F1D1D5459C98B09481 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		86B4DFE5D2FE4328B8B4EAF1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		8BBA753814D94235A96B0ED5 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		A7C686B8BB879DF6AA7BC280 /* Pods-etainclub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub.debug.xcconfig"; path = "Target Support Files/Pods-etainclub/Pods-etainclub.debug.xcconfig"; sourceTree = "<group>"; };
-		AD3A0690F0A94C92A9FB3A67 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		B24268D2451F2DE5FE8D9F4C /* libPods-etainclub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C842A9D1B23E7B42DFAAE5E4 /* Pods-etainclub-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOS/Pods-etainclub-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		D3A9A871592F4E9FA660DCD0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		D488DE96C77C9341AA5AE207 /* Pods-etainclubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D73278757A45DED47FACBBA1 /* libPods-etainclubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB8AE96A23A448D0B897E0BF /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		347C831F64A94113917998B7 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		398A348C7FE84840379011ED /* libPods-etainclubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4E4DE4FF594ACBAF741D4A /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		4ADF7C205A7EC59254D28F4F /* libPods-etainclub-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56EFB3C6D1DF4BFCEC5B7974 /* Pods-etainclubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DC5013A9994F1A423436355 /* libPods-etainclub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-etainclub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65FC487B13CBE1F71F4A19FE /* Pods-etainclub-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOS.release.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOS/Pods-etainclub-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		70AA298D8B4749DB84CDBA7B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		768DCB9ED0EC44959312E9F5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		7918A7F1D1D5459C98B09481 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		86B4DFE5D2FE4328B8B4EAF1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		8BBA753814D94235A96B0ED5 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		A3345603C847DED2B3A1B433 /* Pods-etainclub-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AD3A0690F0A94C92A9FB3A67 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		B237539F234D07A7002AE88D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.release.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.release.xcconfig"; sourceTree = "<group>"; };
+		D3A9A871592F4E9FA660DCD0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		DA4B8AE6D618AAA89C741B6A /* Pods-etainclub-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOS/Pods-etainclub-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DB8AE96A23A448D0B897E0BF /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EF80E0072701739C9F29E945 /* Pods-etainclub-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOS.release.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOS/Pods-etainclub-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		F6A9DBCC93DEC54012E5EB7A /* Pods-etainclubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.release.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.release.xcconfig"; sourceTree = "<group>"; };
+		EFE5311F45AA7D8A9AB144C0 /* Pods-etainclub-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		F27B2C55D11011D0B0DCB777 /* Pods-etainclub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub.debug.xcconfig"; path = "Target Support Files/Pods-etainclub/Pods-etainclub.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA3509E10F67E0846F653057 /* libPods-etainclubTests.a in Frameworks */,
+				07ACEC8FF743EA83E0E1BC91 /* libPods-etainclubTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67B278BE8EB8D0E15BEB5102 /* libPods-etainclub.a in Frameworks */,
+				7037353856891B242FE3CC5E /* libPods-etainclub.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B5BB956C6CE8B4388F9CA32 /* libPods-etainclub-tvOS.a in Frameworks */,
+				717CE52FB9D4FC55E5B92835 /* libPods-etainclub-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FB3DD4C95083330F7523C6E /* libPods-etainclub-tvOSTests.a in Frameworks */,
+				F9FBFC4A74DB0C231138B19D /* libPods-etainclub-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,10 +175,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				B24268D2451F2DE5FE8D9F4C /* libPods-etainclub.a */,
-				0B3C16BB4A4DAB93EB5F7081 /* libPods-etainclub-tvOS.a */,
-				58224EC4F8ADA8BA5E484DF4 /* libPods-etainclub-tvOSTests.a */,
-				D73278757A45DED47FACBBA1 /* libPods-etainclubTests.a */,
+				5DC5013A9994F1A423436355 /* libPods-etainclub.a */,
+				04940DB4D380F15086816ED9 /* libPods-etainclub-tvOS.a */,
+				4ADF7C205A7EC59254D28F4F /* libPods-etainclub-tvOSTests.a */,
+				398A348C7FE84840379011ED /* libPods-etainclubTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -184,6 +186,7 @@
 		5915BE330FFC4EFDA919E70B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B237539F234D07A7002AE88D /* GoogleService-Info.plist */,
 				0237E8E2E481439EA254D9CF /* AntDesign.ttf */,
 				1C7EBCF8231846F19BFCE61C /* Entypo.ttf */,
 				28990DA1FF904A2099A28B82 /* EvilIcons.ttf */,
@@ -202,7 +205,6 @@
 				70AA298D8B4749DB84CDBA7B /* Zocial.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -242,16 +244,15 @@
 		A32535888B414684CED809E5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A7C686B8BB879DF6AA7BC280 /* Pods-etainclub.debug.xcconfig */,
-				44CE35C6A9C50A26694E901B /* Pods-etainclub.release.xcconfig */,
-				C842A9D1B23E7B42DFAAE5E4 /* Pods-etainclub-tvOS.debug.xcconfig */,
-				EF80E0072701739C9F29E945 /* Pods-etainclub-tvOS.release.xcconfig */,
-				24CF82A184044018C65BC0AE /* Pods-etainclub-tvOSTests.debug.xcconfig */,
-				0BC7F3E4D2AEC35CEBE2B190 /* Pods-etainclub-tvOSTests.release.xcconfig */,
-				D488DE96C77C9341AA5AE207 /* Pods-etainclubTests.debug.xcconfig */,
-				F6A9DBCC93DEC54012E5EB7A /* Pods-etainclubTests.release.xcconfig */,
+				F27B2C55D11011D0B0DCB777 /* Pods-etainclub.debug.xcconfig */,
+				01B44BD95AB0FA2934211A6F /* Pods-etainclub.release.xcconfig */,
+				DA4B8AE6D618AAA89C741B6A /* Pods-etainclub-tvOS.debug.xcconfig */,
+				65FC487B13CBE1F71F4A19FE /* Pods-etainclub-tvOS.release.xcconfig */,
+				A3345603C847DED2B3A1B433 /* Pods-etainclub-tvOSTests.debug.xcconfig */,
+				EFE5311F45AA7D8A9AB144C0 /* Pods-etainclub-tvOSTests.release.xcconfig */,
+				56EFB3C6D1DF4BFCEC5B7974 /* Pods-etainclubTests.debug.xcconfig */,
+				CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,7 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "etainclubTests" */;
 			buildPhases = (
-				69784438142B870CB84D7224 /* [CP] Check Pods Manifest.lock */,
+				5E302FDA6853FB809FF8E788 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -281,13 +282,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "etainclub" */;
 			buildPhases = (
-				E40F1EB74B86B2B31A68AAF0 /* [CP] Check Pods Manifest.lock */,
+				B4297B95CD0CAC830BD9A198 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7243CFC8E14B49769D607700 /* [CP] Copy Pods Resources */,
+				9AF0566A9F314A7141B09EE3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,7 +303,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "etainclub-tvOS" */;
 			buildPhases = (
-				A341F4D3F9C7BB7DC1D68504 /* [CP] Check Pods Manifest.lock */,
+				1B07DA0A11FACC0DCE0482D5 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -322,7 +323,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "etainclub-tvOSTests" */;
 			buildPhases = (
-				1AE71F75829475C784EC7447 /* [CP] Check Pods Manifest.lock */,
+				F2612AAAF2DC53ED1A599D6C /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -366,6 +367,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -405,6 +407,7 @@
 				0F818BD10E2E46BC84EE7D51 /* FontAwesome5_Regular.ttf in Resources */,
 				A2E43B1783844C7184C1858D /* FontAwesome5_Solid.ttf in Resources */,
 				7083C344365746339DAF8FFD /* Fontisto.ttf in Resources */,
+				B23753A0234D07A8002AE88D /* GoogleService-Info.plist in Resources */,
 				49A3B438AA72455BA7769632 /* Foundation.ttf in Resources */,
 				A293B76402FB46C4B2018702 /* Ionicons.ttf in Resources */,
 				47FBE9DD273742069F5694D0 /* MaterialCommunityIcons.ttf in Resources */,
@@ -447,7 +450,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		1AE71F75829475C784EC7447 /* [CP] Check Pods Manifest.lock */ = {
+		1B07DA0A11FACC0DCE0482D5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -462,7 +465,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-etainclub-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-etainclub-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -483,7 +486,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		69784438142B870CB84D7224 /* [CP] Check Pods Manifest.lock */ = {
+		5E302FDA6853FB809FF8E788 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -505,7 +508,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7243CFC8E14B49769D607700 /* [CP] Copy Pods Resources */ = {
+		9AF0566A9F314A7141B09EE3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -555,29 +558,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-etainclub/Pods-etainclub-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A341F4D3F9C7BB7DC1D68504 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-etainclub-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E40F1EB74B86B2B31A68AAF0 /* [CP] Check Pods Manifest.lock */ = {
+		B4297B95CD0CAC830BD9A198 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -593,6 +574,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-etainclub-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2612AAAF2DC53ED1A599D6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-etainclub-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -704,7 +707,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D488DE96C77C9341AA5AE207 /* Pods-etainclubTests.debug.xcconfig */;
+			baseConfigurationReference = 56EFB3C6D1DF4BFCEC5B7974 /* Pods-etainclubTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -727,7 +730,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6A9DBCC93DEC54012E5EB7A /* Pods-etainclubTests.release.xcconfig */;
+			baseConfigurationReference = CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -747,7 +750,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7C686B8BB879DF6AA7BC280 /* Pods-etainclub.debug.xcconfig */;
+			baseConfigurationReference = F27B2C55D11011D0B0DCB777 /* Pods-etainclub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -767,7 +770,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44CE35C6A9C50A26694E901B /* Pods-etainclub.release.xcconfig */;
+			baseConfigurationReference = 01B44BD95AB0FA2934211A6F /* Pods-etainclub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -786,7 +789,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C842A9D1B23E7B42DFAAE5E4 /* Pods-etainclub-tvOS.debug.xcconfig */;
+			baseConfigurationReference = DA4B8AE6D618AAA89C741B6A /* Pods-etainclub-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -814,7 +817,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF80E0072701739C9F29E945 /* Pods-etainclub-tvOS.release.xcconfig */;
+			baseConfigurationReference = 65FC487B13CBE1F71F4A19FE /* Pods-etainclub-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -842,7 +845,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24CF82A184044018C65BC0AE /* Pods-etainclub-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = A3345603C847DED2B3A1B433 /* Pods-etainclub-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -869,7 +872,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BC7F3E4D2AEC35CEBE2B190 /* Pods-etainclub-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = EFE5311F45AA7D8A9AB144C0 /* Pods-etainclub-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
