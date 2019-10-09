@@ -289,6 +289,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9AF0566A9F314A7141B09EE3 /* [CP] Copy Pods Resources */,
+				B2AECE16234E3EA500D07DB6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -557,6 +558,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-etainclub/Pods-etainclub-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B2AECE16234E3EA500D07DB6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		B4297B95CD0CAC830BD9A198 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
