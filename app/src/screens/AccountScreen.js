@@ -163,7 +163,9 @@ const AccountScreen = ({ navigation }) => {
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{state.userInfo.name}</Text>
               <Button
-                buttonStyle={{ height: 20, margin: 5 }} 
+                containerStyle={{ margin: 0 }}
+                buttonStyle={{ height: 35, marginLeft: 5 }} 
+                titleStyle={{ margin: 0, fontSize: 14 }}
                 type="outline"
                 title={t('AccountScreen.signoutButton')}
                 onPress={() => {signout({ navigation })}}

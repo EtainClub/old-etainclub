@@ -148,7 +148,9 @@ const AccountEditScreen = ({ navigation }) => {
           showEditButton
           onEditPress={onEditAvatarPress}
         />
-        <Input
+        <Input 
+          autoCapitalize='none'
+          autoCorrect={false}
           label={t('AccountEditScreen.nameLabel')}
           placeholder={t('AccountEditScreen.namePlaceholder')}
           value={name}

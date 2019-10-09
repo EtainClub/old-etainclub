@@ -25,7 +25,9 @@ const askFlow = createStackNavigator(
     AskMain: AskScreen,
     AskWait: AskWaitScreen,
   },
-  {headerLayoutPreset: 'center'},
+  {
+    headerLayoutPreset: 'center',
+  },
 );
 askFlow.navigationOptions = {
   tabBarLabel: i18next.t('askTab'),
