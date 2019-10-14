@@ -1,8 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import {NavigationEvents, SafeAreaView} from 'react-navigation';
 import {Text, Button, Input, Card} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
 import SplashScreen from 'react-native-splash-screen';
@@ -18,9 +19,14 @@ const AskScreen = ({navigation}) => {
   // setup language
   const {t} = useTranslation();
   // use auth context; state, action, default value
-  const {state, requestHelp} = useContext(AskContext);
+  const {state, requestHelp, getAppStatus} = useContext(AskContext);
   // state
   const [message, setMessage] = useState('');
+
+  // use effect
+  useEffect(() => {
+    getAppStatus();
+  }, []);
 
   const showRemoveIcon = () => {
 //    if (message !== '') {
@@ -37,6 +43,24 @@ const AskScreen = ({navigation}) => {
   }
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
+      <Card
+        containerStyle={{backgroundColor: '#259b9a'}}
+        wrapperStyle={styles.statusContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Icon
+            name='user'
+            size={30}
+          />
+          <Text style={{ fontSize: 30, fontWeight: 'bold', marginLeft: 10 }}>{state.totalUsers}</Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Icon2
+            name='hands-helping'
+            size={30}
+          />
+          <Text style={{ fontSize: 30, fontWeight: 'bold', marginLeft: 10 }}>{state.totalCases}</Text>
+        </View>
+      </Card>
       <Card>
         <Spacer>
           <View style={styles.guide}>
@@ -50,6 +74,8 @@ const AskScreen = ({navigation}) => {
           value={message}
           onChangeText={setMessage}
           placeholder={t('AskScreen.placeholder')}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
       </Card>
       <Spacer>
@@ -85,6 +111,10 @@ AskScreen.navigationOptions = () => {
 
 // styles
 const styles = StyleSheet.create({
+  statusContainer: {
+    flexDirection: "row",
+    justifyContent: 'space-around',
+  },
   guide: {
     flexDirection: 'row',
     justifyContent: 'center',

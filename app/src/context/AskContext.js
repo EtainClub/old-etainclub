@@ -10,6 +10,12 @@ import createDataContext from './createDataContext';
 // reducer
 const askReducer = (state, action) => {
   switch (action.type) {
+    case 'update_app_status':
+      return { 
+        ...state, 
+        totalUsers: action.payload.totalUsers, 
+        totalCases: action.payload.totalCases
+      };
     case 'set_loading':
       return {...state, loading: true};
     case 'request_help':
@@ -34,6 +40,40 @@ const askReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+// get number of cases and active users of the app
+const getAppStatus = dispatch => {
+  return async () => {
+  
+    // get number of users
+    const usersRef = firebase.firestore().collection('users');
+    let totalUsers = 0;
+    await usersRef.get()
+      .then(snapshot => {
+        totalUsers = snapshot.size;
+      })
+      .catch(error => {
+        console.log('Error getting the cases', error);
+      });
+
+    // get number of cases
+    const casesRef = firebase.firestore().collection('cases');
+    let totalCases = 0;
+    await casesRef.get()
+      .then(snapshot => {
+        totalCases = snapshot.size;
+      })
+      .catch(error => {
+        console.log('Error getting the cases', error);
+      });
+    
+    // update state
+    dispatch({
+      type: 'update_app_status',
+      payload: {totalUsers, totalCases}
+    });
+  };
 };
 
 // ask help
@@ -251,9 +291,10 @@ const monitorAcceptance = dispatch => {
 
 export const { Provider, Context } = createDataContext(
   askReducer,
-  { requestHelp, cancelRequest, monitorAcceptance },
+  { requestHelp, cancelRequest, monitorAcceptance, getAppStatus },
   { 
     message: '', errorMessage: '', loading: false,
-    caseId: null, userId: null, senderId: null, requestAccepted:false
+    caseId: null, userId: null, senderId: null, requestAccepted:false,
+    totalUsers: 0, totalCases: 0
   }
 );

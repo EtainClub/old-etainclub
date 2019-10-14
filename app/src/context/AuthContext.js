@@ -105,7 +105,7 @@ const signup = dispatch => {
             console.log(error);
             dispatch({
               type: 'add_error',
-              payload: t('AuthContext.SignupError') + error,
+              payload: t('AuthContext.SignupError') + '. ' + error,
             });
           });
       })
@@ -113,7 +113,7 @@ const signup = dispatch => {
         console.log(error);
         dispatch({
           type: 'add_error',
-          payload: t('AuthContext.SignupError') + error,
+          payload: t('AuthContext.SignupError') + '. ' + error,
         });
       });
   };
@@ -184,7 +184,7 @@ const signin = dispatch => {
                 console.log('getPushToken', error);
                 dispatch({
                   type: 'add_error',
-                  payload: t('AuthContext.getPushTokenError') + error,
+                  payload: t('AuthContext.getPushTokenError') + '. ' + error,
                 });
               });
           }) // end of token
@@ -192,7 +192,7 @@ const signin = dispatch => {
             console.log('getToken', error);
             dispatch({
               type: 'add_error',
-              payload: t('AuthContext.SigninTokenError') + error,
+              payload: t('AuthContext.SigninTokenError') + '. ' + error,
             });
           });
       }) // end of signin
@@ -200,7 +200,7 @@ const signin = dispatch => {
         console.log('signin', error);
         dispatch({
           type: 'add_error',
-          payload: t('AuthContext.SigninError') + error,
+          payload: t('AuthContext.SigninError') + '. ' + error,
         });
       });
   };
