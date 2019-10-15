@@ -19,6 +19,7 @@ import AccountEditScreen from './screens/AccountEditScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ChatScreen from './screens/ChatScreen';
 import ChatListScreen from './screens/ChatListScreen';
+import SettingScreen from './screens/SettingScreen';
 
 const askFlow = createStackNavigator(
   {
@@ -67,6 +68,13 @@ profileFlow.navigationOptions = {
   tabBarLabel: i18next.t('userTab'),
 };
 
+const settingFlow = createStackNavigator(
+  {
+    Settings: SettingScreen,
+  },
+  {headerLayoutPreset: 'center'},
+);
+
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   loginFlow: createStackNavigator({
@@ -84,6 +92,7 @@ const switchNavigator = createSwitchNavigator({
       Ask: askFlow,
       Chat: chatFlow,
       Profile: profileFlow,
+      Settings: settingFlow,
     },
     {
       defaultNavigationOptions: ({navigation}) => ({
@@ -95,6 +104,8 @@ const switchNavigator = createSwitchNavigator({
             return <Icon name="comments" size={20} color={tintColor} />;
           } else if (routeName === 'Profile') {
             return <Icon name="user" size={20} color={tintColor} />;
+          } else if (routeName === 'Settings') {
+            return <Icon name="gear" size={20} color={tintColor} />;
           }
         },
       }),
