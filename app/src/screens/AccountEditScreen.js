@@ -18,7 +18,7 @@ const AccountEditScreen = ({ navigation }) => {
   // setup language
   const { t } = useTranslation();
   // use context
-  const { state, updateAccount } = useContext( ProfileContext );
+  const { state, updateAvatarState, updateAccount } = useContext( ProfileContext );
   // use state
   const [name, setName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -35,7 +35,7 @@ const AccountEditScreen = ({ navigation }) => {
 
   // user clicks the update button
   onUpdatePress = () => {
-    updateAccount({ userId, name, avatarUrl, navigation });
+    updateAccount({ userId, name: state.userInfo.name, avatarUrl: state.userInfo.avatarUrl, navigation });
   }
 
   // user clicks the edit avatar button
@@ -82,18 +82,18 @@ const AccountEditScreen = ({ navigation }) => {
         console.log('source', source);
         setImgUri(response.uri);
         // upload the avatar image
-        uploadImage();
+        uploadImage(source, response.uri);
       }
     });
   }
 
   // upload image to firebase storage
-  const uploadImage = () => {
-    const ext = imgUri.split('.').pop(); // Extract image extension
+  const uploadImage = (source, imageUri) => {
+    const ext = imageUri.split('.').pop(); // Extract image extension
     const filename = `${uuid()}.${ext}`; // Generate unique name
 //    setImgLoading(true);
     const imgRef = firebase.storage().ref(`avatar/${filename}`);
-    const unsubscribe = imgRef.putFile(imgUri)
+    const unsubscribe = imgRef.putFile(imageUri)
       .on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         async snapshot => {
@@ -117,8 +117,10 @@ const AccountEditScreen = ({ navigation }) => {
               console.log('Failed to get url', error);
             })
             // update user info, avatar, and name
-            console.log('user info', userId, name, url);
-            updateAccount({ userId, name, avatarUrl: url, navigation });
+            console.log('user avatar url', url);
+            updateAvatarState({ userId, avatarUrl: url });
+            // refresh the screen
+            setAvatarUrl(avatarUrl);
           }
         },
         error => {

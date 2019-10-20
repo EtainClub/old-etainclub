@@ -65,6 +65,10 @@ const profileReducer = (state, action) => {
       };
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
+    case 'update_avatar':
+      return { ...state, 
+        userInfo: { ...state.userInfo, avatarUrl: action.payload }
+      };
     case 'update_contract':
       return { ...state, loading: true };
     case 'update_contract_success':
@@ -97,6 +101,23 @@ const updateLocation = dispatch => {
   }
 };
 
+// update avatar url
+const updateAvatarState = dispatch => {
+  return async ({ userId, avatarUrl }) => {
+
+    // reference to user info
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    // update name and avatar url
+    await userRef.update({
+      avatarUrl
+    });     
+    dispatch({
+      type: 'update_avatar',
+      payload: avatarUrl
+    });
+  }
+};
+
 // update user account
 const updateAccount = dispatch => {
   return async ({ userId, name, avatarUrl, navigation }) => {
@@ -105,7 +126,7 @@ const updateAccount = dispatch => {
     //// update db
     // reference to user info
     const userRef = firebase.firestore().doc(`users/${userId}`);
-    // update name and avatarrul
+    // update name and avatar url
     await userRef.update({
       name, avatarUrl
     }); 
@@ -211,7 +232,7 @@ const updateContract = dispatch => {
 export const { Provider, Context } = createDataContext(
   profileReducer,
   { updateContract,
-    updateUserInfoState, updateAccount,
+    updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, updateProfileInfo,
     updateSkills, updateLocations,
   },
