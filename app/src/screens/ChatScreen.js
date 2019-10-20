@@ -126,13 +126,14 @@ const ChatScreen = ({navigation}) => {
     })
   }
 
-  const uploadImage = () => {
-    console.log('imgSource', imgSource);
-    const ext = imgUri.split('.').pop(); // Extract image extension
+  const uploadImage = async (source, imageUri) => {
+    console.log('imgSource', source);
+    console.log('imgUri', imageUri);
+    const ext = imageUri.split('.').pop(); // Extract image extension
     const filename = `${uuid()}.${ext}`; // Generate unique name
     setImgLoading(true);
     const imgRef = firebase.storage().ref(`chats/${filename}`);
-    const unsubscribe = imgRef.putFile(imgUri)
+    const unsubscribe = imgRef.putFile(imageUri)
       .on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         async snapshot => {
@@ -227,7 +228,7 @@ const ChatScreen = ({navigation}) => {
         setImgSource(source);
         setImgUri(response.uri);
         // upload image
-        uploadImage();
+        uploadImage(source, response.uri);
       }
     });
   };
