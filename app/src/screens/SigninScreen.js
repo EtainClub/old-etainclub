@@ -29,7 +29,8 @@ const SigninScreen = ({ navigation }) => {
         <Text h3>{t('SigninScreen.header')}</Text>
       </Spacer>
       <Spacer>
-        <Input label={t('SigninScreen.email')} 
+        <Input label={t('SigninScreen.email')}
+          inputStyle={{ paddingLeft: 10 }} 
           leftIcon={
             <Icon
               name='envelope-o'
@@ -45,6 +46,7 @@ const SigninScreen = ({ navigation }) => {
       </Spacer>
       <Spacer>
         <Input label={t('SigninScreen.password')}  
+          inputStyle={{ paddingLeft: 10 }} 
           leftIcon={
             <Icon
               name='lock'

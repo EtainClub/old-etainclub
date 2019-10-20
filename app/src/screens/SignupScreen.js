@@ -31,6 +31,7 @@ const SignupScreen = ({navigation}) => {
       </Spacer>
       <Spacer>
         <Input
+          inputStyle={{ paddingLeft: 10 }} 
           label={t('SignupScreen.email')}
           leftIcon={
             <Icon
@@ -47,6 +48,7 @@ const SignupScreen = ({navigation}) => {
       </Spacer>
       <Spacer>
         <Input
+          inputStyle={{ paddingLeft: 10 }} 
           label={t('SignupScreen.password')}
           leftIcon={
             <Icon
@@ -64,6 +66,7 @@ const SignupScreen = ({navigation}) => {
       </Spacer>
       <Spacer>
         <Input
+          inputStyle={{ paddingLeft: 10 }} 
           label={t('SignupScreen.confirm_password')}
           leftIcon={
             <Icon
