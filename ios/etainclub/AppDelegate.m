@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import "RNSplashScreen.h"
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -31,6 +32,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [FIRApp configure];
+  [RNSplashScreen show];
   return YES;
 }
 
