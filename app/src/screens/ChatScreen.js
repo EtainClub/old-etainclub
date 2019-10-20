@@ -187,8 +187,8 @@ const ChatScreen = ({navigation}) => {
   
   const pickerOptions = {
     title: t('ChatScreen.pickerTitle'),
-    maxWidth: 240, // photos only
-    maxHeight: 240, // photos only
+    maxWidth: 640, // photos only
+    maxHeight: 640, // photos only
     storageOptions: {
       skipBackup: true,
       path: 'images',
