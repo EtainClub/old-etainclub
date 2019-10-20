@@ -82,7 +82,7 @@
       "updateFailure": "failed during DB update",
     },
     "AccountEditScreen": {
-      "header": "Change Profile",
+      "header": "Change Avatar",
       "updateButton": "Confirm",
       "nameLabel": "Username(requried)",
       "namePlaceholder": "Type username",

@@ -120,7 +120,7 @@ const AccountEditScreen = ({ navigation }) => {
             console.log('user avatar url', url);
             updateAvatarState({ userId, avatarUrl: url });
             // refresh the screen
-            setAvatarUrl(avatarUrl);
+            setAvatarUrl(url);
           }
         },
         error => {

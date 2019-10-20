@@ -82,7 +82,7 @@
       "updateFailure": "DB 업데이트 중 오류가 발생했습니다",
     },
     "AccountEditScreen": {
-      "header": "프로필 수정",
+      "header": "아바타 수정",
       "updateButton": "확인",
       "nameLabel": "닉네임(필수)",
       "namePlaceholder": "닉네임을 입력하세요",

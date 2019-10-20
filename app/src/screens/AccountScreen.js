@@ -37,6 +37,7 @@ const AccountScreen = ({ navigation }) => {
   
   getUserInfo = async () => {
     // reference to user info
+    console.log('[accountscreen] getUserInfo');
     const userRef = firebase.firestore().doc(`users/${userId}`);
     await userRef.get()
     .then(doc => {
@@ -148,6 +149,9 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
+      <NavigationEvents
+        onWillFocus={getUserInfo}
+      />
       <View>
         <Card wrapperStyle={styles.accountContainer}>
           <Avatar 
