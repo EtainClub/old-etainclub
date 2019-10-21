@@ -130,6 +130,26 @@
       "askCases": "Got Helped",
       "helpCases": "Helped",
     },
+    "SettingScreen": {
+      "header": "Settings",
+      "howto": "How to Use App",
+      "share": "Share App",
+      "facebookGroup": "Help Stories",
+      "naverCafe": "etainclub (for Korean)",
+      "github": "See Source Code",
+      "setting": "Settings",
+      "links": "Links",
+      "app": "App Settings (permission, notification, etc)",
+      "language": "Change Language",
+      "languageTitle": "Change Language",
+      "languageText": "Changing language will be supported.",
+      "signout": "Signout",
+      "signoutTitle": "Sign Out",
+      "signoutText": "Do you want to signout?",
+      "deleteAccount": "Delete Account",
+      "deleteTitle": "Delete Account",
+      "deleteText": "Deleting account is done manually for now. Please contact the amdin."
+    }
   },
 }
 

@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
 
 // custom libraries
-import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ProfileContext } from '../context/ProfileContext';
 import Spacer from '../components/Spacer';
 
@@ -17,8 +16,6 @@ const AccountScreen = ({ navigation }) => {
   // setup language
   const { t } = useTranslation();
 
-  // use auth context; state, action, default value
-  const { signout } = useContext( AuthContext );
   // use profile context
   const { state, updateUserInfoState, updateLocations } = useContext( ProfileContext );
 
@@ -166,14 +163,6 @@ const AccountScreen = ({ navigation }) => {
           <View style={styles.nickContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{state.userInfo.name}</Text>
-              <Button
-                containerStyle={{ margin: 0 }}
-                buttonStyle={{ height: 35, marginLeft: 5 }} 
-                titleStyle={{ margin: 0, fontSize: 14 }}
-                type="outline"
-                title={t('AccountScreen.signoutButton')}
-                onPress={() => {signout({ navigation })}}
-              />
             </View>
             <Spacer>
               <View style={{ flexDirection: "row" }}>

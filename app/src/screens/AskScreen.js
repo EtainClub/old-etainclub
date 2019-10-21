@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TextInput, Platform, TouchableOpacity} from 'react-native';
 import {NavigationEvents, SafeAreaView} from 'react-navigation';
 import {Text, Button, Input, Card} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -42,12 +42,6 @@ const AskScreen = ({navigation}) => {
 //    }
   }
 
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
-
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
       <Card
@@ -55,6 +49,7 @@ const AskScreen = ({navigation}) => {
         wrapperStyle={styles.statusContainer}>
         <View style={{flexDirection: 'row'}}>
           <Icon
+            style={styles.androidHeight}
             name='user'
             size={30}
           />
@@ -62,6 +57,7 @@ const AskScreen = ({navigation}) => {
         </View>
         <View style={{flexDirection: 'row'}}>
           <Icon2
+            style={styles.androidHeight}
             name='hands-helping'
             size={30}
           />
@@ -138,6 +134,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     alignSelf: 'center'
+  },
+  androidHeight: {
+    paddingTop: Platform.OS === 'android' ? 5 : 3 
   }
 });
 

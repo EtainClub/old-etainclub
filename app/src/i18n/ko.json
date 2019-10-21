@@ -128,7 +128,7 @@
       "search": "검색어를 입력하세요",
       "refresh": "새로고침",
       "askCases": "도움 받은 내역",
-      "helpCases": "도움 준 내역",
+      "helpCases": "도움 준 내역"
     },
     "SettingScreen": {
       "header": "설정",
@@ -143,9 +143,12 @@
       "language": "사용 언어 설정",
       "languageTitle": "언어 설정",
       "languageText": "언어 변경은 추후 지원예정입니다",
+      "signout": "로그아웃",
+      "signoutTitle": "로그아웃",
+      "signoutText": "로그아웃 하시겠습니까?",
       "deleteAccount": "회원 탈퇴",
       "deleteTitle": "회원 탈퇴",
-      "deleteText": "현재 탈퇴는 수동으로만 가능합니다. 관리자에게 요청하세요",
-    },
-  },
+      "deleteText": "현재 탈퇴는 수동으로만 가능합니다. 관리자에게 요청하세요"
+    }
+  }
 }

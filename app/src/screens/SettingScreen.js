@@ -9,10 +9,13 @@ import { useTranslation } from 'react-i18next';
 
 // custom libraries
 import Spacer from '../components/Spacer';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const SettingScreen = ({ navigation }) => {
   // setup language
   const { t } = useTranslation();
+  // use auth context; state, action, default value
+  const { signout } = useContext( AuthContext );
   // item list
   const linkList = [
     {
@@ -56,6 +59,10 @@ const SettingScreen = ({ navigation }) => {
       icon_url: 'https://cdn4.iconfinder.com/data/icons/43-social-media-line-icons/24/Share-48.png',
     },
     {
+      title: t('SettingScreen.signout'),
+      icon: 'signout'
+    },
+    {
       title: t('SettingScreen.deleteAccount'),
       icon: 'delete'
     },
@@ -90,6 +97,17 @@ const SettingScreen = ({ navigation }) => {
         });
         break;
       case 3:
+        Alert.alert(
+          t('SettingScreen.signoutTitle'),
+          t('SettingScreen.signoutText'),
+          [
+            {text: t('no'), style: 'cancel' },
+            {text: t('yes'), onPress: () => signout({ navigation })}
+          ],
+          {cancelable: true},
+        );
+        break;  
+      case 4:
           Alert.alert(
             t('SettingScreen.deleteTitle'),
             t('SettingScreen.deleteText'),
@@ -97,7 +115,8 @@ const SettingScreen = ({ navigation }) => {
               {text: t('confirm')}
             ],
             {cancelable: true},
-          );  
+          );
+          break;  
       default:
     }
   };
