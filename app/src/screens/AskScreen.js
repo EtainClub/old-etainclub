@@ -41,6 +41,13 @@ const AskScreen = ({navigation}) => {
       );
 //    }
   }
+
+  const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
+
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
       <Card
@@ -76,6 +83,7 @@ const AskScreen = ({navigation}) => {
           placeholder={t('AskScreen.placeholder')}
           autoCapitalize="none"
           autoCorrect={false}
+          blurOnSubmit={true}
         />
       </Card>
       <Spacer>
