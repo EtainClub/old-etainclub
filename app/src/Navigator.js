@@ -5,7 +5,6 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
-import * as RNLocalize from 'react-native-localize';
 
 // import custom libraries
 import ResolveAuthScreen from './screens/ResolveAuthScreen';
