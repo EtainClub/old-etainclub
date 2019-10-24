@@ -32,7 +32,8 @@ export default () => {
 
   // use effect
   useEffect(() => {
-
+    // check permission
+    checkPermission();
     // notification displayed (triggered when a particular notificaiton has been displayed)
     const notificationDisplayedListener = firebase
       .notifications()
@@ -80,6 +81,27 @@ export default () => {
       listenerBG();
     };
   }, []);
+
+  const checkPermission = () => {
+    firebase.messaging().hasPermission()
+      .then(enabled => {
+        if (enabled) {
+          firebase.messaging().getToken().then(token => {
+            console.log("LOG: ", token);
+          })
+          // user has permissions
+        } else {
+          firebase.messaging().requestPermission()
+            .then(() => {
+              alert("User Now Has Permission")
+            })
+            .catch(error => {
+              alert("Error", error)
+              // User has rejected permissions  
+            });
+        }
+      });
+  }
 
   // listen the notification being opened or clicked when the app is closed
   const listenerForAppClosed = async () => {

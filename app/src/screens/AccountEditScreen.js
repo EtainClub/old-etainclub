@@ -35,7 +35,7 @@ const AccountEditScreen = ({ navigation }) => {
 
   // user clicks the update button
   onUpdatePress = () => {
-    updateAccount({ userId, name: state.userInfo.name, avatarUrl: state.userInfo.avatarUrl, navigation });
+    updateAccount({ userId, name, avatarUrl: state.userInfo.avatarUrl, navigation });
   }
 
   // user clicks the edit avatar button

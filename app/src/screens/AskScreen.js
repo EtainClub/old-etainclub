@@ -79,7 +79,7 @@ const AskScreen = ({navigation}) => {
           placeholder={t('AskScreen.placeholder')}
           autoCapitalize="none"
           autoCorrect={false}
-          blurOnSubmit={true}
+          blurOnSubmit={styles.returnKey}
         />
       </Card>
       <Spacer>
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
   statusContainer: {
     flexDirection: "row",
     justifyContent: 'space-around',
+    paddingTop: Platform.OS === 'android' ? 0 : 10 
   },
   guide: {
     flexDirection: 'row',
@@ -137,7 +138,8 @@ const styles = StyleSheet.create({
   },
   androidHeight: {
     paddingTop: Platform.OS === 'android' ? 5 : 3 
-  }
+  },
+  returnKey: Platform.OS === 'android' ? false : true
 });
 
 export default AskScreen;
