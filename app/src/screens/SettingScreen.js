@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 // custom libraries
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SettingScreen = ({ navigation }) => {
   // setup language
@@ -59,6 +60,12 @@ const SettingScreen = ({ navigation }) => {
       icon_url: 'https://cdn4.iconfinder.com/data/icons/43-social-media-line-icons/24/Share-48.png',
     },
     {
+      title: t('SettingScreen.version'),
+    },
+    {
+      title: t('SettingScreen.evaluate'),
+    },
+    {
       title: t('SettingScreen.signout'),
       icon: 'signout'
     },
@@ -93,10 +100,26 @@ const SettingScreen = ({ navigation }) => {
       // share 
       case 2:
         await Share.share({
-          message: '친구 초대하기',
+          title: t('SettingScreen.shareTitle'),
+          message: 'http://etain.club/download',
         });
         break;
+      // app version
       case 3:
+        break;
+      // app evaluation
+      case 4:
+        Alert.alert(
+          t('SettingScreen.evaluationTitle'),
+          t('SettingScreen.evaluationText'),
+          [
+            {text: t('no'), style: 'cancel' },
+            {text: t('yes'), onPress: () => signout({ navigation })}
+          ],
+          {cancelable: true},
+        );
+        break;  
+      case 5:
         Alert.alert(
           t('SettingScreen.signoutTitle'),
           t('SettingScreen.signoutText'),
@@ -107,7 +130,7 @@ const SettingScreen = ({ navigation }) => {
           {cancelable: true},
         );
         break;  
-      case 4:
+      case 6:
           Alert.alert(
             t('SettingScreen.deleteTitle'),
             t('SettingScreen.deleteText'),
@@ -123,6 +146,7 @@ const SettingScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView forceInset={{top: 'always'}}>
+      <ScrollView>
       <Spacer>  
         <Text style={styles.listHeaderText}>{t('SettingScreen.links')}</Text>
         {
@@ -152,6 +176,7 @@ const SettingScreen = ({ navigation }) => {
           ))
         }
       </Spacer>  
+      </ScrollView>
     </SafeAreaView>
   );
 };
