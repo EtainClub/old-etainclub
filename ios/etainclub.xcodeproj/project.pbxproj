@@ -734,6 +734,7 @@
 			baseConfigurationReference = 56EFB3C6D1DF4BFCEC5B7974 /* Pods-etainclubTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = 82PH4A6679;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -758,6 +759,7 @@
 			baseConfigurationReference = CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 82PH4A6679;
 				INFOPLIST_FILE = etainclubTests/Info.plist;

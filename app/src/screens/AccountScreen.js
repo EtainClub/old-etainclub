@@ -96,16 +96,7 @@ const AccountScreen = ({ navigation }) => {
     let askCount = 0;
     await casesRef.where('senderId', '==', userId).get()
     .then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching docs');
-        return;
-      }
-      // count but ignore not accepted case
-      snapshot.forEach(doc => {
-        if (doc.accepted) {
-          askCount++;
-        }
-      });
+      askCount = snapshot.size;
       console.log('askcount', askCount);
     })
     .catch(error => {
@@ -122,12 +113,8 @@ const AccountScreen = ({ navigation }) => {
     let helpCount = 0;
     await casesRef.where('helperId', '==', userId).get()
     .then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching docs');
-        return;
-      }
       helpCount = snapshot.size;
-      console.log('helpcount', helpCount);
+      console.log('helpCount', helpCount);
     })
     .catch(error => {
       console.log('cannot query help cases', error);
@@ -190,7 +177,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 20 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.askCases')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.askCount? userInfo.askCount : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 16 }}>{userInfo.askCount? userInfo.askCount : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
@@ -203,7 +190,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 20 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.helpCases')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.helpCount? userInfo.helpCount : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 16 }}>{userInfo.helpCount? userInfo.helpCount : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
@@ -216,7 +203,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 25 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.votes')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.votes? userInfo.votes : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 16 }}>{userInfo.votes? userInfo.votes : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
