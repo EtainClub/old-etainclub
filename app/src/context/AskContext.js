@@ -78,7 +78,7 @@ const getAppStatus = dispatch => {
 
 // ask help
 const requestHelp = dispatch => {
-  console.log('requestHelp dispatch');
+  console.log('requestHelp');
   return async ({message, navigation}) => {
     // do not request if the message is empty
     if (message === '') {
@@ -90,30 +90,13 @@ const requestHelp = dispatch => {
       type: 'set_loading',
     });
 
-    // count the previous cases
-    let caseId = 0;
-    const casesRef = firebase.firestore().collection('cases');
-    await casesRef.get()
-      .then(snapshot => {
-        caseId = snapshot.size;
-      })
-      .catch(error => {
-        console.log('Error getting the cases', error);
-      });
-
     // initial request message becomes the first all the time
-    sendMessage({dispatch, caseId, message, navigation});
+    sendMessage({dispatch, message, navigation});
   };
 };
 
 // send message
-const sendMessage = async ({dispatch, caseId, message, navigation}) => {
-  // update state
-  dispatch({ 
-    type: 'request_help',
-    payload: {caseId, message},
-  });
-
+const sendMessage = async ({dispatch, message, navigation}) => {
   /// get user info
   // get current user
   const {currentUser} = firebase.auth();
@@ -135,31 +118,46 @@ const sendMessage = async ({dispatch, caseId, message, navigation}) => {
   console.log('userName', userName);
 
   //// write the message in the firestore
-  // get case ref
-  const caseRef = firebase.firestore().collection('cases').doc(`${caseId}`);
-  // set accepted field
-  await caseRef.set({
+  // get cases ref
+  let casesRef = firebase.firestore().collection('cases');
+  let caseId = null;
+  // add a new document with auto generated doc id
+  await casesRef.add({
     senderId: userId,
     message,
     accepted: false,
     voted: false,
-   });
-  // set message
-  await caseRef.collection('chats').add({ 
-    _id: uuid(), 
-    text: message, 
-    createdAt: new Date(),
-    user: {
-      _id: userId,
-      avatar: avatarUrl,
-      name: userName
-    }
-   });
-
-  // update state
-  dispatch({ type: 'send_success', payload: userId });
-  // navigate
-  navigation.navigate('AskWait');
+  })
+  .then(async docRef => {
+    console.log('case generated with doc id: ', docRef.id);
+    caseId = docRef.id;
+    // update state
+    dispatch({ 
+      type: 'request_help',
+      payload: {caseId, message},
+    });
+    //// set message
+    // get case ref
+    let caseRef = firebase.firestore().collection('cases').doc(`${docRef.id}`);
+    await caseRef.collection('chats').add({ 
+      _id: uuid(), 
+      text: message, 
+      createdAt: new Date(),
+      user: {
+        _id: userId,
+        avatar: avatarUrl,
+        name: userName
+      }
+    });
+    // not waiting for adding chat messge, go on to the wait screen
+    // update state
+    dispatch({ type: 'send_success', payload: userId });
+    // navigate
+    navigation.navigate('AskWait');
+  })
+  .catch(error => {
+    console.log('Error adding a new case: ', error);
+  });
 };
 
 // cancel the ask request
