@@ -91,6 +91,7 @@
 		8BBA753814D94235A96B0ED5 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		A3345603C847DED2B3A1B433 /* Pods-etainclub-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AD3A0690F0A94C92A9FB3A67 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		B223F8952361B5CF0003CD1F /* etainclub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = etainclub.entitlements; path = etainclub/etainclub.entitlements; sourceTree = "<group>"; };
 		B237539F234D07A7002AE88D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.release.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		13B07FAE1A68108700A75B9A /* etainclub */ = {
 			isa = PBXGroup;
 			children = (
+				B223F8952361B5CF0003CD1F /* etainclub.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -777,6 +779,7 @@
 			baseConfigurationReference = F27B2C55D11011D0B0DCB777 /* Pods-etainclub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = etainclub/etainclub.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 82PH4A6679;
@@ -798,6 +801,7 @@
 			baseConfigurationReference = 01B44BD95AB0FA2934211A6F /* Pods-etainclub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = etainclub/etainclub.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82PH4A6679;
 				INFOPLIST_FILE = etainclub/Info.plist;
