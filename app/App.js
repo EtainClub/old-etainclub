@@ -116,6 +116,7 @@ export default () => {
       const notification = notificationOpen.notification;
       //// ignore the same notification id since the same notification is received again, don't know why.
       // get noti id from storage
+      // @todo use then
       const notiId = await AsyncStorage.getItem('notiId');
       // set noti id to storage
       await AsyncStorage.setItem('notiId', notification.notificationId);
