@@ -36,7 +36,7 @@ const AccountScreen = ({ navigation }) => {
     await userRef.get()
     .then(doc => {
       // check if the user detailed info exists
-      if (typeof doc.data().name == 'undefined') {
+      if (!doc.data().name) {
         console.log('name is undefined');
       } 
       // read the ask and help cases
@@ -45,8 +45,8 @@ const AccountScreen = ({ navigation }) => {
         // update user state with initial state
         updateUserInfoState({ 
           userId: currentUser.uid,
-          name: doc.data().name || '',
-          avatarUrl: doc.data().avatarUrl || '',
+          name: doc.data().name || null,
+          avatarUrl: doc.data().avatarUrl || null,
           votes: doc.data().votes || 0,
           askCount: counts.askCount,
           helpCount: counts.helpCount
