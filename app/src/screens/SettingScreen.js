@@ -6,11 +6,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView from 'react-native-maps';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // custom libraries
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 const SettingScreen = ({ navigation }) => {
   // setup language
@@ -114,7 +115,7 @@ const SettingScreen = ({ navigation }) => {
           t('SettingScreen.evaluationText'),
           [
             {text: t('no'), style: 'cancel' },
-            {text: t('yes'), onPress: () => signout({ navigation })}
+            {text: t('yes')}
           ],
           {cancelable: true},
         );
