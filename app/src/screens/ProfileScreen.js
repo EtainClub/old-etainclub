@@ -279,7 +279,7 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
+    <SafeAreaView>
       <View>
         <Card>
           <View style={styles.skillContainer}>

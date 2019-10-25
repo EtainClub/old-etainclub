@@ -139,7 +139,7 @@ const AccountEditScreen = ({ navigation }) => {
   };
   
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
+    <SafeAreaView>
       <View style={{ alignItems: 'center', margin: 10 }}>
         <Avatar 
           size="xlarge"

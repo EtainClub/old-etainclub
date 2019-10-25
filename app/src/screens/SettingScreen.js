@@ -145,7 +145,7 @@ const SettingScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <ScrollView>
       <Spacer>  
         <Text style={styles.listHeaderText}>{t('SettingScreen.links')}</Text>

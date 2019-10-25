@@ -105,7 +105,7 @@ const HelpScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <NavigationEvents
         onWillBlur={handleGoBack}
         onWillFocus={skipFlow}

@@ -111,7 +111,7 @@ const AccountScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView forceInset={{ top: 'always' }}>
+    <SafeAreaView>
       <NavigationEvents
         onWillFocus={getUserInfo}
       />

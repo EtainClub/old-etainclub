@@ -116,7 +116,7 @@ const ChatListScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <View style={{alignItems: 'center', backgroundColor: 'lightgrey'}}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>{i18next.t('ChatListScreen.askCases')}</Text>
       </View>

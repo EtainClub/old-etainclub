@@ -22,7 +22,7 @@ const SignupScreen = ({navigation}) => {
   const [confirm_password, setConfirmPassword] = useState('');
 
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <NavigationEvents
         onWillBlur={clearError}
       />

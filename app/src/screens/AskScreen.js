@@ -43,7 +43,7 @@ const AskScreen = ({navigation}) => {
   }
 
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <Card
         containerStyle={{backgroundColor: '#259b9a'}}
         wrapperStyle={styles.statusContainer}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   statusContainer: {
     flexDirection: "row",
     justifyContent: 'space-around',
-    paddingTop: Platform.OS === 'android' ? 0 : 10 
+    paddingTop: Platform.OS === 'android' ? 0 : 0
   },
   guide: {
     flexDirection: 'row',

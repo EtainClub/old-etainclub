@@ -21,7 +21,7 @@ const SigninScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
  
   return (
-    <SafeAreaView forceInset={{top: 'always'}}>
+    <SafeAreaView>
       <NavigationEvents
         onWillBlur={clearError}
       />
