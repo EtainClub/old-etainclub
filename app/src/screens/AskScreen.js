@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   statusContainer: {
     flexDirection: "row",
     justifyContent: 'space-around',
-    paddingTop: Platform.OS === 'android' ? 0 : 0
   },
   guide: {
     flexDirection: 'row',
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   androidHeight: {
-    paddingTop: Platform.OS === 'android' ? 5 : 3 
+    paddingTop: Platform.OS === 'android' ? 6 : 3 
   },
   returnKey: Platform.OS === 'android' ? false : true
 });

@@ -356,6 +356,7 @@ ChatScreen.navigationOptions = ({navigation}) => {
     },
     headerRight: (
       <Button
+        containerStyle={styles.voteButton}
         buttonStyle={{ marginRight: 5 }} 
         title={i18next.t('ChatScreen.voteButton')}
         onPress={() => { 
@@ -376,6 +377,9 @@ const styles = StyleSheet.create({
   loader: {
     paddingTop: 20
   },
+  voteButton: {
+    paddingBottom: Platform.OS === 'android' ? 0 : 5
+  }
 });
 
 export default ChatScreen;
