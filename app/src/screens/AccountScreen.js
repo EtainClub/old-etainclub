@@ -19,9 +19,6 @@ const AccountScreen = ({ navigation }) => {
   // use profile context
   const { state, updateUserInfoState, updateLocations } = useContext( ProfileContext );
 
-  // use state
-  const [userInfo, setUserInfo] = useState('');
-
   // get reference to the current user
   const { currentUser } = firebase.auth();
   const userId = currentUser.uid;
@@ -42,29 +39,18 @@ const AccountScreen = ({ navigation }) => {
       if (typeof doc.data().name == 'undefined') {
         console.log('name is undefined');
       } 
-      // get detailed info
-      setUserInfo(doc.data());
       // read the ask and help cases
-      let askCount = 0;
-      // resolve the promise
-      countAskCases()
-      .then(count => {
-        askCount = count;
-      });
-      let helpCount = 0;
-      // resolve the promise
-      countHelpCases()
-      .then(count => {
-        helpCount = count;
-      });
-      // update user state with initial state
-      updateUserInfoState({ 
-        userId: currentUser.uid,
-        name: doc.data().name || '',
-        avatarUrl: doc.data().avatarUrl || '',
-        votes: doc.data().votes || 0,
-        askCount,
-        helpCount
+      countAskHelpCases()
+      .then(counts => {
+        // update user state with initial state
+        updateUserInfoState({ 
+          userId: currentUser.uid,
+          name: doc.data().name || '',
+          avatarUrl: doc.data().avatarUrl || '',
+          votes: doc.data().votes || 0,
+          askCount: counts.askCount,
+          helpCount: counts.helpCount
+        });
       });
     })
     .catch(error => {
@@ -89,7 +75,7 @@ const AccountScreen = ({ navigation }) => {
     });
   }
 
-  countAskCases = async () => {
+  countAskHelpCases = async () => {
     // reference to cases
     const casesRef = firebase.firestore().collection('cases');
     // query
@@ -102,14 +88,7 @@ const AccountScreen = ({ navigation }) => {
     .catch(error => {
       console.log('cannot query ask cases', error);
     });    
-    // @todo update state info
-    return askCount;
-  }
 
-  countHelpCases = async () => {
-    // reference to cases
-    const casesRef = firebase.firestore().collection('cases');
-    // query
     let helpCount = 0;
     await casesRef.where('helperId', '==', userId).get()
     .then(snapshot => {
@@ -119,8 +98,8 @@ const AccountScreen = ({ navigation }) => {
     .catch(error => {
       console.log('cannot query help cases', error);
     });    
-    // @todo update state info
-    return helpCount;
+    let counts = { askCount, helpCount };
+    return counts;
   }
 
   onProfilePress = () => {
@@ -142,7 +121,7 @@ const AccountScreen = ({ navigation }) => {
             size="large"
             rounded
             source={{
-              uri: userInfo.avatarUrl,
+              uri: state.userInfo.avatarUrl,
             }} 
             showEditButton
             onEditPress={onEditAvatarPress}
@@ -177,7 +156,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 20 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.askCases')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.askCount? userInfo.askCount : "0"} {t('cases')}</Text>
+              <Text style={{ fontSize: 16 }}>{state.userInfo.askCount? state.userInfo.askCount : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
@@ -190,7 +169,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 20 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.helpCases')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.helpCount? userInfo.helpCount : "0"} {t('cases')}</Text>
+              <Text style={{ fontSize: 16 }}>{state.userInfo.helpCount? state.userInfo.helpCount : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
@@ -203,7 +182,7 @@ const AccountScreen = ({ navigation }) => {
             />
             <View style={{ marginHorizontal: 25 }}>
               <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{t('AccountScreen.votes')}</Text>
-              <Text style={{ fontSize: 16 }}>{userInfo.votes? userInfo.votes : "0"} {t('cases')}</Text>
+              <Text style={{ fontSize: 16 }}>{state.userInfo.votes? state.userInfo.votes : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
