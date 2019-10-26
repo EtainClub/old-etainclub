@@ -87,7 +87,7 @@ export default () => {
       .then(enabled => {
         if (enabled) {
           firebase.messaging().getToken().then(token => {
-            console.log("LOG: ", token);
+            console.log("permission enabled. token: ", token);
           })
           // user has permissions
         } else {

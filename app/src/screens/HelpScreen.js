@@ -87,15 +87,7 @@ const HelpScreen = ({navigation}) => {
     // naviate to feed
     navigation.navigate('AskMain');
   };
-
-  // go to ask if the request has been accepted
-  const skipFlow = () => {
-    console.log('[HelpScreen] askAccepted', state.askAccepted);
-    if (state.askAccepted) {
-      navigation.navigate('AskMain');
-    }
-  };
-
+  
   const handleGoBack = () => {
     console.log('[HelpScreen] handleGoBack');
     if (!state.askAccepted) {
@@ -108,7 +100,6 @@ const HelpScreen = ({navigation}) => {
     <SafeAreaView>
       <NavigationEvents
         onWillBlur={handleGoBack}
-        onWillFocus={skipFlow}
       />
       <View style={styles.rowContainer}>
         <Card 
