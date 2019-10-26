@@ -16,7 +16,7 @@ exports.sendMessage = functions.firestore
         resources: {
             ko: {
               translation: {
-                header: '이타인클럽 도움요청(Help Wanted)',
+                header: 'etainclub(Help Wanted)',
               },
             },
             en: {

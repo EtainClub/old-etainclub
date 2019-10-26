@@ -12,10 +12,6 @@ import {Context as HelpContext} from '../context/HelpContext';
 import Spacer from '../components/Spacer';
 
 const HelpScreen = ({navigation}) => {
-  // get navigation params
-  const notificationBody = navigation.getParam('notificationBody');
-  const senderId = notificationBody.data.senderId;
-
   // setup language
   const {t} = useTranslation();
   // use context
@@ -28,13 +24,25 @@ const HelpScreen = ({navigation}) => {
 
   // use effect
   useEffect(() => {
+  }, []);
+
+  // update the notification
+  const handleFocus = payload => {
+    console.log('[HelpScreen] onWillFocus Event, paylod', payload)
+
+    // get navigation params
+    const notificationBody = navigation.getParam('notificationBody');
+    const senderId = notificationBody.data.senderId;
+
+    console.log('[HelpScreen] onWillFocus Event, notificationBody', notificationBody)
+
     // update the notification
     askReceived(notificationBody);
     // get sender info and profile
-    getSenderInfo();
-  }, []);
-
-  const getSenderInfo = async () => {
+    getSenderInfo(senderId);
+  };
+  
+  const getSenderInfo = async (senderId) => {
     // sender
     console.log('[HelpScreen] senderId', senderId);
     // reference to sender info
@@ -83,13 +91,13 @@ const HelpScreen = ({navigation}) => {
 
   // when a user declines the request
   const onDeclineRequest = () => {
-    console.log('decline the reqeust, navigate to feed');
-    // naviate to feed
+    console.log('decline the reqeust, navigate to ask');
+    // naviate to main
     navigation.navigate('AskMain');
   };
   
-  const handleGoBack = () => {
-    console.log('[HelpScreen] handleGoBack');
+  const handleGoBack = payload => {
+    console.log('[HelpScreen] handleGoBack payload', payload);
     if (!state.askAccepted) {
       // when a user is away from this screen
       onDeclineRequest();
@@ -99,7 +107,8 @@ const HelpScreen = ({navigation}) => {
   return (
     <SafeAreaView>
       <NavigationEvents
-        onWillBlur={handleGoBack}
+        onWillBlur={payload => handleGoBack(payload)}
+        onWillFocus={payload => handleFocus(payload)}
       />
       <View style={styles.rowContainer}>
         <Card 
@@ -130,7 +139,7 @@ const HelpScreen = ({navigation}) => {
             />
             <View style={styles.columnContainer}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{t('HelpScreen.askCases')}</Text>
-              <Text style={{ fontSize: 20 }}>{senderInfo.askCount? senderInfo.askCount : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 20 }}>{senderInfo.askCount? senderInfo.askCount : "0"} {t('cases')}</Text>
             </View>
           </View>
           </Spacer>
@@ -143,7 +152,7 @@ const HelpScreen = ({navigation}) => {
             />
             <View style={styles.columnContainer}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{t('HelpScreen.helpCases')}</Text>
-              <Text style={{ fontSize: 20 }}>{senderInfo.helpCount? senderInfo.helpCount : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 20 }}>{senderInfo.helpCount? senderInfo.helpCount : "0"} {t('cases')}</Text>
             </View>
           </View> 
           </Spacer>
@@ -156,7 +165,7 @@ const HelpScreen = ({navigation}) => {
             />
             <View style={styles.columnContainer}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{t('HelpScreen.votes')}</Text>
-              <Text style={{ fontSize: 20 }}>{senderInfo.votes? senderInfo.votes : "0"} {t('case')}</Text>
+              <Text style={{ fontSize: 20 }}>{senderInfo.votes? senderInfo.votes : "0"} {t('cases')}</Text>
             </View>
           </View> 
           </Spacer>

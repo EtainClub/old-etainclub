@@ -7,6 +7,9 @@ function setTopLevelNavigator(navigatorRef) {
 }
 
 function navigate(routeName, params) {
+  // when the active screen is already helpscreen, then how to refresh the screen with new data?
+  console.log('navigator', _navigator);
+  
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
