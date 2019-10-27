@@ -20,6 +20,10 @@
       "title": "Help Wanted",
       "message": "Do you want to see the details?"
     },
+    "App": {
+      "permissionErrorTitle": "Permission Error",
+      "permissionErrorText": "Failed to get permission to send messages."
+    },
     "SigninScreen": {
       "header": "Sign In",
       "email": "E-mail",

@@ -9,10 +9,10 @@ import createDataContext from './createDataContext';
 const helpReducer = (state, action) => {
   switch (action.type) {
     case 'accept_request':
-      console.log('[helpReducer] state', state);
+      if (__DEV__) console.log('[helpReducer] state', state);
       return {...state, askAccepted: true, userId: action.payload};
     case 'ask_received':
-      console.log('ask_received payload', action.payload);
+      if (__DEV__) console.log('ask_received payload', action.payload);
       return {
         askAccepted: false,
         senderId: action.payload.senderId,
@@ -29,7 +29,7 @@ const helpReducer = (state, action) => {
 // ask request message received
 const askReceived = dispatch => {
   return notification => {
-    console.log('askReceived data', notification.data);
+    if (__DEV__) console.log('askReceived data', notification.data);
     dispatch({
       type: 'ask_received',
       payload: notification.data,
@@ -46,14 +46,14 @@ const countHelpCases = async ({userId}) => {
   await casesRef.where('helperId', '==', userId).get()
   .then(snapshot => {
     if (snapshot.empty) {
-      console.log('No matching docs');
+      if (__DEV__) console.log('No matching docs');
       return;
     }
     helpCount = snapshot.size;
-    console.log('[HelpContext] helpCount', helpCount);
+    if (__DEV__) console.log('[HelpContext] helpCount', helpCount);
   })
   .catch(error => {
-    console.log('cannot query help cases', error);
+    if (__DEV__) console.log('cannot query help cases', error);
   });
   
   return helpCount;
@@ -64,7 +64,7 @@ const acceptRequest = dispatch => {
   const {t} = useTranslation();
 
   return async ({caseId, navigation}) => {
-    console.log('acceptRequest dispatch caseId', caseId);
+    if (__DEV__) console.log('acceptRequest dispatch caseId', caseId);
     // case ref
     const caseRef = firebase.firestore().collection('cases').doc(`${caseId}`)
     // get user id
@@ -91,10 +91,10 @@ const acceptRequest = dispatch => {
           accepted = true;
           return;
         }
-        console.log('[acceptRequest] case doc', doc);
+        if (__DEV__) console.log('[acceptRequest] case doc', doc);
         accepted = doc.data().accepted;
         if (accepted) {
-          console.log('[acceptRequest] the request has been aleady accepted', doc);
+          if (__DEV__) console.log('[acceptRequest] the request has been aleady accepted', doc);
           // alert for assigned request
           Alert.alert(
           t('HelpScreen.acceptedTitle'),
@@ -107,7 +107,7 @@ const acceptRequest = dispatch => {
         }
       })
       .catch(error => {
-        console.log('[acceptRequest]failed to update the document, error:', error);
+        if (__DEV__) console.log('[acceptRequest]failed to update the document, error:', error);
         // alert for canceled request
         Alert.alert(
           t('HelpScreen.canceledTitle'),
@@ -140,12 +140,12 @@ const acceptRequest = dispatch => {
             // update the ask count of the current user
             userRef.update({helpCount});
           });
-          console.log('[acceptRequest] updated the document');
+          if (__DEV__) console.log('[acceptRequest] updated the document');
           // navigate to chat screen with param to set user as helper
           navigation.navigate('Chatting', {chatUserId: 2, caseId, helperId: userId});
       })
       .catch(error => {
-        console.log('[acceptRequest]failed to update the document, error:', error);
+        if (__DEV__) console.log('[acceptRequest]failed to update the document, error:', error);
         // alert for failed to update helper info
         Alert.alert(
           t('HelpScreen.updateFailureTitle'),

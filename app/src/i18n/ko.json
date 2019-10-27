@@ -20,6 +20,10 @@
       "title": "도움 요청 알림",
       "message": "도움 요청 내용을 보시겠습니까?"
     },
+    "App": {
+      "permissionErrorTitle": "허가 오류",
+      "permissionErrorText": "메시지 전송 허가 실패하였습니다."
+    },
     "SigninScreen": {
       "header": "로그인",
       "email": "이메일",
