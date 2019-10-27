@@ -45,7 +45,6 @@ const askReducer = (state, action) => {
 // get number of cases and active users of the app
 const getAppStatus = dispatch => {
   return async () => {
-  
     // get number of users
     const usersRef = firebase.firestore().collection('users');
     let totalUsers = 0;

@@ -6,6 +6,7 @@
  * @flow
  */
 
+import 'react-native-gesture-handler'
  // react, react-native
 import React, {useEffect} from 'react';
 import {StyleSheet, AsyncStorage, YellowBox, Alert} from 'react-native';
