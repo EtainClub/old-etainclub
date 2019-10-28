@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native'; 
 import { NavigationEvents, SafeAreaView} from 'react-navigation';
 import i18next from 'i18next';
@@ -20,6 +20,17 @@ const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
  
+  useEffect(() => {
+    // get email from storage
+    getEmailFromStorage();
+  }, []);
+
+  const getEmailFromStorage = async () => {
+    let email_storage = await AsyncStorage.get('email');
+    // set email if exists
+    setEmail(email_storage);
+  };
+
   return (
     <SafeAreaView>
       <NavigationEvents

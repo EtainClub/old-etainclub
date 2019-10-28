@@ -36,21 +36,15 @@ export default () => {
   useEffect(() => {
     // check permission
     checkPermission();
-    // notification displayed (triggered when a particular notificaiton has been displayed)
-    const notificationDisplayedListener = firebase
-      .notifications()
-      .onNotificationDisplayed( async notification => {
-        alert('displayed');
-        if (__DEV__) console.log('onNotificationDisplayed', notification);
-        // @test
-        NavigationService.navigate('Help', {notificationBody: notification});
-      });
+
+    if (__DEV__) console.log('after checkPermission');
 
     // notification listener (triggered when a particular notification has been received)
     // if the app is foreground, we need to navigate the screen
     const listenerFG = firebase.notifications().onNotification(async notification => {
       if (__DEV__) console.log('onNotification', notification);
       alert('onNotification');
+      /*
       // check sanity: senderId exists?
       if (notification.data.senderId) {
         Alert.alert(
@@ -61,7 +55,7 @@ export default () => {
           ],
           {cancelable: true},
         );
-      }
+      }*/
     });
 
     // notification opened (listen for notification is clicked/ tapped/ opened in foreground and backgroud)
@@ -71,15 +65,16 @@ export default () => {
       .onNotificationOpened(notificationOpen => {
         alert('onNotificationOpened');
         if (__DEV__) console.log('onNotificationOpened', notificationOpen);
+        /*
         // check sanity: senderId exists?
         if (notificationOpen.notification.data.senderId) {
           // navigate to Help screen
           NavigationService.navigate('Help', {notificationBody: notificationOpen.notification});
-        }
+        }*/
       });
 
+    // listener for when app is closed
     listenerForAppClosed();
-
 
     // Triggered for data only payload in foreground
     const messageListener = firebase.messaging().onMessage((message) => {
@@ -89,43 +84,76 @@ export default () => {
       console.log(JSON.stringify(message));
     });
 
-    // componentWillUnmout
+    // notification displayed (triggered when a particular notificaiton has been displayed)
+    const notificationDisplayedListener = firebase
+      .notifications()
+      .onNotificationDisplayed( async notification => {
+        alert('displayed');
+        if (__DEV__) console.log('onNotificationDisplayed', notification);
+      });
+
+    // stop listening
     return () => {
       if (__DEV__) console.log('unsubscribe notification listener');
       notificationDisplayedListener();
       listenerFG();
       listenerBG();
+      messageListener();
     };
   }, []);
 
-  const checkPermission = () => {
-    firebase.messaging().hasPermission()
-      .then(enabled => {
-        if (enabled) {
-          firebase.messaging().getToken().then(token => {
-            if (__DEV__) console.log("permission enabled. token: ", token);
-          })
-          // user has permissions
-        } else {
-          firebase.messaging().requestPermission()
-            .then(() => {
-              if (__DEV__ ) console.log("User Now Has Permission");
-            })
-            .catch(error => {
-              if (__DEV__) console.log("messaging permission error", error);
-              Alert.alert(
-                t('App.permissionErrorTitle'),
-                t('App.permissionErrorText'),
-                [
-                  {text: t('confirm')}
-                ],
-                {cancelable: true},
-              );
-              // User has rejected permissions  
-            });
-        }
-      });
-  }
+  // check push notification permission
+  const checkPermission = async () => {
+    const enabled = await firebase.messaging().hasPermission();
+    if (enabled) {
+      // has permission. get token
+      getToken();
+      if (__DEV__) console.log('permision enabled');
+      alert('has permission. got fcm token');
+    } else {
+      // no permission. request it
+      requestPermission();
+      if (__DEV__) console.log('permision requesting...');
+      alert('requesting permission');
+    }
+    // 
+  };
+
+  // get firebse cloud messaing (fcm) token
+  const getToken = async () => {
+    // get token from storage
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
+    // get token from firebase if not exist
+    if (!fcmToken) {
+      fcmToken = await firebase.messaging().getToken();
+      if (__DEV__) console.log('fcmToken', fcmToken);
+      if (fcmToken) {
+        // user has a device token
+        await AsyncStorage.setItem('fcmToken', fcmToken);
+        alert('setToken');
+      }
+    }
+  };
+
+  const requestPermission = async () => {
+    try {
+      // request the permisson
+      await firebase.messaging().requestPermission();
+      // user has permission, get token
+      getToken();
+    } catch (error) {
+      // request rejected
+      if (__DEV__) console.log('fcm permission request rejected', error);
+      Alert.alert(
+        t('App.permissionErrorTitle'),
+        t('App.permissionErrorText'),
+        [
+          {text: t('confirm')}
+        ],
+        {cancelable: true},
+      );
+    }
+  };
 
   // listen the notification being opened or clicked when the app is closed
   const listenerForAppClosed = async () => {

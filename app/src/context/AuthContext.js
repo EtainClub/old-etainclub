@@ -38,7 +38,7 @@ const authReducer = (state, action) => {
 // local login
 const trySigninWithToken = dispatch => {
   return async () => {
-    let token = await AsyncStorage.getItem('token');
+    let token = await AsyncStorage.getItem('fcmToken');
 //    console.log('trySinginWithToken token', token);
     if (token) {
       // dispatch signin action
@@ -92,14 +92,16 @@ const signup = dispatch => {
           .currentUser.getIdToken(/* forceRefresh */ true)
           .then(async token => {
             console.log('signup firebase id token', token);
-            await AsyncStorage.setItem('token', token);
+            await AsyncStorage.setItem('fcmToken', token);
             // signup action
             dispatch({
               type: 'signup',
               payload: token,
             });
+            // save the email in storage
+            await AsyncStorage.setItem('email', email);
             // navigate
-            navigation.navigate('Signin');
+            navigation.navigate('Signin', {email});
           })
           .catch(error => {
             console.log(error);
@@ -139,7 +141,7 @@ const signin = dispatch => {
         currentUser.getIdToken(/* forceRefresh */ true)
           .then(async token => {
             console.log('sigin firebase id token', token);
-            await AsyncStorage.setItem('token', token);
+            await AsyncStorage.setItem('fcmToken', token);
             //// get message push token
             // request permission
             firebase.messaging().requestPermission();
@@ -210,7 +212,7 @@ const signin = dispatch => {
 const signout = dispatch => {
   return async ({ navigation }) => {
     // remove the token in the storage
-    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('fcmToken');
     // dispatch signout action
     dispatch({ type: 'signout' });
     // navigate to loginFlow

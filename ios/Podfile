@@ -28,11 +28,11 @@ target 'etainclub' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # add the Firebase pod 
-  pod 'Firebase/Core'
+  pod 'Firebase/Core', '~> 6.2.0'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Functions'
-  pod 'Firebase/Messaging'
+  pod 'Firebase/Messaging', '~> 6.2.0'
   pod 'Firebase/Storage'
   pod 'Fabric'
   pod 'Crashlytics'
