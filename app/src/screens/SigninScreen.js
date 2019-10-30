@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native'; 
+import { View, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'; 
 import { NavigationEvents, SafeAreaView} from 'react-navigation';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +26,9 @@ const SigninScreen = ({ navigation }) => {
   }, []);
 
   const getEmailFromStorage = async () => {
-    let email_storage = await AsyncStorage.get('email');
+    console.log('getting email from storage');
+    let email_storage = await AsyncStorage.getItem('email');
+    console.log('email', email_storage);
     // set email if exists
     setEmail(email_storage);
   };

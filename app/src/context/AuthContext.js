@@ -140,6 +140,8 @@ const signin = dispatch => {
         const {currentUser} = firebase.auth();
         currentUser.getIdToken(/* forceRefresh */ true)
           .then(async token => {
+            // save the email in storage
+            await AsyncStorage.setItem('email', email);
             console.log('sigin firebase id token', token);
             await AsyncStorage.setItem('fcmToken', token);
             //// get message push token
