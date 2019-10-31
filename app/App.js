@@ -43,8 +43,8 @@ export default () => {
     // if the app is foreground, we need to navigate the screen
     const listenerFG = firebase.notifications().onNotification(async notification => {
       if (__DEV__) console.log('onNotification', notification);
-      alert('onNotification');
-      /*
+      if (__DEV__) alert('onNotification');
+      
       // check sanity: senderId exists?
       if (notification.data.senderId) {
         Alert.alert(
@@ -55,7 +55,7 @@ export default () => {
           ],
           {cancelable: true},
         );
-      }*/
+      }
     });
 
     // notification opened (listen for notification is clicked/ tapped/ opened in foreground and backgroud)
@@ -63,42 +63,45 @@ export default () => {
     const listenerBG = firebase
       .notifications()
       .onNotificationOpened(notificationOpen => {
-        alert('onNotificationOpened');
+        if (__DEV__) alert('onNotificationOpened');
         if (__DEV__) console.log('onNotificationOpened', notificationOpen);
-        /*
+        
         // check sanity: senderId exists?
         if (notificationOpen.notification.data.senderId) {
           // navigate to Help screen
           NavigationService.navigate('Help', {notificationBody: notificationOpen.notification});
-        }*/
+        }
       });
 
     // listener for when app is closed
     listenerForAppClosed();
 
+    /*
     // Triggered for data only payload in foreground
     const messageListener = firebase.messaging().onMessage((message) => {
       // 
-      alert('onMessage');
+      if (__DEV__) alert('onMessage');
       //process data message
-      console.log(JSON.stringify(message));
+      if (__DEV__) console.log(JSON.stringify(message));
     });
+    */
 
+    /*
     // notification displayed (triggered when a particular notificaiton has been displayed)
     const notificationDisplayedListener = firebase
       .notifications()
       .onNotificationDisplayed( async notification => {
-        alert('displayed');
+        if (__DEV__) alert('displayed');
         if (__DEV__) console.log('onNotificationDisplayed', notification);
       });
-
+    */  
     // stop listening
     return () => {
       if (__DEV__) console.log('unsubscribe notification listener');
-      notificationDisplayedListener();
+      //notificationDisplayedListener();
       listenerFG();
       listenerBG();
-      messageListener();
+      //messageListener();
     };
   }, []);
 
@@ -109,12 +112,12 @@ export default () => {
       // has permission. get token
       getToken();
       if (__DEV__) console.log('permision enabled');
-      alert('has permission. got fcm token');
+      if (__DEV__) alert('has permission. got fcm token');
     } else {
       // no permission. request it
       requestPermission();
       if (__DEV__) console.log('permision requesting...');
-      alert('requesting permission');
+      if (__DEV__) alert('requesting permission');
     }
     // 
   };
@@ -130,7 +133,7 @@ export default () => {
       if (fcmToken) {
         // user has a device token
         await AsyncStorage.setItem('fcmToken', fcmToken);
-        alert('setToken');
+        if (__DEV__) alert('setToken');
       }
     }
   };
@@ -162,7 +165,7 @@ export default () => {
       .notifications()
       .getInitialNotification();
     if (notificationOpen) {
-      alert('getInitialNotification');
+      if (__DEV__) alert('getInitialNotification');
       // app was opened by a notification
       if (__DEV__) console.log('getInitialNotification', notificationOpen);
 

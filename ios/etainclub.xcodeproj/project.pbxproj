@@ -32,7 +32,8 @@
 		A2E43B1783844C7184C1858D /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E4DE4FF594ACBAF741D4A /* FontAwesome5_Solid.ttf */; };
 		AB3587C113B54397BCAA8DE3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */; };
 		B17991D29A3A455FA4FA7036 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 347C831F64A94113917998B7 /* Octicons.ttf */; };
-		B23753A0234D07A8002AE88D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B237539F234D07A7002AE88D /* GoogleService-Info.plist */; };
+		B266335B236B6DB600C4F5D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B266335A236B6DB600C4F5D9 /* GoogleService-Info.plist */; };
+		B266335C236B6DB600C4F5D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B266335A236B6DB600C4F5D9 /* GoogleService-Info.plist */; };
 		F25021F780C848529BFA50AA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7EBCF8231846F19BFCE61C /* Entypo.ttf */; };
 		F95D4C9331254E49BA04E1C7 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86B4DFE5D2FE4328B8B4EAF1 /* FontAwesome5_Brands.ttf */; };
 		F9FBFC4A74DB0C231138B19D /* libPods-etainclub-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF7C205A7EC59254D28F4F /* libPods-etainclub-tvOSTests.a */; };
@@ -92,7 +93,7 @@
 		A3345603C847DED2B3A1B433 /* Pods-etainclub-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclub-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-etainclub-tvOSTests/Pods-etainclub-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AD3A0690F0A94C92A9FB3A67 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		B223F8952361B5CF0003CD1F /* etainclub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = etainclub.entitlements; path = etainclub/etainclub.entitlements; sourceTree = "<group>"; };
-		B237539F234D07A7002AE88D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B266335A236B6DB600C4F5D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE61D5BC613E439FBD6F7223 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		CFE8E995533EFDEA53045366 /* Pods-etainclubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-etainclubTests.release.xcconfig"; path = "Target Support Files/Pods-etainclubTests/Pods-etainclubTests.release.xcconfig"; sourceTree = "<group>"; };
 		D3A9A871592F4E9FA660DCD0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -188,7 +189,6 @@
 		5915BE330FFC4EFDA919E70B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B237539F234D07A7002AE88D /* GoogleService-Info.plist */,
 				0237E8E2E481439EA254D9CF /* AntDesign.ttf */,
 				1C7EBCF8231846F19BFCE61C /* Entypo.ttf */,
 				28990DA1FF904A2099A28B82 /* EvilIcons.ttf */,
@@ -219,6 +219,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B266335A236B6DB600C4F5D9 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* etainclub */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* etainclubTests */,
@@ -396,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B266335C236B6DB600C4F5D9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +416,7 @@
 				0F818BD10E2E46BC84EE7D51 /* FontAwesome5_Regular.ttf in Resources */,
 				A2E43B1783844C7184C1858D /* FontAwesome5_Solid.ttf in Resources */,
 				7083C344365746339DAF8FFD /* Fontisto.ttf in Resources */,
-				B23753A0234D07A8002AE88D /* GoogleService-Info.plist in Resources */,
+				B266335B236B6DB600C4F5D9 /* GoogleService-Info.plist in Resources */,
 				49A3B438AA72455BA7769632 /* Foundation.ttf in Resources */,
 				A293B76402FB46C4B2018702 /* Ionicons.ttf in Resources */,
 				47FBE9DD273742069F5694D0 /* MaterialCommunityIcons.ttf in Resources */,
@@ -792,7 +794,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = club.etain.helpwanted;
 				PRODUCT_NAME = etainclub;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -814,7 +816,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = club.etain.helpwanted;
 				PRODUCT_NAME = etainclub;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
