@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
@@ -11,24 +11,24 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case 'start_auth':
       console.log('start_auth reducer');
-      return { ...state, loading: true };
+      return { ...state, loading: true, errorMessage: '' };
     case 'add_error':
       return { ...state, errorMessage: action.payload, loading: false };
     case 'signup':
       console.log('sigup reducer');
-      return { token: action.payload.token, errorMessage: '', loading: false };
+      return { idToken: action.payload.idToken, errorMessage: '', loading: false };
     case 'signin':
       console.log('signin reducer');
       return { 
         errorMessage: '', 
-        token: action.payload.token, pushToken: action.payload.pushToken, 
+        idToken: action.payload.idToken, pushToken: action.payload.pushToken, 
         loading: false 
       };
     case 'clear_error':
       return { ...state, errorMessage: '', loading: false };
     case 'signout':
       console.log('signout reducer');
-      return { token: null, errorMessage: '', loading: false };
+      return { idToken: null, pushToken: null, errorMessage: '', loading: false };
     default:
       return state;
   }
@@ -38,11 +38,11 @@ const authReducer = (state, action) => {
 // local login
 const trySigninWithToken = dispatch => {
   return async () => {
-    let token = await AsyncStorage.getItem('fcmToken');
-//    console.log('trySinginWithToken token', token);
-    if (token) {
+    // get id token from storage
+    let idToken = await AsyncStorage.getItem('idToken');
+    if (idToken) {
       // dispatch signin action
-      dispatch({ type: 'signin', payload: token });
+      dispatch({ type: 'signin', payload: idToken });
       // navigate to landing screen
       NavigationService.navigate('mainFlow');
       // @test
@@ -90,13 +90,14 @@ const signup = dispatch => {
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
-          .then(async token => {
-            console.log('signup firebase id token', token);
-            await AsyncStorage.setItem('fcmToken', token);
+          .then(async idToken => {
+            console.log('signup firebase id token', idToken);
+            // store id token for login/logout
+            await AsyncStorage.setItem('idToken', idToken);
             // signup action
             dispatch({
               type: 'signup',
-              payload: token,
+              payload: idToken,
             });
             // save the email in storage
             await AsyncStorage.setItem('email', email);
@@ -135,15 +136,16 @@ const signin = dispatch => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(res => {
+      .then(() => {
         // get the ID token
         const {currentUser} = firebase.auth();
         currentUser.getIdToken(/* forceRefresh */ true)
-          .then(async token => {
+          .then(async idToken => {
             // save the email in storage
             await AsyncStorage.setItem('email', email);
-            console.log('sigin firebase id token', token);
-            await AsyncStorage.setItem('fcmToken', token);
+            // store id token for login/logout
+            await AsyncStorage.setItem('idToken', idToken);
+            console.log('sigin firebase id token', idToken);
             //// get message push token
             // request permission
             firebase.messaging().requestPermission();
@@ -151,9 +153,11 @@ const signin = dispatch => {
             firebase
               .messaging()
               .getToken()
-              .then(pushToken => {
+              .then(async pushToken => {
                 console.log('push token', pushToken);
-                //// create a new user doc or update token if the user exists
+                // store push token 
+                await AsyncStorage.setItem('fcmToken', pushToken);
+                //// create a new user doc or update push token if the user exists
                 const userRef = firebase.firestore().collection('users').doc(currentUser.uid);
                 userRef.get()
                 .then(docSnapshot => {
@@ -175,7 +179,7 @@ const signin = dispatch => {
                   // update the state with
                   dispatch({
                     type: 'signin',
-                    payload: {token, pushToken},
+                    payload: {idToken, pushToken},
                   });
                   // navigate to the main flow
                   navigation.navigate('mainFlow'); 
@@ -213,12 +217,35 @@ const signin = dispatch => {
 // sign out
 const signout = dispatch => {
   return async ({ navigation }) => {
-    // remove the token in the storage
-    await AsyncStorage.removeItem('fcmToken');
-    // dispatch signout action
-    dispatch({ type: 'signout' });
-    // navigate to loginFlow
-    navigation.navigate('loginFlow');
+    // remove the id token in the storage
+    await AsyncStorage.removeItem('idToken');
+    //// remove the push token in the firestore
+    // get current user
+    const { currentUser } = firebase.auth();
+    const userRef = firebase.firestore().collection('users').doc(currentUser.uid);
+    // remove push token
+    userRef.get()
+      .then(async docSnapshot => {
+        console.log('[signout] doc snapshot', docSnapshot);
+        if (docSnapshot.exists) {
+          console.log('[signout] doc exist');
+          await userRef.update({ pushToken: null });
+          // signout from firebase 
+          firebase.auth().signOut()
+            .then(() => {
+              // dispatch signout action
+              dispatch({ type: 'signout' });
+              // navigate to loginFlow
+              navigation.navigate('loginFlow');
+            })
+            .catch(error => {
+              console.log('failed to signout from firebase', error);
+            });
+        }
+      })
+      .catch(error => {
+        console.log('failed to remove push token', error);
+      });
   };
 }
 

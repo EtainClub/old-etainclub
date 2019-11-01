@@ -10,7 +10,8 @@
 import 'react-native-gesture-handler'
  // react, react-native
 import React, {useEffect} from 'react';
-import {AsyncStorage, YellowBox, Alert} from 'react-native';
+import {YellowBox, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
 // this is necessary even though it does not use directly
 import i18n from './src/i18n';
@@ -23,7 +24,7 @@ import {Provider as ProfileProvider} from './src/context/ProfileContext';
 import {Provider as ChatProvider} from './src/context/ChatContext';
 import Navigator from './src/Navigator';
 import NavigationService from './src/NavigationService';
-YellowBox.ignoreWarnings(['Require cycle:']);
+YellowBox.ignoreWarnings(['Require cycle']);
 
 const AppContainer = Navigator;
 
@@ -107,6 +108,15 @@ export default () => {
 
   // check push notification permission
   const checkPermission = async () => {
+    // check if the user is logged in
+    let userSigned = null;
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        userSigned = user
+      }
+    });
+    if (!userSigned) return;
+
     const enabled = await firebase.messaging().hasPermission();
     if (enabled) {
       // has permission. get token

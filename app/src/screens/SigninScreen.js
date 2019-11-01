@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'; 
+import { StyleSheet, TouchableOpacity } from 'react-native'; 
+import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents, SafeAreaView} from 'react-navigation';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';

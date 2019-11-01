@@ -1,5 +1,4 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
