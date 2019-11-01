@@ -73,8 +73,11 @@ exports.sendMessage = functions.firestore
           // get the push token of a user
           pushToken = doc.data().pushToken;
           console.log('token, sending message', pushToken, payload);
-          // send notification trhough firebase cloud messaging (fcm)
-          admin.messaging().sendToDevice(pushToken, payload);
+          // send if push token exists
+          if (pushToken) {
+            // send notification trhough firebase cloud messaging (fcm)
+            admin.messaging().sendToDevice(pushToken, payload);
+          }
         } else {
           console.log( 'the sender is the same', doc.id, sender);
         }
