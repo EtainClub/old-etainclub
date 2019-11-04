@@ -44,9 +44,9 @@ const trySigninWithToken = dispatch => {
       // dispatch signin action
       dispatch({ type: 'signin', payload: idToken });
       // navigate to landing screen
-      NavigationService.navigate('mainFlow');
+//      NavigationService.navigate('mainFlow');
       // @test
-//      navigate('ProfileContract');
+      NavigationService.navigate('ProfileContract');
     } else {
       NavigationService.navigate('loginFlow');
     }

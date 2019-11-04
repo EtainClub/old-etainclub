@@ -12,6 +12,7 @@ import firebase from 'react-native-firebase';
 import { Context as ProfileContext } from '../context/ProfileContext';
 import Spacer from '../components/Spacer';
 import ItemForm from '../components/ItemForm';
+import LocationForm from '../components/LocationForm';
 
 const ProfileScreen = ({ navigation }) => {
   // setup language
@@ -153,10 +154,11 @@ const ProfileScreen = ({ navigation }) => {
     // show skill edit section 
     if (editLocation) {
       return state.locations.map((location, id) => 
-        <ItemForm 
+        <LocationForm 
           key={location.id} 
           item={location.name} 
           id={id}
+          navigation={navigation}
           placeholder={t('ProfileScreen.locationPlaceholder')} 
           handleStateChange={handleLocationStateChange} />
       );

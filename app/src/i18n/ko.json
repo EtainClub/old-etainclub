@@ -111,6 +111,9 @@
       "acceptMessage": "정보를 업데이트 하시겠습니까?",
       "updateButton": "업데이트",
     },
+    "LocationScreen": {
+      "header": "동네인증",
+    },
     "ChatScreen": {
       "header": "채팅",
       "pickerTitle": "보낼 사진을 선택하세요",

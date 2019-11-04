@@ -122,12 +122,12 @@ export default () => {
       // has permission. get token
       getToken();
       if (__DEV__) console.log('permision enabled');
-      if (__DEV__) alert('has permission. got fcm token');
+//      if (__DEV__) alert('has permission. got fcm token');
     } else {
       // no permission. request it
       requestPermission();
       if (__DEV__) console.log('permision requesting...');
-      if (__DEV__) alert('requesting permission');
+//      if (__DEV__) alert('requesting permission');
     }
     // 
   };
@@ -143,7 +143,7 @@ export default () => {
       if (fcmToken) {
         // user has a device token
         await AsyncStorage.setItem('fcmToken', fcmToken);
-        if (__DEV__) alert('setToken');
+//        if (__DEV__) alert('setToken');
       }
     }
   };

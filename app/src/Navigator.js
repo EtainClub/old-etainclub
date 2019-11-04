@@ -16,6 +16,7 @@ import HelpScreen from './screens/HelpScreen';
 import AccountScreen from './screens/AccountScreen';
 import AccountEditScreen from './screens/AccountEditScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import LocationScreen from './screens/LocationScreen';
 import ChatScreen from './screens/ChatScreen';
 import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
@@ -60,6 +61,7 @@ const profileFlow = createStackNavigator(
     Account: AccountScreen,
     AccountEdit: AccountEditScreen,
     ProfileContract: ProfileScreen,
+    LocationVerify: LocationScreen,
   },
   {headerLayoutPreset: 'center'},
 );
