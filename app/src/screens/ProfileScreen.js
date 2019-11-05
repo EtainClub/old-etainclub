@@ -145,6 +145,7 @@ const ProfileScreen = ({ navigation }) => {
   
   // handle location state change
   handleLocationStateChange = (id, value) => {
+    console.log('handleLocationStateChange', id, value);
     // update location state
     updateLocation({ id, locationName: value });
   }

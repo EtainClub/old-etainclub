@@ -27,7 +27,7 @@ const LocationForm = (props) => {
           autoCorrect={false}
           rightIcon={
             <Icon name='search' size={20} color='black' 
-              onPress={() => props.navigation.navigate('LocationVerify')} 
+              onPress={() => props.navigation.navigate('LocationVerify', { id: props.id })} 
             />
           }
         />

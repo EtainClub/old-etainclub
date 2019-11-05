@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, StyleSheet, Platform, PermissionsAndroid, Alert, TouchableOpacity } from 'react-native';
+import firebase from 'react-native-firebase'; 
 import { Button, Text } from 'react-native-elements';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -7,16 +8,24 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 
+import { Context as ProfileContext } from '../context/ProfileContext';
+
 const LocationScreen = ({ navigation }) => {
+  // get navigation params
+  const locationId = navigation.getParam('id');
+  console.log('locationId', locationId);
+
   // setup language
   const { t } = useTranslation();
   const language = i18next.language;
+  // use context
+  const { state, updateLocation } = useContext(ProfileContext);
   // use state
 //  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [error, setError] = useState('');
-  const [address, setAdress] = useState('');
+  const [address, setAddress] = useState('');
   // position delta constants
   const latitudeDelta = 0.01;
   const longitudeDelta = 0.01;
@@ -58,7 +67,7 @@ const LocationScreen = ({ navigation }) => {
         }
       )
       if (granted === PermissionsAndroid.RESULTS.GRANTED) { 
-        Alert.alert("Location Permission Granted.");
+        if (__DEV__) Alert.alert("Location Permission Granted.");
       }
       else {
         Alert.alert("Location Permission Not Granted");
@@ -73,7 +82,7 @@ const LocationScreen = ({ navigation }) => {
     // get intial address
     Geocoder.from(latitude, longitude)
       .then(json => {
-        const addrComponent = json.results[0].address_components[0];
+        const addrComponent = json.results[0].address_components[1];
         console.log('addr json', json);
         console.log('addr', addrComponent);
       })
@@ -86,19 +95,43 @@ const LocationScreen = ({ navigation }) => {
     console.log('long', longitude);
   };
 
-  const onMapPress = (event) => {
-    console.log('map press coordinate', event.nativeEvent.coordinate);
-    console.log('language', language);
+  const onRegionChangeComplete = () => {
     // get intial address
     Geocoder.from(latitude, longitude)
     .then(json => {
-      const addrComponent = json.results[0].address_components[1];
-      console.log('addr json', json);
-      console.log('addr', addrComponent);
+      const addr1 = json.results[0].address_components[1].short_name;
+      const addr2 = json.results[0].address_components[2].short_name;
+      console.log('addr1', addr1);
+      console.log('addr2', addr2);
+      let addr = '';
+      switch (language) {
+        case 'ko':
+          addr = addr2 + ' ' + addr1;
+          break;
+        default:
+          addr = addr1 + ', ' + addr2;
+      }
+      setAddress(addr);
     })
     .catch(error => console.warn(error));  
+  };
+
+  const onMapPress = (event) => {
+    console.log('map press coordinate', event.nativeEvent.coordinate);
+    console.log('language', language);
   }
   
+  const onVerify = () => {
+    console.log('verify button clicked');
+    // get reference to the current user
+    const { currentUser } = firebase.auth();
+    const userId = currentUser.uid;
+    // update location
+    updateLocation({ id: locationId, locationName: address, userId });
+    // set params
+    navigation.navigate('ProfileContract');
+  };
+
   return (
     <View>
       <MapView
@@ -115,25 +148,24 @@ const LocationScreen = ({ navigation }) => {
           longitudeDelta: longitudeDelta
         }}
         onRegionChange={onRegionChange}
+        onRegionChangeComplete={onRegionChangeComplete}
         onPress={e => onMapPress(e)}
       >
         <Marker
           coordinate={{ latitude, longitude }}
         />
       </MapView>
-      <View style={styles.buttonContainer}>
-        <Button 
-          buttonStyle={{ backgroundColor: 'grey' }}
-          titleStyle={{ color: 'white' }}
-          title="현재 위치 받아오기"
+      <View style={{ marginTop: 20 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
+          <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+        </View>
+        <Button
+          title={t('LocationScreen.verify')}
           type="solid"
+          onPress={onVerify}
         />
       </View>
-      <Text>Address 2 level</Text>
-      <Button
-       title="인증하기"
-       type="solid"
-      />
     </View>
   );
 }

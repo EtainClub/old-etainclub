@@ -92,11 +92,20 @@ const updateSkill = dispatch => {
 
 // update location with id
 const updateLocation = dispatch => {
-  return ({ id, locationName }) => {
-    console.log('dispatch update location');
+  return ({ id, locationName, userId }) => {
+    console.log('dispatch update location', id, locationName, userId);
     dispatch({
       type: 'update_location',
       payload: { id, name: locationName }
+    });
+
+    if (!userId) return;
+    // update db, add new doc under the id
+    // @todo for location, use number of verification instead of votes
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    userRef.collection('locations').doc(`${id}`).set({
+      name: locationName,
+      votes: 1
     });
   }
 };

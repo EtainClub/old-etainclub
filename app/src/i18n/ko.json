@@ -112,7 +112,9 @@
       "updateButton": "업데이트",
     },
     "LocationScreen": {
-      "header": "동네인증",
+      "header": "동네 인증하기",
+      "currentAddress": "현재 동네 위치: ",
+      "verify": "인증하기",
     },
     "ChatScreen": {
       "header": "채팅",
