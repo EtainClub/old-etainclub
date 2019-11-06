@@ -1,22 +1,21 @@
-import React, {useContext, useState} from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {NavigationEvents, SafeAreaView} from 'react-navigation';
-import i18next from 'i18next';
-import {useTranslation} from 'react-i18next';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationEvents, SafeAreaView } from 'react-navigation';
+import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Text, Input, Button} from 'react-native-elements';
+import { Text, Input, Button } from 'react-native-elements';
 import SplashScreen from 'react-native-splash-screen';
 // custom libraries
-import {Context as AuthContext} from '../context/AuthContext';
+import { Context as AuthContext } from '../context/AuthContext';
 import Spacer from '../components/Spacer';
 
-const SignupScreen = ({navigation}) => {
+const SignupScreen = ({ navigation }) => {
   SplashScreen.hide();
   // use language
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   // use auth context; state, action, default value
-  const {state, signup, clearError} = useContext(AuthContext);
+  const { state, signup, clearError } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');

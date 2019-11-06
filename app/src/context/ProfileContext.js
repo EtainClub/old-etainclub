@@ -103,7 +103,7 @@ const updateLocation = dispatch => {
     // update db, add new doc under the id
     // @todo for location, use number of verification instead of votes
     const userRef = firebase.firestore().doc(`users/${userId}`);
-    userRef.collection('locations').doc(`${id}`).set({
+    userRef.collection('locations').doc(`${id}`).update({
       name: locationName,
       votes: 1
     });
@@ -203,6 +203,35 @@ const updateLocations = dispatch => {
   }
 }
 
+/*
+// create initial profile and upload on firebase
+const createInitialProfile = dispatch => {
+  return async ({ userId }) => {
+    // get the firebase doc ref
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    console.log('[createInitialProfile] userRef', userRef );
+    // map over the skills and override the current skills
+    skills.map(async (skill, id) => {
+      console.log('[createInitialProfile] skill, id', skill.name, id);
+      // add new doc under the id
+      userRef.collection('skills').doc(`${id}`).set({
+        name: skill.name,
+        votes: skill.votes
+      });
+    });
+
+    // map over the locations and override current locations
+    locations.map(async (location, id) => {
+      console.log('[createInitialProfile] location, id', location.name, id);
+      // add new doc under the id
+      userRef.collection('locations').doc(`${id}`).set({
+        name: location.name,
+        votes: location.votes
+      });
+    });
+  };
+};
+*/
 
 // update smart contract
 const updateContract = dispatch => {
@@ -223,6 +252,7 @@ const updateContract = dispatch => {
         votes: skill.votes
       });
     });
+
     // map over the locations and override current locations
     // @todo update only the ones that need to be updated
     locations.map(async (location, id) => {
@@ -233,6 +263,7 @@ const updateContract = dispatch => {
         votes: location.votes
       });
     });
+
     dispatch({ type: 'update_contract_success' });
   };
 };

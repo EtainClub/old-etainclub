@@ -98,9 +98,9 @@ const LocationScreen = ({ navigation }) => {
   const onRegionChangeComplete = () => {
     // get intial address
     Geocoder.from(latitude, longitude)
-    .then(json => {updateLocation
-      const addr1 = json.results[0].addressupdateLocation_components[1].short_name;
-      const addr2 = json.results[0].addressupdateLocation_components[2].short_name;
+    .then(json => {
+      const addr1 = json.results[0].address_components[1].short_name;
+      const addr2 = json.results[0].address_components[2].short_name;
       console.log('addr1', addr1);
       console.log('addr2', addr2);
       let addr = '';

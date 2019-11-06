@@ -10,8 +10,6 @@ import firebase from 'react-native-firebase';
 import ImagePicker from 'react-native-image-picker';
 import uuid from 'uuid/v4'; // Import UUID to generate UUID
 
-import { Context as ChatContext } from '../context/ChatContext';
-
 const ChatScreen = ({navigation}) => {
   console.log('chat screen');
   // setup language

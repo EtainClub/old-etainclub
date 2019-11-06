@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -145,7 +145,7 @@ const signin = dispatch => {
             await AsyncStorage.setItem('email', email);
             // store id token for login/logout
             await AsyncStorage.setItem('idToken', idToken);
-            console.log('sigin firebase id token', idToken);
+            console.log('sigin user id', currentUser.uid);
             //// get message push token
             // request permission
             firebase.messaging().requestPermission();
@@ -167,6 +167,7 @@ const signin = dispatch => {
                     userRef.update({pushToken});
                   } else {
                     console.log('[signin] doc does not exist');
+                    // create a user info
                     userRef.set({ 
                       pushToken,
                       name: '',
@@ -174,7 +175,13 @@ const signin = dispatch => {
                       askCount: 0,
                       helpCount: 0,
                       votes: 0
-                    });
+                    })
+                    .then(() => {
+                      // create initial profile on firebase
+                      console.log('[signin] creating initial profile');
+                      createInitialProfile({ userId: currentUser.uid });
+                    })
+                    .catch(error => console.log('failed to create a user info', error));
                   }
                   // update the state with
                   dispatch({
@@ -212,6 +219,57 @@ const signin = dispatch => {
         });
       });
   };
+};
+
+const createInitialProfile = ({ userId }) => {
+  // initial skill state
+  const INIT_SKILL = {
+    id: null,
+    name: '',
+    main: false,
+    votes: 0,
+    needToUpdate: false
+  }
+  // populate array with the initial state
+  const INIT_SKILLS = new Array(5).fill(INIT_SKILL).map((item) => ({ 
+    ...item, id: Math.random().toString()
+  }));
+
+  // initial location state
+  const INIT_LOCATION = {
+    id: null,
+    name: '',
+    main: false,
+    votes: 0,
+    needToUpdate: false
+  }
+  // populate array with the initial state
+  const INIT_LOCATIONS = new Array(2).fill(INIT_LOCATION).map((item) => ({ 
+    ...item, id: Math.random().toString()
+  }));
+
+  // get the firebase doc ref
+  const userRef = firebase.firestore().doc(`users/${userId}`);
+  console.log('[createInitialProfile] userRef', userRef );
+  // map over the skills and override the current skills
+  INIT_SKILLS.map(async (skill, id) => {
+    console.log('[createInitialProfile] skill, id', skill.name, id);
+    // add new doc under the id
+    userRef.collection('skills').doc(`${id}`).set({
+      name: skill.name,
+      votes: skill.votes
+    });
+  });
+
+  // map over the locations and override current locations
+  INIT_LOCATIONS.map(async (location, id) => {
+    console.log('[createInitialProfile] location, id', location.name, id);
+    // add new doc under the id
+    userRef.collection('locations').doc(`${id}`).set({
+      name: location.name,
+      votes: location.votes
+    });
+  });
 };
 
 // sign out

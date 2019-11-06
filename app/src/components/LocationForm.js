@@ -22,6 +22,7 @@ const LocationForm = (props) => {
           placeholder={props.placeholder}
           containerStyle={{ flex: 1 }}
           value={location}
+          disabled
           onChangeText={updateLocation}
           autoCapitalize="none"
           autoCorrect={false}

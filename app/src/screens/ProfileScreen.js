@@ -232,6 +232,7 @@ const ProfileScreen = ({ navigation }) => {
   closeSkillEdit = () => {
     setEditSkill(false);
     console.log('skills', state.skills);
+    // @todo update db
   }
 
   showSkillEditIcon = () => {
