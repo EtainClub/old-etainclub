@@ -120,6 +120,13 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+/**
+ * Hide API keys and password
+ */
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def googleMapApiKey = properties.getProperty('google.map.key')
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -153,12 +160,16 @@ android {
             keyPassword 'android'
         }
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
-            }
+//            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+//                storeFile file(MYAPP_RELEASE_STORE_FILE)
+//                storePassword MYAPP_RELEASE_STORE_PASSWORD
+//                keyAlias MYAPP_RELEASE_KEY_ALIAS
+//                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+//            }
+            storeFile file(properties['MYAPP_RELEASE_STORE_FILE'])
+            storePassword properties['MYAPP_RELEASE_STORE_PASSWORD']
+            keyAlias properties['MYAPP_RELEASE_KEY_ALIAS']
+            keyPassword properties['MYAPP_RELEASE_KEY_PASSWORD']            
         }
     }
     buildTypes {

@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
+import { GEOCODING_API_KEY } from 'react-native-dotenv';
 
 import { Context as ProfileContext } from '../context/ProfileContext';
-
 const LocationScreen = ({ navigation }) => {
   // get navigation params
   const locationId = navigation.getParam('id');
@@ -78,7 +78,7 @@ const LocationScreen = ({ navigation }) => {
   };
 
   const initGeocoding = () => {
-    Geocoder.init('AIzaSyANv7a3x3BD8k2LYd35pT03d43KYx9sv5w', { language: language }); 
+    Geocoder.init(GEOCODING_API_KEY, { language: language }); 
     // get intial address
     Geocoder.from(latitude, longitude)
       .then(json => {
@@ -98,9 +98,9 @@ const LocationScreen = ({ navigation }) => {
   const onRegionChangeComplete = () => {
     // get intial address
     Geocoder.from(latitude, longitude)
-    .then(json => {
-      const addr1 = json.results[0].address_components[1].short_name;
-      const addr2 = json.results[0].address_components[2].short_name;
+    .then(json => {updateLocation
+      const addr1 = json.results[0].addressupdateLocation_components[1].short_name;
+      const addr2 = json.results[0].addressupdateLocation_components[2].short_name;
       console.log('addr1', addr1);
       console.log('addr2', addr2);
       let addr = '';

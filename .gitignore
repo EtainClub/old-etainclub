@@ -8,7 +8,6 @@ build/
 .gradle
 local.properties
 *.iml
-android/gradle.properties
 
 # ios
 build/
@@ -35,6 +34,7 @@ GoogleService-Info.plist
 node_modules/
 npm-debug.log
 yarn-error.log
+.env
 
 # BUCK
 buck-out/
