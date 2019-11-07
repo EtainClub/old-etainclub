@@ -143,6 +143,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         resConfigs "ko", "en"
+        manifestPlaceholders = [googleMapApiKey:googleMapApiKey]
     }
     splits {
         abi {

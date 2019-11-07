@@ -70,7 +70,7 @@ const LocationScreen = ({ navigation }) => {
         if (__DEV__) Alert.alert("Location Permission Granted.");
       }
       else {
-        Alert.alert("Location Permission Not Granted");
+        Alert.alert("Error! Location Permission Not Granted");
       }
     } catch (err) {
       console.warn(err)
