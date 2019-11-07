@@ -63,6 +63,12 @@ const profileReducer = (state, action) => {
         // set flag to need to update the db or contract
         needUpdateContract: true
       };
+    case 'delete_location':
+      return {
+        ...state,
+        locations: state.locations.splice(action.payload, 1),
+        needUpdateContract: true
+      };
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
     case 'update_avatar':
@@ -94,14 +100,18 @@ const updateSkill = dispatch => {
 const updateLocation = dispatch => {
   return ({ id, locationName, userId }) => {
     console.log('dispatch update location', id, locationName, userId);
+    // sanity check
+    if (!userId) return;
+    if (typeof id === 'undefined') return; 
+    
     dispatch({
       type: 'update_location',
       payload: { id, name: locationName }
     });
 
-    if (!userId) return;
-    // update db, add new doc under the id
-    // @todo for location, use number of verification instead of votes
+    // update location on db
+    // @todo for location, use number of verification instead of votes.
+    // @todo whenever a user verifies the location, increase the vote count
     const userRef = firebase.firestore().doc(`users/${userId}`);
     userRef.collection('locations').doc(`${id}`).update({
       name: locationName,
@@ -109,6 +119,29 @@ const updateLocation = dispatch => {
     });
   }
 };
+
+// delete location; just make it empty
+const deleteLocation = dispatch => {
+  return async ({ id, userId }) => {
+    if (__DEV__) console.log('[deleteLocation] userId and id', userId, id);
+    // check sanity
+    if (!userId) return;
+    if (typeof id === 'undefined') return; 
+
+    // update the state 
+    dispatch({
+      type: 'update_location',
+      payload: { id, name: '' }
+    });
+
+    // delete the doc of given id
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    userRef.collection('locations').doc(`${id}`).update({
+      name: '',
+      votes: 0
+    });
+  }
+}
 
 // update avatar url
 const updateAvatarState = dispatch => {
@@ -268,13 +301,14 @@ const updateContract = dispatch => {
   };
 };
 
+
 //// reduer, actions, state
 export const { Provider, Context } = createDataContext(
   profileReducer,
   { updateContract,
     updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, updateProfileInfo,
-    updateSkills, updateLocations,
+    updateSkills, updateLocations, deleteLocation,
   },
   { 
     userInfo: {}, 

@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, PermissionsAndroid, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useTranslation } from 'react-i18next';
 
 const LocationForm = (props) => {
+  // setup language
+  const { t } = useTranslation();
   // to check the main item
   const [checked, setCheck] = useState(false);
   const [location, setLocation] = useState(props.item);
@@ -27,7 +30,14 @@ const LocationForm = (props) => {
           props.navigation.navigate('LocationVerify', { id: props.id })
         }
         else {
-          Alert.alert("Location Permission Not Granted");
+          Alert.alert(
+            t('LocationScreen.permissionFail'),
+            t('LocationScreen.permissionFailText'),
+            [
+              {text: t('confirm')}
+            ],
+            {cancelable: true},
+          );
         }
       } catch (err) {
         console.warn(err)

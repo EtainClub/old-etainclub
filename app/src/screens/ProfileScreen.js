@@ -21,7 +21,7 @@ const ProfileScreen = ({ navigation }) => {
   const { 
     state, 
     updateContract, updateSkill, updateLocation, 
-    updateSkills, updateLocations,
+    updateSkills, updateLocations, deleteLocation,
     updateProfileInfo
   } = useContext( ProfileContext );
 
@@ -143,6 +143,21 @@ const ProfileScreen = ({ navigation }) => {
     setEditLocation(true);
   }
   
+  // delete the location
+  onDeleteLocation = (id) => {
+    // @test
+    console.log('[ondeletelocation] userid, id', state.userInfo.userId, id);
+    // alert
+    Alert.alert(
+      t('ProfileScreen.deleteLocation'),
+      t('ProfileScreen.deleteLocationText'),
+      [
+        { text: t('yes'), onPress: () => deleteLocation({ userId: state.userInfo.userId, id }) }
+      ],
+      { cancelable: true },
+    );
+  };
+
   // handle location state change
   handleLocationStateChange = (id, value) => {
     console.log('handleLocationStateChange', id, value);
@@ -180,7 +195,7 @@ const ProfileScreen = ({ navigation }) => {
         <FlatList 
           keyExtractor={location => location.id}
           data={state.locations} 
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             // do not display if the name is empty
             if (item.name === '') return;
             return (
@@ -188,6 +203,8 @@ const ProfileScreen = ({ navigation }) => {
                 <View style={{ flexDirection: "row" }}>
                   <Text style={styles.itemText}>{ item.name }</Text>
                   <Badge value={item.votes} badgeStyle={{ height: 20 }}/>
+                  <Icon name='close' size={20} onPress={() => onDeleteLocation(index)} 
+                />
                 </View>
               </View>
             );
