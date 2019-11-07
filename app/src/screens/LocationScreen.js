@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Platform, PermissionsAndroid, Alert, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, Alert } from 'react-native';
 import firebase from 'react-native-firebase'; 
 import { Button, Text } from 'react-native-elements';
 import i18next from 'i18next';
@@ -32,20 +32,14 @@ const LocationScreen = ({ navigation }) => {
 
   // use effect
   useEffect(() => {
-    // get permission for android device
-    if (Platform.OS === 'android') {
-      getLocationPermission();
-    }
-
     console.log('LocationScreen');
     // get current latitude and longitude
-    const watchId = Geolocation.watchPosition(pos => {
-      const newPos = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
-//      setPosition(newPos);
-      console.log('newPos lat', newPos.latitude);
-      console.log('newPos long', newPos.longitude);
+    const watchId = Geolocation.watchPosition(
+      pos => {
         setLatitude(pos.coords.latitude);
         setLongitude(pos.coords.longitude);
+        console.log('latitude', latitude);
+        console.log('longitude', longitude);
       },
       error => setError(error.message)
     );
@@ -56,26 +50,6 @@ const LocationScreen = ({ navigation }) => {
     // unsubscribe geolocation
     return () => Geolocation.clearWatch(watchId);
   }, []);
-
-  const getLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          'title': 'ReactNativeCode Location Permission',
-          'message': 'ReactNativeCode App needs access to your location '
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) { 
-        if (__DEV__) Alert.alert("Location Permission Granted.");
-      }
-      else {
-        Alert.alert("Error! Location Permission Not Granted");
-      }
-    } catch (err) {
-      console.warn(err)
-    }
-  };
 
   const initGeocoding = () => {
     Geocoder.init(GEOCODING_API_KEY, { language: language }); 

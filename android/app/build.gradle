@@ -121,7 +121,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 /**
- * Hide API keys and password
+ * Hide API keys and password in local.properties
  */
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -139,8 +139,8 @@ android {
         applicationId "com.etainclub"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         multiDexEnabled true
         resConfigs "ko", "en"
         manifestPlaceholders = [googleMapApiKey:googleMapApiKey]

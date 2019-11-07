@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, PermissionsAndroid, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -10,11 +10,30 @@ const LocationForm = (props) => {
   // id to show at front
   const id = props.id + 1;
 
-  updateLocation = (value) => {
+  const updateLocation = (value) => {
     console.log('[LocationForm] value', value);
     setLocation(value);
     props.handleStateChange(props.id, value);
   }
+
+  const onSearchPress = async () => {
+    // get location permission for android device
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) { 
+          if (__DEV__) Alert.alert("Location Permission Granted.");
+          // navigate to the location screen
+          props.navigation.navigate('LocationVerify', { id: props.id })
+        }
+        else {
+          Alert.alert("Location Permission Not Granted");
+        }
+      } catch (err) {
+        console.warn(err)
+      }  
+    }
+  };
 
   showLocationWithPlaceholder = (id) => {
     return (
@@ -28,7 +47,7 @@ const LocationForm = (props) => {
           autoCorrect={false}
           rightIcon={
             <Icon name='search' size={20} color='black' 
-              onPress={() => props.navigation.navigate('LocationVerify', { id: props.id })} 
+              onPress={onSearchPress} 
             />
           }
         />
