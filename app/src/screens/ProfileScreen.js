@@ -21,7 +21,7 @@ const ProfileScreen = ({ navigation }) => {
   const { 
     state, 
     updateContract, updateSkill, updateLocation, 
-    updateSkills, updateLocations, deleteLocation,
+    updateSkills, updateSkillsDB, updateLocations, deleteLocation,
     updateProfileInfo
   } = useContext( ProfileContext );
 
@@ -220,6 +220,7 @@ const ProfileScreen = ({ navigation }) => {
     // make the modal invisible
     setShowModal(false);
     // update the contract
+    // @todo implement function to update contract
     updateContract({ 
       userId: state.userInfo.userId, 
       skills: state.skills, 
@@ -249,7 +250,11 @@ const ProfileScreen = ({ navigation }) => {
   closeSkillEdit = () => {
     setEditSkill(false);
     console.log('skills', state.skills);
-    // @todo update db
+    // update skills on db
+    updateSkillsDB({ 
+      userId: state.userInfo.userId, 
+      skills: state.skills, 
+    });
   }
 
   showSkillEditIcon = () => {
@@ -350,7 +355,7 @@ const ProfileScreen = ({ navigation }) => {
                 />
               }
               title={t('ProfileScreen.updateButton')}
-              disabled={!state.needUpdateContract}
+              disabled
               loading={state.loading}
             />
           </View>

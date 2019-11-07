@@ -109,7 +109,7 @@
       "locationDesc": "활동 지역 최대 2개를 추가합니다",
       "locationPlaceholder": "예: 수원 영통구",
       "acceptMessage": "정보를 업데이트 하시겠습니까?",
-      "updateButton": "업데이트",
+      "updateButton": "블록체인 업데이트",
       "deleteLocation": "지역 삭제",
       "deleteLocationText": "선택한 지역을 삭제하시겠습니까?",
     },

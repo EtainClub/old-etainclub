@@ -266,6 +266,31 @@ const createInitialProfile = dispatch => {
 };
 */
 
+// update db
+const updateSkillsDB = dispatch => {
+  return async ({ userId, skills }) => {
+    console.log('[updateSkillsDB]');
+
+    // check sanity
+    if (__DEV__) console.log('[deleteLocation] userId', userId);
+    if (!userId) return;
+
+    //// put skills on firestore
+    // get the firebase doc ref
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    // map over the skills and override the current skills
+    // @todo update only the ones that need to be updated
+    skills.map(async (skill, id) => {
+      console.log('[updateSkillsDB] skill, id', skill.name, id);
+      // add new doc under the id
+      userRef.collection('skills').doc(`${id}`).set({
+        name: skill.name,
+        votes: skill.votes
+      });
+    });
+  }
+};
+
 // update smart contract
 const updateContract = dispatch => {
   return async ({ userId, skills, locations }) => {
@@ -308,7 +333,7 @@ export const { Provider, Context } = createDataContext(
   { updateContract,
     updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, updateProfileInfo,
-    updateSkills, updateLocations, deleteLocation,
+    updateSkills, updateSkillsDB, updateLocations, deleteLocation,
   },
   { 
     userInfo: {}, 
