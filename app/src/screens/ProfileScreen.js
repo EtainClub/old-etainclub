@@ -350,7 +350,7 @@ const ProfileScreen = ({ navigation }) => {
               icon={
                 <Icon2
                   style={{ marginHorizontal: 5 }}
-                  name="check"
+                  name="ethereum"
                   size={30}
                 />
               }

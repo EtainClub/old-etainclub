@@ -83,7 +83,7 @@ const LocationScreen = ({ navigation }) => {
           addr = addr2 + ' ' + addr1;
           break;
         default:
-          addr = addr1 + ', ' + addr2;
+          addr = addr1;
       }
       setAddress(addr);
     })
