@@ -85,7 +85,9 @@ const LocationScreen = ({ navigation }) => {
         default:
           addr = addr1;
       }
-      setAddress(addr);
+      // restrict the string length
+      const addr3 = addr.substring(0, 15);
+      setAddress(addr3);
     })
     .catch(error => console.warn(error));  
   };

@@ -200,9 +200,11 @@ const ProfileScreen = ({ navigation }) => {
             if (item.name === '') return;
             return (
               <View style={styles.itemContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.itemText}>{ item.name }</Text>
-                  <Badge value={item.votes} badgeStyle={{ height: 20 }}/>
+                <View style={{ flexDirection: "row", justifyContent: 'space-around' }}>
+                  <View>
+                    <Text style={styles.itemText}>{ item.name }</Text>
+                    <Badge value={item.votes} badgeStyle={{ height: 20 }}/>
+                  </View>
                   <Icon name='close' size={20} onPress={() => onDeleteLocation(index)} 
                 />
                 </View>

@@ -36,15 +36,14 @@
 
 참고. 블록체인 부분은 향후 개발 예정에 있습니다.
 
-## 이타인클럽앱 (안드로이드앱) 
-- 지원기기: 안드로이드
+## 이타인클럽앱 (Android/iOS 앱) 
+- 지원기기: 안드로이드, iPhone
 - 안드로이드는 8(oreo), 9(pie), 10(x)에서 테스트되었습니다. 하위 버전은 테스트 미진행.
+- iPhone은 실물 6(ios 12.4.2), 시뮬레이터 10, 11에서 테스트되었습니다.
 - 지원언어: 한글, 영어 (사용자 언어 설정에 따라 자동 변경)
-- 기본 동작 테스트만 된 상태입니다. 아마 상당한 버그 및 개선점이 있을 것입니다. 사용해 보시고 의견 주시면 고맙겠습니다.
+- 사용해 보시고 문제점, 의견 주시면 고맙겠습니다.
 - 설치파일은 현재 파일 형태로 배포되고 있습니다.
-- 앱 설치 파일은 기기별 조금 다릅니다. 최신폰은 아마 64비트일 것입니다. 제가 안드로이드 9에서 설치해봤는데 두 파일모두 설치가 됩니다.
-  - 64비트 기기: https://firebasestorage.googleapis.com/v0/b/etainclub-896c9.appspot.com/o/apk%2Fetainclub-arm64-v8a-release.apk?alt=media&token=27743058-0746-4643-8165-5020dd0a47f9
-  - 32비트기기: https://firebasestorage.googleapis.com/v0/b/etainclub-896c9.appspot.com/o/apk%2Fetainclub-armeabi-v7a-release.apk?alt=media&token=84ec176e-8cd0-4cf0-b10b-b84bf03da847
+- 댑 다운로드: https://etain.club/download
 
 
 ## 이타인클럽앱 사용법
