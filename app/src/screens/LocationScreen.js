@@ -64,12 +64,16 @@ const LocationScreen = ({ navigation }) => {
   };
 
   // convert the location to address using geocoding
-  const onRegionChange = () => {
+  const onRegionChange = (event) => {
+    console.log('on region change event', event);
+    setLatitude(event.latitude);
+    setLongitude(event.longitude);
     console.log('lat', latitude);
     console.log('long', longitude);
   };
 
   const onRegionChangeComplete = () => {
+    console.log('onRegionChangeComplete');
     // get intial address
     Geocoder.from(latitude, longitude)
     .then(json => {
@@ -83,10 +87,10 @@ const LocationScreen = ({ navigation }) => {
           addr = addr2 + ' ' + addr1;
           break;
         default:
-          addr = addr1;
+          addr = addr1 + ', ' + addr2;
       }
       // restrict the string length
-      const addr3 = addr.substring(0, 15);
+      const addr3 = addr.substring(0, 20);
       setAddress(addr3);
     })
     .catch(error => console.warn(error));  
@@ -95,6 +99,27 @@ const LocationScreen = ({ navigation }) => {
   const onMapPress = (event) => {
     console.log('map press coordinate', event.nativeEvent.coordinate);
     console.log('language', language);
+
+    // get intial address
+    Geocoder.from(latitude, longitude)
+    .then(json => {
+      const addr1 = json.results[0].address_components[1].short_name;
+      const addr2 = json.results[0].address_components[2].short_name;
+      console.log('addr1', addr1);
+      console.log('addr2', addr2);
+      let addr = '';
+      switch (language) {
+        case 'ko':
+          addr = addr2 + ' ' + addr1;
+          break;
+        default:
+          addr = addr1 + ', ' + addr2;
+      }
+      // restrict the string length
+      const addr3 = addr.substring(0, 20);
+      setAddress(addr3);
+    })
+    .catch(error => console.warn(error)); 
   }
   
   const onVerify = () => {
@@ -108,42 +133,84 @@ const LocationScreen = ({ navigation }) => {
     navigation.navigate('ProfileContract');
   };
 
-  return (
-    <View>
-      <MapView
-        style={styles.mapContainer}
-        provider={PROVIDER_GOOGLE}
-        showsMyLocationButton
-        mapType="standard"
-        loadingEnabled
-        showsUserLocation
-        region={{
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: latitudeDelta,
-          longitudeDelta: longitudeDelta
-        }}
-        onRegionChange={onRegionChange}
-        onRegionChangeComplete={onRegionChangeComplete}
-        onPress={e => onMapPress(e)}
-      >
-        <Marker
-          coordinate={{ latitude, longitude }}
-        />
-      </MapView>
-      <View style={{ marginTop: 20 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-          <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+  const showMap = () => {
+    if (Platform.OS === 'android') {
+      return (
+        <View>
+          <MapView
+            style={styles.mapContainer}
+            provider={PROVIDER_GOOGLE}
+            showsMyLocationButton
+            mapType="standard"
+            loadingEnabled
+            showsUserLocation
+            region={{
+              latitude: latitude,
+              longitude: longitude,
+              latitudeDelta: latitudeDelta,
+              longitudeDelta: longitudeDelta
+            }}
+            onRegionChange={onRegionChange}
+            onRegionChangeComplete={onRegionChangeComplete}
+            onPress={e => onMapPress(e)}
+          >
+            <Marker
+              coordinate={{ latitude, longitude }}
+            />
+          </MapView>
+          <View style={{ marginTop: 20 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
+              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+            </View>
+            <Button
+              title={t('LocationScreen.verify')}
+              type="solid"
+              onPress={onVerify}
+            />
+          </View>
+        </View>  
+      );
+    } else if (Platform.OS === 'ios') {
+      return (
+        <View>
+          <MapView
+            style={styles.mapContainer}
+            showsMyLocationButton
+            mapType="standard"
+            loadingEnabled
+            showsUserLocation
+            region={{
+              latitude: latitude,
+              longitude: longitude,
+              latitudeDelta: latitudeDelta,
+              longitudeDelta: longitudeDelta
+            }}
+            onRegionChange={onRegionChange}
+            onRegionChangeComplete={onRegionChangeComplete}
+            onPress={e => onMapPress(e)}
+          >
+            <Marker
+              coordinate={{ latitude, longitude }}
+            />
+          </MapView>
+          <View style={{ marginTop: 20 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
+              <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+            </View>
+            <Button
+              title={t('LocationScreen.verify')}
+              type="solid"
+              onPress={onVerify}
+            />
+          </View>
         </View>
-        <Button
-          title={t('LocationScreen.verify')}
-          type="solid"
-          onPress={onVerify}
-        />
-      </View>
-    </View>
-  );
+      );
+    }
+  };
+  
+  return showMap();
 }
 
 LocationScreen.navigationOptions = () => {

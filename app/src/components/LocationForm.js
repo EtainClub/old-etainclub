@@ -40,8 +40,11 @@ const LocationForm = (props) => {
           );
         }
       } catch (err) {
-        console.warn(err)
+        console.warn(err);
       }  
+    } else if (Platform.OS === 'ios') {
+      // navigate to the location screen
+      props.navigation.navigate('LocationVerify', { id: props.id });
     }
   };
 
