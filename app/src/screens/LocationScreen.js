@@ -66,8 +66,6 @@ const LocationScreen = ({ navigation }) => {
   // convert the location to address using geocoding
   const onRegionChange = (event) => {
     console.log('on region change event', event);
-    setLatitude(event.latitude);
-    setLongitude(event.longitude);
     console.log('lat', latitude);
     console.log('long', longitude);
   };
@@ -87,10 +85,12 @@ const LocationScreen = ({ navigation }) => {
           addr = addr2 + ' ' + addr1;
           break;
         default:
-          addr = addr1 + ', ' + addr2;
+//          addr = addr1 + ', ' + addr2;
+          addr = addr1;
+          break;
       }
       // restrict the string length
-      const addr3 = addr.substring(0, 20);
+      const addr3 = addr.substring(0, 25);
       setAddress(addr3);
     })
     .catch(error => console.warn(error));  
@@ -113,10 +113,12 @@ const LocationScreen = ({ navigation }) => {
           addr = addr2 + ' ' + addr1;
           break;
         default:
-          addr = addr1 + ', ' + addr2;
+//          addr = addr1 + ', ' + addr2;
+          addr = addr1;
+          break;
       }
       // restrict the string length
-      const addr3 = addr.substring(0, 20);
+      const addr3 = addr.substring(0, 25);
       setAddress(addr3);
     })
     .catch(error => console.warn(error)); 
