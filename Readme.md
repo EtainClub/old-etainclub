@@ -95,13 +95,19 @@ ios 개발을 해주실 분을 찾습니다.
 도움 주실 분은 etainclub@gmail.com으로 연락주십시오.
 
 ## 설치
+- install dependencies
 ```
-# install dependencies
-$ yarn 
-# start debug server
+$ yarn
+``` 
+- start debug server
+```
 $ yarn start
-# run android emulator
+```
+- run android emulator
+```
 $ react-native run-android
-# run ios simulator
+```
+- run ios simulator
+```
 $ react-native run-ios
 ```
