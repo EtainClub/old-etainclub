@@ -93,3 +93,15 @@ ios 개발을 해주실 분을 찾습니다.
 이타인클럽앱의 로고, 아이콘 등 디자인을 도와주실 분을 찾습니다.
 
 도움 주실 분은 etainclub@gmail.com으로 연락주십시오.
+
+## 설치
+```
+# install dependencies
+$ yarn 
+# start debug server
+$ yarn start
+# run android emulator
+$ react-native run-android
+# run ios simulator
+$ react-native run-ios
+```
