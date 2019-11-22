@@ -1,6 +1,6 @@
 {
   "translation": {
-    "title": "etainclub",
+    "title": "helpus",
     "yes": "Yes",
     "no": "No",
     "minute": "Minute",
@@ -58,8 +58,7 @@
       "votes": "Votes",
     },
     "AskScreen": {
-      "header": "etainclub",
-      "button": "Help",
+      "header": "helpus",
       "guideText": "Type what you need",
       "placeholder": "e.g. My computer does not boot up. Help!!!",
     },

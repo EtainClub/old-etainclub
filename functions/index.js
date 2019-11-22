@@ -16,12 +16,12 @@ exports.sendMessage = functions.firestore
         resources: {
             ko: {
               translation: {
-                header: 'HelpUs',
+                header: 'helpus',
               },
             },
             en: {
               translation: {
-                header: 'HelpUs',
+                header: 'helpus',
               },
             },
           },

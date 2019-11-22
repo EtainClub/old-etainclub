@@ -1,6 +1,6 @@
 {
   "translation": {
-    "title": "HelpUs",
+    "title": "helpus",
     "yes": "예",
     "no": "아니오",
     "minute": "분",
@@ -58,7 +58,7 @@
       "votes": "추천수",
     },
     "AskScreen": {
-      "header": "HelpUs",
+      "header": "helpus",
       "button": "도움 요청하기",
       "guideText": "요청 메시지를 입력하세요",
       "placeholder": "도움 요청 예: 컴퓨터 전원 버튼을 눌러도 켜지지 않습니다. 도와주세요.",
