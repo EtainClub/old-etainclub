@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Platform, Alert } from 'react-native';
+import { View, StyleSheet, Platform, FlatList, Alert } from 'react-native';
 import firebase from 'react-native-firebase'; 
-import { Button, Text } from 'react-native-elements';
+import { Button, Text, ListItem, Avatar } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import { GEOCODING_API_KEY } from 'react-native-dotenv';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { Context as ProfileContext } from '../context/ProfileContext';
 const UsersScreen = ({ navigation }) => {
@@ -165,11 +167,6 @@ const UsersScreen = ({ navigation }) => {
               <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
             </View>
-            <Button
-              title={t('LocationScreen.verify')}
-              type="solid"
-              onPress={onVerify}
-            />
           </View>
         </View>  
       );
@@ -212,7 +209,74 @@ const UsersScreen = ({ navigation }) => {
     }
   };
   
-  return showMap();
+  const userList = [
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+    {
+      name: 'Chris Jackson',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      subtitle: 'Vice Chairman'
+    },
+  ];
+
+
+  const renderItem = ({item}) => (
+    <ListItem
+      title="skill"
+      subtitle={
+        <View>
+          <Icon name='hand-o-left' size={20} color={'#353535'}/>
+          <Icon name='hand-o-right' size={20} color={'#353535'}/>
+          <Icon name='thumbs-o-up' size={20} color={'#353535'}/>
+          <Icon name="map-marker" size={20} color={'#353535'}/>
+        </View>
+      }      
+      leftAvatar={
+        <View>
+          <Avatar size="large" rounded
+            source={{
+              uri: state.userInfo.avatarUrl,
+            }} 
+          />
+          <Text>username</Text>
+        </View>
+      }
+      bottomDivider
+      chevron
+    />
+  );
+
+  const renderUserList = () => {
+    return (
+      <ScrollView style={{ height: 280 }}>
+        <FlatList
+          keyExtractor={this.keyExtractor}
+          data={userList}
+          renderItem={renderItem}
+        />
+      </ScrollView>
+    );
+  };
+
+  return (
+    <View>
+      {showMap()}
+      {renderUserList()}
+    </View>
+  );
 }
 
 UsersScreen.navigationOptions = () => {

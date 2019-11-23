@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
-import {NavigationEvents, SafeAreaView} from 'react-navigation';
-import {ListItem, Divider, Text} from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { NavigationEvents, SafeAreaView } from 'react-navigation';
+import { ListItem, Divider, Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 import { ScrollView } from 'react-native-gesture-handler';

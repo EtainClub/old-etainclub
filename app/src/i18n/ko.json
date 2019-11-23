@@ -56,8 +56,7 @@
       "helpCases": "도움 내역",
       "locationPlaceholder": "지역을 업데이트하세요",
       "votes": "추천수",
-      "usersTitle": "우리 동네 헬퍼스",
-      "usersButton": "둘러보기"
+      "usersButton": "우리 동네 헬퍼스 둘러보기"
     },
     "AskScreen": {
       "header": "helpus",

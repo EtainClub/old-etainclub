@@ -225,12 +225,10 @@ const AccountScreen = ({ navigation }) => {
           </Spacer>
         </Card>
 
-        <Card
-          title={t('AccountScreen.usersTitle')}
-        >
+        <Card>
           <Button
-            buttonStyle={{ height: 50 }}
-            titleStyle={{ fontSize: 24, fontWeight: 'bold' }}     
+            buttonStyle={{ height: 30 }}
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}     
             title={t('AccountScreen.usersButton')}
             onPress={onUsersPress}
           />
