@@ -20,6 +20,7 @@ import LocationScreen from './screens/LocationScreen';
 import ChatScreen from './screens/ChatScreen';
 import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
+import UsersScreen from './screens/UsersScreen';
 
 const askFlow = createStackNavigator(
   {
@@ -62,6 +63,7 @@ const profileFlow = createStackNavigator(
     AccountEdit: AccountEditScreen,
     ProfileContract: ProfileScreen,
     LocationVerify: LocationScreen,
+    Users: UsersScreen,
   },
   {headerLayoutPreset: 'center'},
 );

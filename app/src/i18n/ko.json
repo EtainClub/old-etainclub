@@ -56,6 +56,8 @@
       "helpCases": "도움 내역",
       "locationPlaceholder": "지역을 업데이트하세요",
       "votes": "추천수",
+      "usersTitle": "우리 동네 헬퍼스",
+      "usersButton": "둘러보기"
     },
     "AskScreen": {
       "header": "helpus",
@@ -117,6 +119,12 @@
       "header": "동네 인증하기",
       "currentAddress": "현재 위치: ",
       "verify": "인증하기",
+      "permissionFail": "허가 획득 실패",
+      "permissionFailText": "동네 인증을 하려면 위치 허가가 필요합니다.",
+    },
+    "UsersScreen": {
+      "header": "우리 동네 헬퍼스",
+      "currentAddress": "현재 위치: ",
       "permissionFail": "허가 획득 실패",
       "permissionFailText": "동네 인증을 하려면 위치 허가가 필요합니다.",
     },

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, PermissionsAndroid, Alert, TouchableOpacity } from 'react-native';
 import { Button, Text, Card, Avatar, Divider } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -110,6 +110,35 @@ const AccountScreen = ({ navigation }) => {
     navigation.navigate('AccountEdit', { userId: currentUser.uid });
   }
 
+  onUsersPress = async () => {
+    // get location permission for android device
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) { 
+          if (__DEV__) Alert.alert("Location Permission Granted.");
+          // navigate to the location screen
+          navigation.navigate('Users', { id: currentUser.uid })
+        }
+        else {
+          Alert.alert(
+            t('LocationScreen.permissionFail'),
+            t('LocationScreen.permissionFailText'),
+            [
+              {text: t('confirm')}
+            ],
+            {cancelable: true},
+          );
+        }
+      } catch (err) {
+        console.warn(err);
+      }  
+    } else if (Platform.OS === 'ios') {
+      // navigate to the location screen
+      navigation.navigate('Users', { id: currentUser.uid });
+    }    
+  }
+
   return (
     <SafeAreaView>
       <NavigationEvents
@@ -195,6 +224,18 @@ const AccountScreen = ({ navigation }) => {
           />
           </Spacer>
         </Card>
+
+        <Card
+          title={t('AccountScreen.usersTitle')}
+        >
+          <Button
+            buttonStyle={{ height: 50 }}
+            titleStyle={{ fontSize: 24, fontWeight: 'bold' }}     
+            title={t('AccountScreen.usersButton')}
+            onPress={onUsersPress}
+          />
+        </Card>
+
       </View>
     </SafeAreaView>
   );
