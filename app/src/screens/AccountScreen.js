@@ -165,7 +165,7 @@ const AccountScreen = ({ navigation }) => {
                 name='map-marker'
                 size={20}
               />
-              <Text style={{ fontSize: 16, marginLeft: 7 }}>{ state.locations[0].name ? 
+              <Text style={{ fontSize: 16, marginLeft: 7 }}>{ state.locations[0].name.substring(20) ? 
                 state.locations[0].name 
                 : t('AccountScreen.locationPlaceholder')}</Text>
               </View>

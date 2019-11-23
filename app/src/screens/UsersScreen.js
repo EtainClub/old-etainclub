@@ -38,8 +38,13 @@ const UsersScreen = ({ navigation }) => {
     // get current latitude and longitude
     const watchId = Geolocation.watchPosition(
       pos => {
-        setLatitude(pos.coords.latitude);
-        setLongitude(pos.coords.longitude);
+        const lat=37.25949;
+        const long=127.046638;
+//        setLatitude(pos.coords.latitude);
+//        setLongitude(pos.coords.longitude);
+        setLatitude(lat);
+        setLongitude(long);
+
         console.log('latitude', latitude);
         console.log('longitude', longitude);
       },
@@ -77,6 +82,7 @@ const UsersScreen = ({ navigation }) => {
     // get intial address
     Geocoder.from(latitude, longitude)
     .then(json => {
+      console.log('[onRegionChangeComplete] json', json);
       const addr1 = json.results[0].address_components[1].short_name;
       const addr2 = json.results[0].address_components[2].short_name;
       console.log('addr1', addr1);
@@ -98,9 +104,13 @@ const UsersScreen = ({ navigation }) => {
     .catch(error => console.warn(error));  
   };
 
-  const onMapPress = (event) => {
-    console.log('map press coordinate', event.nativeEvent.coordinate);
+  const onMapPress = ({ nativeEvent }) => {
+    console.log('map press coordinate', nativeEvent.coordinate);
     console.log('language', language);
+
+    // update lat, long
+    setLatitude(nativeEvent.coordinate.latitude);
+    setLongitude(nativeEvent.coordinate.longitude);
 
     // get intial address
     Geocoder.from(latitude, longitude)
@@ -120,22 +130,11 @@ const UsersScreen = ({ navigation }) => {
           break;
       }
       // restrict the string length
-      const addr3 = addr.substring(0, 25);
+      const addr3 = addr.substring(0, 20);
       setAddress(addr3);
     })
     .catch(error => console.warn(error)); 
   }
-  
-  const onVerify = () => {
-    console.log('verify button clicked');
-    // get reference to the current user
-    const { currentUser } = firebase.auth();
-    const userId = currentUser.uid;
-    // update location
-    updateLocation({ id: locationId, locationName: address, userId });
-    // set params
-    navigation.navigate('ProfileContract');
-  };
 
   const showMap = () => {
     if (Platform.OS === 'android') {
@@ -198,11 +197,6 @@ const UsersScreen = ({ navigation }) => {
               <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
             </View>
-            <Button
-              title={t('LocationScreen.verify')}
-              type="solid"
-              onPress={onVerify}
-            />
           </View>
         </View>
       );
