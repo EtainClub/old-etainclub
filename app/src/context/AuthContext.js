@@ -226,9 +226,7 @@ const createInitialProfile = ({ userId }) => {
   const INIT_SKILL = {
     id: null,
     name: '',
-    main: false,
-    votes: 0,
-    needToUpdate: false
+    votes: 0
   }
   // populate array with the initial state
   const INIT_SKILLS = new Array(5).fill(INIT_SKILL).map((item) => ({ 
@@ -239,9 +237,12 @@ const createInitialProfile = ({ userId }) => {
   const INIT_LOCATION = {
     id: null,
     name: '',
-    main: false,
-    votes: 0,
-    needToUpdate: false
+    district: '',
+    city: '',
+    state: '',
+    country: '',
+    display: '',
+    votes: 0
   }
   // populate array with the initial state
   const INIT_LOCATIONS = new Array(2).fill(INIT_LOCATION).map((item) => ({ 
@@ -267,6 +268,11 @@ const createInitialProfile = ({ userId }) => {
     // add new doc under the id
     userRef.collection('locations').doc(`${id}`).set({
       name: location.name,
+      district: location.district,
+      city: location.city,
+      state: location.state,
+      country: location.country,
+      display: location.display,
       votes: location.votes
     });
   });

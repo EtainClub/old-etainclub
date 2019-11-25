@@ -19,13 +19,13 @@ const LocationScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const language = i18next.language;
   // use context
-  const { state, updateLocation } = useContext(ProfileContext);
+  const { state, verifyLocation } = useContext(ProfileContext);
   // use state
 //  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [error, setError] = useState('');
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState({});
   // position delta constants
   const latitudeDelta = 0.01;
   const longitudeDelta = 0.01;
@@ -75,23 +75,31 @@ const LocationScreen = ({ navigation }) => {
     // get intial address
     Geocoder.from(latitude, longitude)
     .then(json => {
-      const addr1 = json.results[0].address_components[1].short_name;
-      const addr2 = json.results[0].address_components[2].short_name;
-      console.log('addr1', addr1);
-      console.log('addr2', addr2);
-      let addr = '';
+      console.log('[onRegionChangeComplete] json', json);
+      const name = json.results[0].address_components[1].short_name;
+      const district = json.results[0].address_components[2].short_name;
+      const city = json.results[0].address_components[3].short_name;
+      const state = json.results[0].address_components[4].short_name;
+      const country = json.results[0].address_components[5].short_name;
+      // for address display
+      let display = '';
       switch (language) {
         case 'ko':
-          addr = addr2 + ' ' + addr1;
+          display = (district + ' ' + name);
           break;
         default:
-//          addr = addr1 + ', ' + addr2;
-          addr = addr1;
+          display = (name + ', ' + district);
           break;
       }
-      // restrict the string length
-      const addr3 = addr.substring(0, 25);
-      setAddress(addr3);
+      const addr = {
+        name: name,
+        district: district,
+        city: city,
+        state: state,
+        country: country,
+        display: display
+      };
+      setAddress(addr);
     })
     .catch(error => console.warn(error));  
   };
@@ -101,25 +109,33 @@ const LocationScreen = ({ navigation }) => {
     console.log('language', language);
 
     // get intial address
+    // @todo change lat and long if you want to update the address with map press event
     Geocoder.from(latitude, longitude)
     .then(json => {
-      const addr1 = json.results[0].address_components[1].short_name;
-      const addr2 = json.results[0].address_components[2].short_name;
-      console.log('addr1', addr1);
-      console.log('addr2', addr2);
-      let addr = '';
-      switch (language) {
-        case 'ko':
-          addr = addr2 + ' ' + addr1;
-          break;
-        default:
-//          addr = addr1 + ', ' + addr2;
-          addr = addr1;
-          break;
-      }
-      // restrict the string length
-      const addr3 = addr.substring(0, 25);
-      setAddress(addr3);
+      const name = json.results[0].address_components[1].short_name;
+      const district = json.results[0].address_components[2].short_name;
+      const city = json.results[0].address_components[3].short_name;
+      const state = json.results[0].address_components[4].short_name;
+      const country = json.results[0].address_components[5].short_name;
+       // for address display
+       let display = '';
+       switch (language) {
+         case 'ko':
+           display = (district + ' ' + name).substring(25);
+           break;
+         default:
+           display = (name + ', ' + district).substring(25);
+           break;
+       }
+       const addr = {
+         name: name,
+         district: district,
+         city: city,
+         state: state,
+         country: country,
+         display: display
+       };
+       setAddress(addr); 
     })
     .catch(error => console.warn(error)); 
   }
@@ -130,7 +146,7 @@ const LocationScreen = ({ navigation }) => {
     const { currentUser } = firebase.auth();
     const userId = currentUser.uid;
     // update location
-    updateLocation({ id: locationId, locationName: address, userId });
+    verifyLocation({ id: locationId, address: address, userId });
     // set params
     navigation.navigate('ProfileContract');
   };
@@ -163,7 +179,7 @@ const LocationScreen = ({ navigation }) => {
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
               <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
             <Button
               title={t('LocationScreen.verify')}
@@ -199,7 +215,7 @@ const LocationScreen = ({ navigation }) => {
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
               <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
             <Button
               title={t('LocationScreen.verify')}

@@ -8,9 +8,7 @@ import createDataContext from './createDataContext';
 const INIT_SKILL = {
   id: null,
   name: '',
-  main: false,
-  votes: 0,
-  needToUpdate: false
+  votes: 0
 }
 // populate array with the initial state
 const INIT_SKILLS = new Array(5).fill(INIT_SKILL).map((item) => ({ 
@@ -21,9 +19,12 @@ const INIT_SKILLS = new Array(5).fill(INIT_SKILL).map((item) => ({
 const INIT_LOCATION = {
   id: null,
   name: '',
-  main: false,
-  votes: 0,
-  needToUpdate: false
+  district: '',
+  city: '',
+  state: '',
+  country: '',
+  display: '',
+  votes: 0
 }
 // populate array with the initial state
 const INIT_LOCATIONS = new Array(2).fill(INIT_LOCATION).map((item) => ({ 
@@ -46,7 +47,7 @@ const profileReducer = (state, action) => {
         // update specific skill
         skills: state.skills.map((skill, i) => 
           i === action.payload.id ? 
-          { ...skill, name: action.payload.name, needToUpdate: true } 
+          { ...skill, name: action.payload.name } 
           : skill
         ),
         // set flag to need to update the db or contract
@@ -57,7 +58,14 @@ const profileReducer = (state, action) => {
         ...state,
         locations: state.locations.map((location, i) => 
           i === action.payload.id ? 
-          { ...location, name: action.payload.name, needToUpdate: true } 
+          { ...location, 
+            name: action.payload.address.name, 
+            district: action.payload.address.district,
+            city: action.payload.address.city,
+            state: action.payload.address.state,
+            country: action.payload.address.country,
+            display: action.payload.address.display            
+          } 
           : location
         ),
         // set flag to need to update the db or contract
@@ -98,15 +106,15 @@ const updateSkill = dispatch => {
 
 // update location with id
 const updateLocation = dispatch => {
-  return ({ id, locationName, userId }) => {
-    console.log('dispatch update location', id, locationName, userId);
+  return ({ id, address, userId }) => {
+    console.log('dispatch update location', id, address, userId);
     // sanity check
     if (!userId) return;
     if (typeof id === 'undefined') return; 
     
     dispatch({
       type: 'update_location',
-      payload: { id, name: locationName }
+      payload: { id, address }
     });
 
     // update location on db
@@ -114,8 +122,40 @@ const updateLocation = dispatch => {
     // @todo whenever a user verifies the location, increase the vote count
     const userRef = firebase.firestore().doc(`users/${userId}`);
     userRef.collection('locations').doc(`${id}`).update({
-      name: locationName,
-      votes: 1
+      name: address.name,
+      district: address.district,
+      city: address.city,
+      state: address.state,
+      country: address.country,
+      display: address.display
+    });
+  }
+};
+
+// verify location with id and update on DB
+const verifyLocation = dispatch => {
+  return ({ id, address, userId, verify }) => {
+    console.log('dispatch update location', id, address, userId);
+    // sanity check
+    if (!userId) return;
+    if (typeof id === 'undefined') return; 
+    
+    dispatch({
+      type: 'update_location',
+      payload: { id, address }
+    });
+
+    // update location on db with increment of verification
+    // @todo for location, use number of verification instead of votes.
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    userRef.collection('locations').doc(`${id}`).update({
+      name: address.name,
+      district: address.district,
+      city: address.city,
+      state: address.state,
+      country: address.country,
+      display: address.display, 
+      votes: firebase.firestore.FieldValue.increment(1)
     });
   }
 };
@@ -131,13 +171,28 @@ const deleteLocation = dispatch => {
     // update the state 
     dispatch({
       type: 'update_location',
-      payload: { id, name: '' }
+      payload: { 
+        id, 
+        address: {
+          name: '',
+          district: '',
+          city: '',
+          state: '',
+          country: '',
+          display: ''
+        } 
+      }
     });
 
     // delete the doc of given id
     const userRef = firebase.firestore().doc(`users/${userId}`);
     userRef.collection('locations').doc(`${id}`).update({
       name: '',
+      district: '',
+      city: '',
+      state: '',
+      country: '',  
+      display: '',    
       votes: 0
     });
   }
@@ -332,7 +387,7 @@ export const { Provider, Context } = createDataContext(
   profileReducer,
   { updateContract,
     updateUserInfoState, updateAccount, updateAvatarState,
-    updateSkill, updateLocation, updateProfileInfo,
+    updateSkill, updateLocation, verifyLocation, updateProfileInfo,
     updateSkills, updateSkillsDB, updateLocations, deleteLocation,
   },
   { 

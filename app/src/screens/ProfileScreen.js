@@ -21,8 +21,7 @@ const ProfileScreen = ({ navigation }) => {
   const { 
     state, 
     updateContract, updateSkill, updateLocation, 
-    updateSkills, updateSkillsDB, updateLocations, deleteLocation,
-    updateProfileInfo
+    updateSkills, updateSkillsDB, updateLocations, deleteLocation
   } = useContext( ProfileContext );
 
   // use state
