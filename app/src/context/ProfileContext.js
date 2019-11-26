@@ -53,6 +53,25 @@ const profileReducer = (state, action) => {
         // set flag to need to update the db or contract
         needUpdateContract: true
       };
+    case 'verify_location':
+      return {
+        ...state,
+        locations: state.locations.map((location, i) => 
+          i === action.payload.id ? 
+          { ...location, 
+            name: action.payload.address.name, 
+            district: action.payload.address.district,
+            city: action.payload.address.city,
+            state: action.payload.address.state,
+            country: action.payload.address.country,
+            display: action.payload.address.display,
+            votes: location.votes + 1            
+          } 
+          : location
+        ),
+        // set flag to need to update the db or contract
+        needUpdateContract: true
+      };  
     case 'update_location':
       return {
         ...state,
@@ -64,7 +83,8 @@ const profileReducer = (state, action) => {
             city: action.payload.address.city,
             state: action.payload.address.state,
             country: action.payload.address.country,
-            display: action.payload.address.display            
+            display: action.payload.address.display,
+            votes: action.payload.address.votes            
           } 
           : location
         ),
@@ -141,7 +161,7 @@ const verifyLocation = dispatch => {
     if (typeof id === 'undefined') return; 
     
     dispatch({
-      type: 'update_location',
+      type: 'verify_location',
       payload: { id, address }
     });
 
@@ -179,7 +199,8 @@ const deleteLocation = dispatch => {
           city: '',
           state: '',
           country: '',
-          display: ''
+          display: '',
+          votes: 0,
         } 
       }
     });

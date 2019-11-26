@@ -203,7 +203,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Text style={styles.itemText}>{ item.name }</Text>
                   <Badge value={item.votes} badgeStyle={{ height: 20 }}/>
                 </View>
-                <Icon name='close' size={20} onPress={() => onDeleteLocation(index)} />
+                <Icon name='trash-o' size={20} onPress={() => onDeleteLocation(index)} />
               </View>
             );
           }}
@@ -302,8 +302,16 @@ const ProfileScreen = ({ navigation }) => {
     console.log('locations', state.locations);
   }
 
+  // navigation event
+  const onWillFocus = ()=> {
+    setEditLocation(false);
+  }
+  
   return (
     <SafeAreaView>
+      <NavigationEvents
+        onWillFocus={onWillFocus}
+      />
       <View>
         <Card>
           <View style={styles.skillContainer}>
