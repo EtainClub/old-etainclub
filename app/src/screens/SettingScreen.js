@@ -7,7 +7,7 @@ import MapView from 'react-native-maps';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import AsyncStorage from '@react-native-community/async-storage';
 // custom libraries
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -79,6 +79,13 @@ const SettingScreen = ({ navigation }) => {
   const onLinkPress = url => {
     Linking.openURL(url);  
   };
+  
+  const onLanguageChange = async (lang) => {
+    console.log('onLanguageChange', lang);
+    // save this into storage
+    await AsyncStorage.setItem('language', lang);
+    i18next.changeLanguage(lang);
+  };
 
   const onSettingPress = async (id) => {
     console.log('onItemPress id', id);
@@ -93,7 +100,8 @@ const SettingScreen = ({ navigation }) => {
             t('SettingScreen.languageTitle'),
             t('SettingScreen.languageText'),
             [
-              {text: t('confirm')}
+              { text: t('korean'), onPress: () => onLanguageChange('ko') },
+              { text: t('english'), onPress: () => onLanguageChange('en') }
             ],
             {cancelable: true},
           );  

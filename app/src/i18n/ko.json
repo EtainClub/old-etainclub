@@ -16,6 +16,8 @@
     "askTab": "도움요청",
     "chatTab": "채팅",
     "userTab": "사용자",
+    "korean": "한글",
+    "english": "English",
     "AppScreen": {
       "title": "도움 요청 알림",
       "message": "도움 요청 내용을 보시겠습니까?"
@@ -161,9 +163,9 @@
       "setting": "설정",
       "links": "바로가기",
       "app": "앱 설정 (위치, 알림 등)",
-      "language": "사용 언어 설정",
-      "languageTitle": "언어 설정",
-      "languageText": "언어 변경은 추후 지원예정입니다",
+      "language": "Change Language",
+      "languageTitle": "Change Language",
+      "languageText": "Select language",
       "shareTitle": "앱 다운로드",
       "version": "앱 버전 0.1.3",
       "evaluate": "앱 평가하기",
