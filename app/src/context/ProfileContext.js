@@ -31,6 +31,15 @@ const INIT_LOCATIONS = new Array(2).fill(INIT_LOCATION).map((item) => ({
   ...item, id: Math.random().toString()
 }));
 
+const INIT_USER = {
+  avatar: '',
+  name: '',
+  skill: '',
+  got: 0,
+  helped: 0,
+  votes: 0,
+  location: ''
+}
 
 //// reducer
 const profileReducer = (state, action) => {
@@ -113,6 +122,13 @@ const profileReducer = (state, action) => {
 }
 
 //// actions
+// find nearby users
+const findUsers = dispatch => {
+  return () => {
+    console.log('dispatch find users');
+  }
+};
+
 // update skill with id
 const updateSkill = dispatch => {
   return ({ id, skillName }) => {
@@ -410,6 +426,7 @@ export const { Provider, Context } = createDataContext(
     updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, verifyLocation, updateProfileInfo,
     updateSkills, updateSkillsDB, updateLocations, deleteLocation,
+    findUsers
   },
   { 
     userInfo: {}, 

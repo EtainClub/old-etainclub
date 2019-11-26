@@ -7,7 +7,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
-
+import { ScrollView } from 'react-native-gesture-handler';
 // custom libraries
 import { Context as ProfileContext } from '../context/ProfileContext';
 import Spacer from '../components/Spacer';
@@ -147,7 +147,7 @@ const AccountScreen = ({ navigation }) => {
       <NavigationEvents
         onWillFocus={getUserInfo}
       />
-      <View>
+      <ScrollView>
         <Card wrapperStyle={styles.accountContainer}>
           <Avatar 
             size="large"
@@ -173,6 +173,13 @@ const AccountScreen = ({ navigation }) => {
                 : t('AccountScreen.locationPlaceholder')}</Text>
               </View>
             </Spacer>
+            <Button
+              type="outline"
+              buttonStyle={{ height: 20 }}
+              titleStyle={{ fontSize: 16, fontWeight: 'bold' }}     
+              title={t('AccountScreen.usersButton')}
+              onPress={onUsersPress}
+            />
           </View>
         </Card>
 
@@ -227,17 +234,7 @@ const AccountScreen = ({ navigation }) => {
           />
           </Spacer>
         </Card>
-
-        <Card>
-          <Button
-            buttonStyle={{ height: 30 }}
-            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}     
-            title={t('AccountScreen.usersButton')}
-            onPress={onUsersPress}
-          />
-        </Card>
-
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

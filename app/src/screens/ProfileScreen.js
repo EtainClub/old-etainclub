@@ -7,6 +7,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
+import { ScrollView } from 'react-native-gesture-handler';
 
 // custom libraries
 import { Context as ProfileContext } from '../context/ProfileContext';
@@ -94,8 +95,8 @@ const ProfileScreen = ({ navigation }) => {
     // show skill edit section 
     if (editSkill) {
       return state.skills.map((skill, id) => 
-        <ItemForm 
-          key={skill.id} 
+        <ItemForm
+          key={id} 
           item={skill.name} 
           id={id}
           placeholder={t('ProfileScreen.skillPlaceholder')} 
@@ -116,7 +117,7 @@ const ProfileScreen = ({ navigation }) => {
         <>
         <Divider style={styles.divider} />
         <FlatList 
-          keyExtractor={skill => skill.id}
+          keyExtractor={this.keyExtractor}
           data={state.skills} 
           renderItem={({ item }) => {
             // do not display it the skillname is empty
@@ -171,7 +172,7 @@ const ProfileScreen = ({ navigation }) => {
       return state.locations.map((location, id) => 
         <LocationForm 
           key={location.id} 
-          item={location.name} 
+          item={location.display} 
           id={id}
           navigation={navigation}
           placeholder={t('ProfileScreen.locationPlaceholder')} 
@@ -192,7 +193,7 @@ const ProfileScreen = ({ navigation }) => {
         <>
         <Divider style={styles.divider} />
         <FlatList 
-          keyExtractor={location => location.id}
+          keyExtractor={this.keyExtractor}
           data={state.locations} 
           renderItem={({ item, index }) => {
             // do not display if the name is empty
@@ -200,7 +201,7 @@ const ProfileScreen = ({ navigation }) => {
             return (
               <View style={styles.itemContainer}>
                 <View style={{ flexDirection: "row", justifyContent: 'flex-start' }}>
-                  <Text style={styles.itemText}>{ item.name }</Text>
+                  <Text style={styles.itemText}>{ item.display }</Text>
                   <Badge value={item.votes} badgeStyle={{ height: 20 }}/>
                 </View>
                 <Icon name='trash-o' size={20} onPress={() => onDeleteLocation(index)} />
@@ -259,7 +260,7 @@ const ProfileScreen = ({ navigation }) => {
     if (editSkill) {
       return (
         <TouchableOpacity onPress={closeSkillEdit}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{t('close')}</Text>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{t('save')}</Text>
         </TouchableOpacity>
       );  
     }
@@ -306,13 +307,13 @@ const ProfileScreen = ({ navigation }) => {
   const onWillFocus = ()=> {
     setEditLocation(false);
   }
-  
+
   return (
     <SafeAreaView>
       <NavigationEvents
         onWillFocus={onWillFocus}
       />
-      <View>
+      <ScrollView>
         <Card>
           <View style={styles.skillContainer}>
               <Icon
@@ -397,7 +398,7 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </Overlay>
 
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
