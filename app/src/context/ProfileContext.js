@@ -124,8 +124,8 @@ const profileReducer = (state, action) => {
 //// actions
 // find nearby users
 const findUsers = dispatch => {
-  return () => {
-    console.log('dispatch find users');
+  return ({ district, userId }) => {
+    console.log('dispatch find users', district, userId);
   }
 };
 

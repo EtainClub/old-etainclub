@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Platform, FlatList, Alert } from 'react-native';
+import { View, StyleSheet, Platform, FlatList, Alert, PermissionsAndroid } from 'react-native';
 import firebase from 'react-native-firebase'; 
 import { Button, Text, ListItem, Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,36 +21,46 @@ const UsersScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const language = i18next.language;
   // use context
-  const { state, updateLocation } = useContext(ProfileContext);
+  const { state, findUsers } = useContext(ProfileContext);
   // use state
-//  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+
+  const INIT_REGION = {
+    latitude: 37.25949,
+    latitudeDelta: 0.01,
+    longitude: 127.046638,
+    longitudeDelta: 0.01
+  };
+
+  const [region, setRegion] = useState(INIT_REGION);
+  const [mapMargin, setMapMargin] = useState(1);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [latitudeDelta, setLatitudeDelta] = useState(0);
+  const [longitudeDelta, setLongitudeDelta] = useState(0);
   const [error, setError] = useState('');
   const [address, setAddress] = useState('');
   // position delta constants
-  const latitudeDelta = 0.01;
-  const longitudeDelta = 0.01;
+//  const latitudeDelta = 0.01;
+//  const longitudeDelta = 0.01;
+
+
 
   // use effect
   useEffect(() => {
-    console.log('LocationScreen');
-    // get current latitude and longitude
+    console.log('UserScreen');
+    // get current location
     const watchId = Geolocation.watchPosition(
       pos => {
-        const lat=37.25949;
-        const long=127.046638;
-//        setLatitude(pos.coords.latitude);
-//        setLongitude(pos.coords.longitude);
-        setLatitude(lat);
-        setLongitude(long);
-
-        console.log('latitude', latitude);
-        console.log('longitude', longitude);
+        const newRegion = {
+          latitude: pos.coords.latitude,
+          latitudeDelta: INIT_REGION.latitudeDelta,
+          longitude: pos.coords.longitude,
+          longitudeDelta: INIT_REGION.longitudeDelta
+        }
+        setRegion(newRegion);
       },
       error => setError(error.message)
     );
-
     // init geocoding
     initGeocoding();
 
@@ -58,10 +68,15 @@ const UsersScreen = ({ navigation }) => {
     return () => Geolocation.clearWatch(watchId);
   }, []);
 
+  // get current latitude and longitude
+  const getCurrentLocation = () => {
+  };
+
   const initGeocoding = () => {
     Geocoder.init(GEOCODING_API_KEY, { language: language }); 
+    console.log('[initGeocoding] region', region);
     // get intial address
-    Geocoder.from(latitude, longitude)
+    Geocoder.from(region.latitude, region.longitude)
       .then(json => {
         const addrComponent = json.results[0].address_components[1];
         console.log('addr json', json);
@@ -71,16 +86,15 @@ const UsersScreen = ({ navigation }) => {
   };
 
   // convert the location to address using geocoding
-  const onRegionChange = (event) => {
-    console.log('on region change event', event);
-    console.log('lat', latitude);
-    console.log('long', longitude);
+  const onRegionChange = (regionEvent) => {
+    // @todo consider use set timer to make updated less
+    console.log('on region change event', regionEvent);
+    setRegion(regionEvent)
   };
 
-  const onRegionChangeComplete = () => {
-    console.log('onRegionChangeComplete');
+  const onRegionChangeComplete = (event) => {
     // get intial address
-    Geocoder.from(latitude, longitude)
+    Geocoder.from(region.latitude, region.longitude)
     .then(json => {
       console.log('[onRegionChangeComplete] json', json);
       const name = json.results[0].address_components[1].short_name;
@@ -99,21 +113,27 @@ const UsersScreen = ({ navigation }) => {
         display: display
       };
       setAddress(addr);
-      // find the users in the same district
+      //// find the users in the same district
+      // get reference to the current user
+      const { currentUser } = firebase.auth();
+      const userId = currentUser.uid;
+      findUsers({ district: addr.district, userId });
     })
     .catch(error => console.warn(error));  
   };
 
   const onMapPress = ({ nativeEvent }) => {
     console.log('map press coordinate', nativeEvent.coordinate);
-    console.log('language', language);
 
     // update lat, long
-    setLatitude(nativeEvent.coordinate.latitude);
-    setLongitude(nativeEvent.coordinate.longitude);
+    const newLat = nativeEvent.coordinate.latitude;
+    const newLong = nativeEvent.coordinate.longitude;
+    setRegion(prevState => {
+      return { ...prevState, latitude: newLat, longitude: newLong }
+    });
 
-    // get intial address
-    Geocoder.from(latitude, longitude)
+    // get address
+    Geocoder.from(newLat, newLong)
     .then(json => {
       const name = json.results[0].address_components[1].short_name;
       const district = json.results[0].address_components[2].short_name;
@@ -134,34 +154,29 @@ const UsersScreen = ({ navigation }) => {
     })
     .catch(error => console.warn(error)); 
   }
-
-  const findUsers = () => {
-
-  }
   
   const showMap = () => {
     if (Platform.OS === 'android') {
       return (
         <View>
           <MapView
-            style={styles.mapContainer}
+            style={{ height: 280, margin: mapMargin }}
             provider={PROVIDER_GOOGLE}
             showsMyLocationButton
             mapType="standard"
             loadingEnabled
             showsUserLocation
-            region={{
-              latitude: latitude,
-              longitude: longitude,
-              latitudeDelta: latitudeDelta,
-              longitudeDelta: longitudeDelta
-            }}
+            initialRegion={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
+            onMapReady={() => PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then(granted => {
+              alert(granted) // just to ensure that permissions were granted
+            })}
           >
             <Marker
-              coordinate={{ latitude, longitude }}
+              coordinate={{ latitude: region.latitude, longitude: region.longitude }}
             />
           </MapView>
           <View style={{ marginTop: 20 }}>
@@ -292,8 +307,8 @@ UsersScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   mapContainer: {
-    height: 250,
-    alignItems: 'center'
+    height: 280,
+    alignItems: 'center',
   },
   buttonContainer: {
     position: 'absolute',
