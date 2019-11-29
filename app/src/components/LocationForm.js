@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, PermissionsAndroid, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 
 const LocationForm = (props) => {
@@ -59,7 +59,7 @@ const LocationForm = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
           rightIcon={
-            <Icon name='search' size={20} color='black' 
+            <Icon name='add-location' size={20} color='black' 
               onPress={onSearchPress} 
             />
           }

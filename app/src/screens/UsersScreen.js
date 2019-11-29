@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Platform, FlatList, Alert, PermissionsAndroid } from 'react-native';
+import { View, StyleSheet, Platform, FlatList, Alert, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase'; 
 import { Button, Text, ListItem, Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -33,17 +33,8 @@ const UsersScreen = ({ navigation }) => {
 
   const [region, setRegion] = useState(INIT_REGION);
   const [mapMargin, setMapMargin] = useState(1);
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
-  const [latitudeDelta, setLatitudeDelta] = useState(0);
-  const [longitudeDelta, setLongitudeDelta] = useState(0);
   const [error, setError] = useState('');
   const [address, setAddress] = useState('');
-  // position delta constants
-//  const latitudeDelta = 0.01;
-//  const longitudeDelta = 0.01;
-
-
 
   // use effect
   useEffect(() => {
@@ -67,10 +58,6 @@ const UsersScreen = ({ navigation }) => {
     // unsubscribe geolocation
     return () => Geolocation.clearWatch(watchId);
   }, []);
-
-  // get current latitude and longitude
-  const getCurrentLocation = () => {
-  };
 
   const initGeocoding = () => {
     Geocoder.init(GEOCODING_API_KEY, { language: language }); 
@@ -113,6 +100,7 @@ const UsersScreen = ({ navigation }) => {
         display: display
       };
       setAddress(addr);
+
       //// find the users in the same district
       // get reference to the current user
       const { currentUser } = firebase.auth();
@@ -160,7 +148,7 @@ const UsersScreen = ({ navigation }) => {
       return (
         <View>
           <MapView
-            style={{ height: 280, margin: mapMargin }}
+            style={{ height: 280, marginBottom: mapMargin }}
             provider={PROVIDER_GOOGLE}
             showsMyLocationButton
             mapType="standard"
@@ -170,14 +158,8 @@ const UsersScreen = ({ navigation }) => {
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
-            onMapReady={() => PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then(granted => {
-              alert(granted) // just to ensure that permissions were granted
-            })}
+            onMapReady={() => setMapMargin(0)}
           >
-            <Marker
-              coordinate={{ latitude: region.latitude, longitude: region.longitude }}
-            />
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
@@ -191,7 +173,7 @@ const UsersScreen = ({ navigation }) => {
       return (
         <View>
           <MapView
-            style={styles.mapContainer}
+            style={{ height: 280, marginBottom: mapMargin }}
             showsMyLocationButton
             mapType="standard"
             loadingEnabled
@@ -205,10 +187,8 @@ const UsersScreen = ({ navigation }) => {
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
+            onMapReady={() => setMapMargin(0)}
           >
-            <Marker
-              coordinate={{ latitude, longitude }}
-            />
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
@@ -291,7 +271,7 @@ const UsersScreen = ({ navigation }) => {
   );
 }
 
-UsersScreen.navigationOptions = () => {
+UsersScreen.navigationOptions = ({ navigation }) => {
   return {
     title: i18next.t('UsersScreen.header'),
     headerStyle: {
@@ -308,7 +288,7 @@ UsersScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   mapContainer: {
     height: 280,
-    alignItems: 'center',
+    marginBottom: 0
   },
   buttonContainer: {
     position: 'absolute',
