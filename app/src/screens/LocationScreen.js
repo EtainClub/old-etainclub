@@ -21,6 +21,7 @@ const LocationScreen = ({ navigation }) => {
   // use context
   const { state, verifyLocation } = useContext(ProfileContext);
   // use state
+  const [mapMargin, setMapMargin] = useState(1);
 //  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -36,8 +37,18 @@ const LocationScreen = ({ navigation }) => {
     // get current latitude and longitude
     const watchId = Geolocation.watchPosition(
       pos => {
-        setLatitude(pos.coords.latitude);
-        setLongitude(pos.coords.longitude);
+//        setLatitude(pos.coords.latitude);
+//        setLongitude(pos.coords.longitude);
+        // @test
+        const INIT_REGION = {
+          latitude: 37.25949,
+          latitudeDelta: 0.01,
+          longitude: 127.046638,
+          longitudeDelta: 0.01
+        };
+        setLatitude(INIT_REGION.latitude);
+        setLongitude(INIT_REGION.longitude);
+
         console.log('latitude', latitude);
         console.log('longitude', longitude);
       },
@@ -156,7 +167,7 @@ const LocationScreen = ({ navigation }) => {
       return (
         <View>
           <MapView
-            style={styles.mapContainer}
+            style={{ height: 280, marginBottom: mapMargin }}
             provider={PROVIDER_GOOGLE}
             showsMyLocationButton
             mapType="standard"
@@ -171,6 +182,7 @@ const LocationScreen = ({ navigation }) => {
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
+            onMapReady={() => setMapMargin(0)}
           >
             <Marker
               coordinate={{ latitude, longitude }}
@@ -193,7 +205,7 @@ const LocationScreen = ({ navigation }) => {
       return (
         <View>
           <MapView
-            style={styles.mapContainer}
+            style={{ height: 280, marginBottom: mapMargin }}
             showsMyLocationButton
             mapType="standard"
             loadingEnabled
@@ -207,6 +219,7 @@ const LocationScreen = ({ navigation }) => {
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
+            onMapReady={() => setMapMargin(0)}
           >
             <Marker
               coordinate={{ latitude, longitude }}

@@ -174,7 +174,8 @@ const signin = dispatch => {
                       avatarUrl: '',
                       askCount: 0,
                       helpCount: 0,
-                      votes: 0
+                      votes: 0,
+                      regions: [],
                     })
                     .then(() => {
                       // create initial profile on firebase

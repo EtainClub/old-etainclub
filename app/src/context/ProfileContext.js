@@ -108,6 +108,8 @@ const profileReducer = (state, action) => {
       };
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
+    case 'update_user_list': 
+      return { ...state, userList: action.payload };
     case 'update_avatar':
       return { ...state, 
         userInfo: { ...state.userInfo, avatarUrl: action.payload }
@@ -124,8 +126,33 @@ const profileReducer = (state, action) => {
 //// actions
 // find nearby users
 const findUsers = dispatch => {
-  return ({ district, userId }) => {
+  return async ({ district, userId }) => {
     console.log('dispatch find users', district, userId);
+    const usersRef = firebase.firestore().collection('users');
+    let userList = [];
+    await usersRef.where('regions', 'array-contains', district).get()
+      .then((snapshot) => {
+        snapshot.forEach(doc => {
+          // @todo exclude the self when searching
+
+          // append the use
+          userList.push({
+            userId: userId,
+            avatar: '',
+            name: doc.data().name,
+            skill: '',
+            got: doc.data().askCount,
+            helped: doc.data().helpCount,
+            votes: doc.data().votes
+          });
+        });
+        console.log('[found] user list', userList );
+        // @todo update the state
+        dispatch({
+          type: 'update_user_list',
+          payload: userList
+        });
+      });
   }
 };
 
@@ -165,6 +192,10 @@ const updateLocation = dispatch => {
       country: address.country,
       display: address.display
     });
+    // update the regions
+    userRef.update({
+      regions: firebase.firestore.FieldValue.arrayUnion(address.district)
+    });
   }
 };
 
@@ -193,6 +224,10 @@ const verifyLocation = dispatch => {
       display: address.display, 
       votes: firebase.firestore.FieldValue.increment(1)
     });
+    // update the regions
+    userRef.update({
+      regions: firebase.firestore.FieldValue.arrayUnion(address.district)
+    });    
   }
 };
 
@@ -232,6 +267,10 @@ const deleteLocation = dispatch => {
       display: '',    
       votes: 0
     });
+    // @todo update the regions too
+    userRef.update({
+      regions: firebase.firestore.FieldValue.arrayRemove(address.district)
+    });    
   }
 }
 
@@ -431,6 +470,7 @@ export const { Provider, Context } = createDataContext(
   { 
     userInfo: {}, 
     skills: INIT_SKILLS, skill: '', locations: INIT_LOCATIONS, location: '', 
+    userList: [],
     needUpdateContract: false, loading: false 
   }
 );

@@ -157,7 +157,6 @@ const UsersScreen = ({ navigation }) => {
             initialRegion={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
-            onPress={e => onMapPress(e)}
             onMapReady={() => setMapMargin(0)}
           >
           </MapView>
@@ -230,7 +229,7 @@ const UsersScreen = ({ navigation }) => {
       title="skill"
       subtitle={
         <View>
-          <Icon name='hand-o-left' size={20} color={'#353535'}/>
+          <Icon name='hand-o-left' size={20} color={'#353535'}/><Text>{item.name}</Text>
           <Icon name='hand-o-right' size={20} color={'#353535'}/>
           <Icon name='thumbs-o-up' size={20} color={'#353535'}/>
           <Icon name="map-marker" size={20} color={'#353535'}/>
@@ -256,7 +255,7 @@ const UsersScreen = ({ navigation }) => {
       <ScrollView style={{ height: 280 }}>
         <FlatList
           keyExtractor={this.keyExtractor}
-          data={userList}
+          data={state.userList}
           renderItem={renderItem}
         />
       </ScrollView>
