@@ -142,9 +142,11 @@ const findUsers = dispatch => {
     .then(async snapshot => {
       snapshot.forEach(async doc => {             
         // exclude the self when searching
-        if (doc.id !== userId) {
+//        if (doc.id !== userId) {
+          if (1) {
           //// get data from subcollection
           // get skill
+          // @todo helpCount, askCount not used. need to count them
           getSkillsLocations({ userId: doc.id })
           .then(userData => {
             console.log('[findUsers] user data', userData);              
@@ -154,8 +156,8 @@ const findUsers = dispatch => {
                 userId: doc.id,
                 avatar: doc.data().avatarUrl,
                 name: doc.data().name,
-                skill: userData.skills[0].name,
-                location: userData.locations[0].name,
+                skills: userData.skills,
+                locations: userData.locations,
                 got: doc.data().askCount,
                 helped: doc.data().helpCount,
                 votes: doc.data().votes  

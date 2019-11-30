@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, StyleSheet, Platform, FlatList, Alert, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase'; 
-import { Button, Text, ListItem, Avatar } from 'react-native-elements';
+import { Button, Text, Card, ListItem, Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -201,6 +201,7 @@ const UsersScreen = ({ navigation }) => {
   };
 
   const renderItem = ({item}) => (
+    <Card containerStyle={{ marginHorizontal: 5, paddingHorizontal: 0, paddingVertical: 0 }}>
     <ListItem
       leftAvatar={
         <View>
@@ -216,7 +217,17 @@ const UsersScreen = ({ navigation }) => {
         <View>
           <View style={{ flexDirection: 'row' }}>
             <Icon name='gift' size={20} color={'#353535'}/>
-            <Text style={{ marginLeft: 6 }}>{item.skill}</Text>
+            <View>
+              {
+                item.skills.map((skill) => {
+                  if (skill.name !== '') {
+                    return (
+                      <Text style={{ marginLeft: 6 }}>{skill.name}</Text>
+                    );
+                  }
+                }) 
+              }
+            </View>
           </View>
 
           <View style={{ flexDirection: 'row' }}>
@@ -231,19 +242,28 @@ const UsersScreen = ({ navigation }) => {
 
           <View style={{ flexDirection: 'row' }}>
             <Icon name='thumbs-o-up' size={20} color={'#353535'}/>
-            <Text style={{ marginLeft: 6 }}>{item.votes}</Text>
+            <Text style={{ marginLeft: 8 }}>{item.votes}</Text>
           </View>
 
           <View style={{ flexDirection: 'row' }}>
             <Icon name='map-marker' size={20} color={'#353535'}/>
-            <Text style={{ marginLeft: 6 }}>{item.location}</Text>
+            <View>
+              {
+                item.locations.map((location) => {
+                  if (location.name !== '') {
+                    return (
+                      <Text style={{ marginLeft: 10 }}>{location.name}</Text>
+                    );
+                  }
+                }) 
+              }
+            </View>
           </View>
 
         </View>
       }      
-      bottomDivider
-      chevron
     />
+    </Card>
   );
 
   const renderUserList = () => {
