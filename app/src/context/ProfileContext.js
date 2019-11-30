@@ -109,6 +109,7 @@ const profileReducer = (state, action) => {
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
     case 'update_user_list': 
+      console.log('[update_user_list]');
       return { ...state, userList: action.payload };
     case 'update_avatar':
       return { ...state, 
@@ -129,31 +130,87 @@ const findUsers = dispatch => {
   return async ({ district, userId }) => {
     console.log('dispatch find users', district, userId);
     const usersRef = firebase.firestore().collection('users');
-    let userList = [];
     await usersRef.where('regions', 'array-contains', district).get()
-      .then((snapshot) => {
-        snapshot.forEach(doc => {
-          // @todo exclude the self when searching
+    .then(async snapshot => {
+      let userList = [];
+      snapshot.forEach(async doc => {
+        console.log('user list1', userList);              
 
-          // append the use
-          userList.push({
-            userId: userId,
-            avatar: '',
-            name: doc.data().name,
-            skill: '',
-            got: doc.data().askCount,
-            helped: doc.data().helpCount,
-            votes: doc.data().votes
+        // exclude the self when searching
+        if (doc.id !== userId) {
+          console.log('user list1-1', userList);              
+          //// get data from subcollection
+          // get skill
+          getSkillsLocations({ userId })
+          .then(userData => {
+            console.log('user data', userData);              
+            // append the user data
+            userList.push({
+              userId: userId,
+              avatar: doc.data().avatarUrl,
+              name: doc.data().name,
+              skill: userData.skills[0].name,
+              location: userData.locations[0].name,
+              got: doc.data().askCount,
+              helped: doc.data().helpCount,
+              votes: doc.data().votes
+            });  
+          })
+          .catch(error => {
+            console.log(error);
           });
-        });
-        console.log('[found] user list', userList );
-        // @todo update the state
-        dispatch({
-          type: 'update_user_list',
-          payload: userList
-        });
+          console.log('user list2', userList );
+        }
       });
+      console.log('[found] user list3', userList );
+      // update the state
+      dispatch({
+        type: 'update_user_list',
+        payload: userList
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
+};
+
+// get skills and locations from db
+const getSkillsLocations = async ({ userId }) => {
+  // user ref
+  const userRef = firebase.firestore().doc(`users/${userId}`);
+  // get skills
+  let skills = [];
+  await userRef.collection('skills').get()
+  .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching docs');
+      return;
+    }  
+    snapshot.forEach(doc => {
+      skills.push(doc.data());
+    });
+  })
+  .catch(error => {
+    console.log('cannot get skill data', error);
+  });  
+  // get locations
+  let locations = [];
+  await userRef.collection('locations').get()
+  .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching docs');
+      return;
+    }  
+    snapshot.forEach(doc => {
+      locations.push(doc.data());
+    });
+  })
+  .catch(error => {
+    console.log('cannot get location data', error);
+  });  
+  const userData = { skills, locations };
+  return userData;
 };
 
 // update skill with id

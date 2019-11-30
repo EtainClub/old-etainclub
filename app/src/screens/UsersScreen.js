@@ -82,7 +82,7 @@ const UsersScreen = ({ navigation }) => {
   const onRegionChangeComplete = (event) => {
     // get intial address
     Geocoder.from(region.latitude, region.longitude)
-    .then(json => {
+    .then(async json => {
       console.log('[onRegionChangeComplete] json', json);
       const name = json.results[0].address_components[1].short_name;
       const district = json.results[0].address_components[2].short_name;
@@ -162,7 +162,7 @@ const UsersScreen = ({ navigation }) => {
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
+              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('location')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
           </View>
@@ -191,7 +191,7 @@ const UsersScreen = ({ navigation }) => {
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-              <Text style={{ fontSize: 20 }}>{t('LocationScreen.currentAddress')}</Text>
+              <Text style={{ fontSize: 20 }}>{t('location')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
           </View>
@@ -199,52 +199,48 @@ const UsersScreen = ({ navigation }) => {
       );
     }
   };
-  
-  const userList = [
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-      subtitle: 'Vice Chairman'
-    },
-  ];
-
 
   const renderItem = ({item}) => (
     <ListItem
-      title="skill"
-      subtitle={
-        <View>
-          <Icon name='hand-o-left' size={20} color={'#353535'}/><Text>{item.name}</Text>
-          <Icon name='hand-o-right' size={20} color={'#353535'}/>
-          <Icon name='thumbs-o-up' size={20} color={'#353535'}/>
-          <Icon name="map-marker" size={20} color={'#353535'}/>
-        </View>
-      }      
       leftAvatar={
         <View>
           <Avatar size="large" rounded
             source={{
-              uri: state.userInfo.avatarUrl,
+              uri: item.avatar,
             }} 
           />
-          <Text>username</Text>
+          <Text style={{ textAlign: 'center' }}>{item.name}</Text>
         </View>
       }
+      title={
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='gift' size={20} color={'#353535'}/>
+            <Text style={{ marginLeft: 6 }}>{item.name}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='hand-o-left' size={20} color={'#353535'}/>
+            <Text style={{ marginLeft: 6 }}>{item.got}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='hand-o-right' size={20} color={'#353535'}/>
+            <Text style={{ marginLeft: 6 }}>{item.helped}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='thumbs-o-up' size={20} color={'#353535'}/>
+            <Text style={{ marginLeft: 6 }}>{item.votes}</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='map-marker' size={20} color={'#353535'}/>
+            <Text style={{ marginLeft: 6 }}>{item.name}</Text>
+          </View>
+
+        </View>
+      }      
       bottomDivider
       chevron
     />
