@@ -121,6 +121,12 @@
       "permissionFail": "Permission denied",
       "permissionFailText": "Location permission is needed to verify the location",
     },
+    "UsersScreen": {
+      "header": "Neighbor Helpus",
+      "location": "Region: ",
+      "permissionFail": "Permission denied",
+      "permissionFailText": "Location permission is needed to verify the location",
+    },
     "ChatScreen": {
       "header": "Chat",
       "pickerTitle": "Choose a photo to send",

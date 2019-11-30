@@ -162,7 +162,7 @@ const UsersScreen = ({ navigation }) => {
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('location')}</Text>
+              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('UsersScreen.location')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
           </View>
@@ -191,7 +191,7 @@ const UsersScreen = ({ navigation }) => {
           </MapView>
           <View style={{ marginTop: 20 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-              <Text style={{ fontSize: 20 }}>{t('location')}</Text>
+              <Text style={{ fontSize: 20 }}>{t('UsersScreen.location')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
           </View>
@@ -216,7 +216,7 @@ const UsersScreen = ({ navigation }) => {
         <View>
           <View style={{ flexDirection: 'row' }}>
             <Icon name='gift' size={20} color={'#353535'}/>
-            <Text style={{ marginLeft: 6 }}>{item.name}</Text>
+            <Text style={{ marginLeft: 6 }}>{item.skill}</Text>
           </View>
 
           <View style={{ flexDirection: 'row' }}>
@@ -236,7 +236,7 @@ const UsersScreen = ({ navigation }) => {
 
           <View style={{ flexDirection: 'row' }}>
             <Icon name='map-marker' size={20} color={'#353535'}/>
-            <Text style={{ marginLeft: 6 }}>{item.name}</Text>
+            <Text style={{ marginLeft: 6 }}>{item.location}</Text>
           </View>
 
         </View>

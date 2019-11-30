@@ -109,8 +109,10 @@ const profileReducer = (state, action) => {
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
     case 'update_user_list': 
-      console.log('[update_user_list]');
-      return { ...state, userList: action.payload };
+      console.log('[update_user_list] payload', action.payload);
+      return { ...state, 
+        userList: [...state.userList, action.payload ] 
+      };
     case 'update_avatar':
       return { ...state, 
         userInfo: { ...state.userInfo, avatarUrl: action.payload }
@@ -132,41 +134,34 @@ const findUsers = dispatch => {
     const usersRef = firebase.firestore().collection('users');
     await usersRef.where('regions', 'array-contains', district).get()
     .then(async snapshot => {
-      let userList = [];
-      snapshot.forEach(async doc => {
-        console.log('user list1', userList);              
-
+      snapshot.forEach(async doc => {             
         // exclude the self when searching
-        if (doc.id !== userId) {
-          console.log('user list1-1', userList);              
+        // @test
+        if (1) {
+        //        if (doc.id !== userId) {
           //// get data from subcollection
           // get skill
-          getSkillsLocations({ userId })
+          getSkillsLocations({ userId: doc.id })
           .then(userData => {
-            console.log('user data', userData);              
-            // append the user data
-            userList.push({
-              userId: userId,
-              avatar: doc.data().avatarUrl,
-              name: doc.data().name,
-              skill: userData.skills[0].name,
-              location: userData.locations[0].name,
-              got: doc.data().askCount,
-              helped: doc.data().helpCount,
-              votes: doc.data().votes
-            });  
+            console.log('[findUsers] user data', userData);              
+            dispatch({
+              type: 'update_user_list',
+              payload: {
+                userId: doc.id,
+                avatar: doc.data().avatarUrl,
+                name: doc.data().name,
+                skill: userData.skills[0].name,
+                location: userData.locations[0].name,
+                got: doc.data().askCount,
+                helped: doc.data().helpCount,
+                votes: doc.data().votes  
+              }
+            });
           })
           .catch(error => {
             console.log(error);
           });
-          console.log('user list2', userList );
         }
-      });
-      console.log('[found] user list3', userList );
-      // update the state
-      dispatch({
-        type: 'update_user_list',
-        payload: userList
       });
     })
     .catch(error => {
@@ -179,6 +174,7 @@ const findUsers = dispatch => {
 const getSkillsLocations = async ({ userId }) => {
   // user ref
   const userRef = firebase.firestore().doc(`users/${userId}`);
+
   // get skills
   let skills = [];
   await userRef.collection('skills').get()
@@ -186,7 +182,8 @@ const getSkillsLocations = async ({ userId }) => {
     if (snapshot.empty) {
       console.log('No matching docs');
       return;
-    }  
+    }
+    console.log('[getSkillsLocations] got skills', snapshot);  
     snapshot.forEach(doc => {
       skills.push(doc.data());
     });
@@ -194,6 +191,7 @@ const getSkillsLocations = async ({ userId }) => {
   .catch(error => {
     console.log('cannot get skill data', error);
   });  
+
   // get locations
   let locations = [];
   await userRef.collection('locations').get()
@@ -202,14 +200,18 @@ const getSkillsLocations = async ({ userId }) => {
       console.log('No matching docs');
       return;
     }  
+    console.log('[getSkillsLocations] got locations', snapshot);  
     snapshot.forEach(doc => {
       locations.push(doc.data());
     });
   })
   .catch(error => {
     console.log('cannot get location data', error);
-  });  
+  }); 
+  
   const userData = { skills, locations };
+  console.log('[getSkillsLocations] userData', userData);
+
   return userData;
 };
 
