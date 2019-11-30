@@ -108,6 +108,8 @@ const profileReducer = (state, action) => {
       };
     case 'update_user_state':
       return { ...state, userInfo: action.payload };
+    case 'delete_user_list':
+      return { ...state, userList: [] }
     case 'update_user_list': 
       console.log('[update_user_list] payload', action.payload);
       return { ...state, 
@@ -131,14 +133,16 @@ const profileReducer = (state, action) => {
 const findUsers = dispatch => {
   return async ({ district, userId }) => {
     console.log('dispatch find users', district, userId);
+    // delete userlist
+    dispatch({
+      type: 'delete_user_list',
+    });
     const usersRef = firebase.firestore().collection('users');
     await usersRef.where('regions', 'array-contains', district).get()
     .then(async snapshot => {
       snapshot.forEach(async doc => {             
         // exclude the self when searching
-        // @test
-        if (1) {
-        //        if (doc.id !== userId) {
+        if (doc.id !== userId) {
           //// get data from subcollection
           // get skill
           getSkillsLocations({ userId: doc.id })
