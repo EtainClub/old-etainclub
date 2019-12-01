@@ -26,7 +26,6 @@ const ChatScreen = ({navigation}) => {
 
   
   // get params
-  const chatUserId = navigation.getParam('chatUserId');
   const caseId = navigation.getParam('caseId');
 
   // get reference to the message list
@@ -35,20 +34,6 @@ const ChatScreen = ({navigation}) => {
   // get reference to the current user
   const { currentUser } = firebase.auth();
   const userId = currentUser.uid;
-
-  const sample_messages = [
-    {
-      _id: 1,
-      text: "",
-      createdAt: new Date(),
-      user: {
-        _id: chatUserId,
-        name: 'React Native',
-        avatar: 'https://cdn.steemitimages.com/DQmeT9tc2mTVcjnf213RF7uBVXWkFiKBo9Y51KYxLWmBUi8/etainclub_profile.png',
-      },
-      image: 'https://firebasestorage.googleapis.com/v0/b/etainclub-dapp.appspot.com/o/chats%2F01c426dc-33f0-479a-8429-67f38b8cfddb.jpg?alt=media&token=9d37cb47-00bd-4d43-9d16-ea1a774d8403'
-    },
-  ];
 
   let unsubscribe;
 

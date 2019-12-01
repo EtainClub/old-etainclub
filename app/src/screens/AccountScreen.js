@@ -3,7 +3,6 @@ import { View, StyleSheet, PermissionsAndroid, Alert, TouchableOpacity } from 'r
 import { Button, Text, Card, Avatar, Divider } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase'; 
@@ -102,6 +101,13 @@ const AccountScreen = ({ navigation }) => {
       console.log('cannot query help cases', error);
     });    
     let counts = { askCount, helpCount };
+
+    //// update the db
+    // user ref
+    const userRef = firebase.firestore().doc(`users/${userId}`);
+    // update
+    userRef.update({ askCount, helpCount });
+
     return counts;
   }
 

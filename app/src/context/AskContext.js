@@ -219,31 +219,6 @@ const removeCase = async ({ caseId }) => {
   });
 }
 
-const countAskCases = async ({userId}) => {
-  // reference to cases
-  const casesRef = firebase.firestore().collection('cases');
-  // query
-  let askCount = 0;
-  await casesRef.where('senderId', '==', userId).get()
-  .then(snapshot => {
-    if (snapshot.empty) {
-      console.log('No matching docs');
-      return;
-    }
-    // count but ignore not accepted case
-    snapshot.forEach(doc => {
-      if (doc.accepted) {
-        askCount++;
-      }
-    });
-    console.log('[AskContext] askCount', askCount);
-  })
-  .catch(error => {
-    console.log('cannot query ask cases', error);
-  });
-  return askCount;
-};
-
 // monitor acceptance
 const monitorAcceptance = dispatch => {
   return async ({ caseId, userId, navigation }) => {
@@ -251,7 +226,7 @@ const monitorAcceptance = dispatch => {
     const caseRef = firebase.firestore().collection('cases').doc(`${caseId}`);
     console.log('case data', caseRef.get());
     // set listener and unsubcribe when it is done
-    const unsubscribe = await caseRef
+    const unsubscribe = caseRef
       .onSnapshot(async (docSnapshot) => {
         console.log('doc snapshot', docSnapshot);
         console.log('[monitorAcceptance] doc snapshot data', docSnapshot.data());
@@ -265,17 +240,8 @@ const monitorAcceptance = dispatch => {
           console.log('request accepted');
           // update state
           dispatch({ type: 'request_accepted' });
-         
-          // count ask cases
-          countAskCases({userId})
-            .then(askCount => {
-              const userRef = firebase.firestore().doc(`users/${userId}`);
-              // update the ask count of the current user
-              userRef.update({askCount});
-            });
-
           // navigate to chat screen with param of user as client
-          navigation.navigate('Chatting', {chatUserId: 1, caseId, helperId: docSnapshot.data().helperId});
+          navigation.navigate('Chatting', { caseId, helperId: docSnapshot.data().helperId });
           // unsubscribe
           unsubscribe();
         }
