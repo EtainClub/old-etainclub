@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
+import Geocoder2 from 'react-native-geocoding';
 import { GEOCODING_API_KEY } from 'react-native-dotenv';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -21,8 +22,9 @@ const UsersScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const language = i18next.language;
   // use context
-  const { state, findUsers } = useContext(ProfileContext);
+  const { state, findUsers, findUsersDifferentLanguage } = useContext(ProfileContext);
   // use state
+  const [multipleLang, setMutipleLang] = useState(true);
 
   const INIT_REGION = {
     latitude: 37.25949,
@@ -54,16 +56,32 @@ const UsersScreen = ({ navigation }) => {
     );
     // init geocoding
     initGeocoding();
-
+    // 
+    if (multipleLang) {
+      initGeocoding2();
+    }
     // unsubscribe geolocation
     return () => Geolocation.clearWatch(watchId);
   }, []);
 
   const initGeocoding = () => {
-    Geocoder.init(GEOCODING_API_KEY, { language: language }); 
+    Geocoder.init(GEOCODING_API_KEY, { language: 'en' }); 
     console.log('[initGeocoding] region', region);
     // get intial address
     Geocoder.from(region.latitude, region.longitude)
+      .then(json => {
+        const addrComponent = json.results[0].address_components[1];
+        console.log('addr json', json);
+        console.log('addr', addrComponent);
+      })
+      .catch(error => console.warn(error));
+  };
+
+  const initGeocoding2 = () => {
+    Geocoder2.init(GEOCODING_API_KEY, { language: 'ko' }); 
+    console.log('[initGeocoding2] region', region);
+    // get intial address
+    Geocoder2.from(region.latitude, region.longitude)
       .then(json => {
         const addrComponent = json.results[0].address_components[1];
         console.log('addr json', json);
@@ -106,6 +124,33 @@ const UsersScreen = ({ navigation }) => {
       const { currentUser } = firebase.auth();
       const userId = currentUser.uid;
       findUsers({ district: addr.district, userId });
+      
+      // @todo make an option to find users using different language
+      // @todo convert local language to english or korean to find users
+      // one possible solution: create another geocoder with different language and find users
+      if (multipleLang) {
+        Geocoder2.from(region.latitude, region.longitude)
+        .then(async json => {
+          console.log('[onRegionChangeComplete2] json', json);
+          const name = json.results[0].address_components[1].short_name;
+          const district = json.results[0].address_components[2].short_name;
+          const city = json.results[0].address_components[3].short_name;
+          const state = json.results[0].address_components[4].short_name;
+          const country = json.results[0].address_components[5].short_name;
+          // for address display
+          let display = district;
+          const addr = {
+            name: name,
+            district: district,
+            city: city,
+            state: state,
+            country: country,
+            display: display
+          };
+          findUsersDifferentLanguage({ district: addr.district, userId });
+        })
+        .catch(error => console.warn(error));
+      } // end of multipleLang
     })
     .catch(error => console.warn(error));  
   };

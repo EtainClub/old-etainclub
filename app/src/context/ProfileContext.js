@@ -138,18 +138,65 @@ const findUsers = dispatch => {
       type: 'delete_user_list',
     });
     const usersRef = firebase.firestore().collection('users');
+    // @todo consider the multi languages. need to find both en and ko regions
+    // react-native-firebase v5 does not support array-contains-any
     await usersRef.where('regions', 'array-contains', district).get()
     .then(async snapshot => {
       snapshot.forEach(async doc => {             
         // exclude the self when searching
 //        if (doc.id !== userId) {
+          // @test
           if (1) {
           //// get data from subcollection
           // get skill
-          // @todo helpCount, askCount not used. need to count them
           getSkillsLocations({ userId: doc.id })
           .then(userData => {
             console.log('[findUsers] user data', userData);              
+            dispatch({
+              type: 'update_user_list',
+              payload: {
+                userId: doc.id,
+                avatar: doc.data().avatarUrl,
+                name: doc.data().name,
+                skills: userData.skills,
+                locations: userData.locations,
+                got: doc.data().askCount,
+                helped: doc.data().helpCount,
+                votes: doc.data().votes  
+              }
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        }
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+};
+
+// find nearby users using different language
+const findUsersDifferentLanguage = dispatch => {
+  return async ({ district, userId }) => {
+    console.log('dispatch find users using different language', district, userId);
+    const usersRef = firebase.firestore().collection('users');
+    // @todo consider the multi languages. need to find both en and ko regions
+    // react-native-firebase v5 does not support array-contains-any
+    await usersRef.where('regions', 'array-contains', district).get()
+    .then(async snapshot => {
+      snapshot.forEach(async doc => {             
+        // exclude the self when searching
+//        if (doc.id !== userId) {
+          // @test
+          if (1) {
+          //// get data from subcollection
+          // get skill
+          getSkillsLocations({ userId: doc.id })
+          .then(userData => {
+            console.log('[findUsersDifferentLanguage] user data', userData);              
             dispatch({
               type: 'update_user_list',
               payload: {
@@ -247,7 +294,6 @@ const updateLocation = dispatch => {
 
     // update location on db
     // @todo for location, use number of verification instead of votes.
-    // @todo whenever a user verifies the location, increase the vote count
     const userRef = firebase.firestore().doc(`users/${userId}`);
     userRef.collection('locations').doc(`${id}`).update({
       name: address.name,
@@ -539,7 +585,7 @@ export const { Provider, Context } = createDataContext(
     updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, verifyLocation, updateProfileInfo,
     updateSkills, updateSkillsDB, updateLocations, deleteLocation,
-    findUsers
+    findUsers, findUsersDifferentLanguage
   },
   { 
     userInfo: {}, 
