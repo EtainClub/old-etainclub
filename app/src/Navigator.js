@@ -1,11 +1,12 @@
 import React from 'react';
+//import i18next from './i18n';
 import i18next from 'i18next';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
-
+import AsyncStorage from '@react-native-community/async-storage';
 // import custom libraries
 import ResolveAuthScreen from './screens/ResolveAuthScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -21,6 +22,14 @@ import ChatScreen from './screens/ChatScreen';
 import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
 import UsersScreen from './screens/UsersScreen';
+
+//const preferredLang = AsyncStorage.getItem('language');
+
+//i18next.changeLanguage('ko');
+//let preferredLang = AsyncStorage.getItem('language');
+const language = i18next.language;
+console.log('[navigator] lang', language);
+//console.log('[navigator] preferred lang', preferredLang );
 
 const askFlow = createStackNavigator(
   {
@@ -77,6 +86,9 @@ const settingFlow = createStackNavigator(
   },
   {headerLayoutPreset: 'center'},
 );
+settingFlow.navigationOptions = {
+  tabBarLabel: i18next.t('settingTab'),
+};
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,

@@ -76,7 +76,7 @@ const getAppStatus = dispatch => {
 
 // ask help
 const requestHelp = dispatch => {
-  console.log('requestHelp');
+  console.log('[requestHelp]');
   return async ({message, navigation}) => {
     // do not request if the message is empty
     if (message === '') {
@@ -87,6 +87,8 @@ const requestHelp = dispatch => {
     dispatch({
       type: 'set_loading',
     });
+
+    console.log('[requestHelp] before sending message');
 
     // initial request message becomes the first all the time
     sendMessage({dispatch, message, navigation});

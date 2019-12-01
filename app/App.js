@@ -8,30 +8,30 @@
 
  // issue with gesture??
 import 'react-native-gesture-handler'
- // react, react-native
-import React, {useEffect} from 'react';
-import {YellowBox, Alert} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import firebase from 'react-native-firebase';
 // this is necessary even though it does not use directly
 import i18n from './src/i18n';
-import {useTranslation} from 'react-i18next';
+// react, react-native
+import React, { useEffect } from 'react';
+import { YellowBox, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'react-native-firebase';
+import { useTranslation } from 'react-i18next';
 // contexts
-import {Provider as AuthProvider} from './src/context/AuthContext';
-import {Provider as AskProvider} from './src/context/AskContext';
-import {Provider as HelpProvider} from './src/context/HelpContext';
-import {Provider as ProfileProvider} from './src/context/ProfileContext';
-import {Provider as ChatProvider} from './src/context/ChatContext';
+import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Provider as AskProvider } from './src/context/AskContext';
+import { Provider as HelpProvider } from './src/context/HelpContext';
+import { Provider as ProfileProvider } from './src/context/ProfileContext';
+import { Provider as ChatProvider } from './src/context/ChatContext';
 import Navigator from './src/Navigator';
 import NavigationService from './src/NavigationService';
 YellowBox.ignoreWarnings(['Require cycle']);
 
-const AppContainer = Navigator;
-
 export default () => {
 
   // setup language
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+
+  const AppContainer = Navigator;
 
   // use effect
   useEffect(() => {

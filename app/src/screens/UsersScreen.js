@@ -201,7 +201,7 @@ const UsersScreen = ({ navigation }) => {
   };
 
   const renderItem = ({item}) => (
-    <Card containerStyle={{ marginHorizontal: 5, paddingHorizontal: 0, paddingVertical: 0 }}>
+    <Card containerStyle={{ marginHorizontal: 10, paddingHorizontal: 0, paddingVertical: 0 }}>
     <ListItem
       leftAvatar={
         <View>

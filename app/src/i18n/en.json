@@ -16,6 +16,7 @@
     "askTab": "Help",
     "chatTab": "Chats",
     "userTab": "User",
+    "settingTab": "Settings",
     "korean": "한글",
     "english": "English",
     "AppScreen": {
@@ -58,9 +59,11 @@
       "helpCases": "Helped Cases",
       "locationPlaceholder": "Update location",      
       "votes": "Votes",
+      "usersButton": "Look around helpus"
     },
     "AskScreen": {
       "header": "helpus",
+      "button": "Help",
       "guideText": "Type what you need",
       "placeholder": "e.g. My computer does not boot up. Help!!!",
     },
