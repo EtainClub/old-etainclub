@@ -323,19 +323,28 @@ const deleteLocation = dispatch => {
 
     // delete the doc of given id
     const userRef = firebase.firestore().doc(`users/${userId}`);
-    userRef.collection('locations').doc(`${id}`).update({
-      name: '',
-      district: '',
-      city: '',
-      state: '',
-      country: '',  
-      display: '',    
-      votes: 0
+    // get the district
+    userRef.collection('locations').doc(`${id}`).get()
+    .then(snapshot => {
+      console.log('delete location snapshot data', snapshot.data());
+      const district = snapshot.data().district;
+      userRef.collection('locations').doc(`${id}`).update({
+        name: '',
+        district: '',
+        city: '',
+        state: '',
+        country: '',  
+        display: '',    
+        votes: 0
+      });
+      // update the regions too
+      userRef.update({
+        regions: firebase.firestore.FieldValue.arrayRemove(district)
+      });  
+    })
+    .catch(error => {
+      console.log(error);
     });
-    // @todo update the regions too
-    userRef.update({
-      regions: firebase.firestore.FieldValue.arrayRemove(address.district)
-    });    
   }
 }
 
