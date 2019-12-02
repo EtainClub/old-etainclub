@@ -129,6 +129,8 @@
       "location": "지역: ",
       "permissionFail": "허가 획득 실패",
       "permissionFailText": "동네 인증을 하려면 위치 허가가 필요합니다.",
+      "noresult": "검색 결과 없음",
+      "multiLang": "다른 언어 포함",
     },
     "ChatScreen": {
       "header": "채팅",

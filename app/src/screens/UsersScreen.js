@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, StyleSheet, Platform, FlatList, Alert, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase'; 
-import { Button, Text, Card, ListItem, Avatar } from 'react-native-elements';
+import { Button, Text, Card, ListItem, Avatar, CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
-import Geocoder2 from 'react-native-geocoding';
 import { GEOCODING_API_KEY } from 'react-native-dotenv';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -24,7 +23,6 @@ const UsersScreen = ({ navigation }) => {
   // use context
   const { state, findUsers, findUsersDifferentLanguage } = useContext(ProfileContext);
   // use state
-  const [multipleLang, setMutipleLang] = useState(true);
 
   const INIT_REGION = {
     latitude: 37.25949,
@@ -37,6 +35,7 @@ const UsersScreen = ({ navigation }) => {
   const [mapMargin, setMapMargin] = useState(1);
   const [error, setError] = useState('');
   const [address, setAddress] = useState('');
+  const [multiLang, setMultiLang] = useState(false);
 
   // use effect
   useEffect(() => {
@@ -56,32 +55,21 @@ const UsersScreen = ({ navigation }) => {
     );
     // init geocoding
     initGeocoding();
-    // 
-    if (multipleLang) {
-      initGeocoding2();
-    }
+
     // unsubscribe geolocation
     return () => Geolocation.clearWatch(watchId);
   }, []);
 
+  useEffect(() => {
+    console.log('[useEffect] multi Language?', multiLang);
+    onRegionChangeComplete();
+  }, [multiLang]);
+
   const initGeocoding = () => {
-    Geocoder.init(GEOCODING_API_KEY, { language: 'en' }); 
+    Geocoder.init(GEOCODING_API_KEY, { language }); 
     console.log('[initGeocoding] region', region);
     // get intial address
     Geocoder.from(region.latitude, region.longitude)
-      .then(json => {
-        const addrComponent = json.results[0].address_components[1];
-        console.log('addr json', json);
-        console.log('addr', addrComponent);
-      })
-      .catch(error => console.warn(error));
-  };
-
-  const initGeocoding2 = () => {
-    Geocoder2.init(GEOCODING_API_KEY, { language: 'ko' }); 
-    console.log('[initGeocoding2] region', region);
-    // get intial address
-    Geocoder2.from(region.latitude, region.longitude)
       .then(json => {
         const addrComponent = json.results[0].address_components[1];
         console.log('addr json', json);
@@ -98,6 +86,7 @@ const UsersScreen = ({ navigation }) => {
   };
 
   const onRegionChangeComplete = (event) => {
+    console.log('multi Language?', multiLang);
     // get intial address
     Geocoder.from(region.latitude, region.longitude)
     .then(async json => {
@@ -123,33 +112,49 @@ const UsersScreen = ({ navigation }) => {
       // get reference to the current user
       const { currentUser } = firebase.auth();
       const userId = currentUser.uid;
-      findUsers({ district: addr.district, userId });
+      findUsers({ district: addr.district, userId, multiLang: false });
       
-      // @todo make an option to find users using different language
       // @todo convert local language to english or korean to find users
       // one possible solution: create another geocoder with different language and find users
-      if (multipleLang) {
-        Geocoder2.from(region.latitude, region.longitude)
-        .then(async json => {
-          console.log('[onRegionChangeComplete2] json', json);
-          const name = json.results[0].address_components[1].short_name;
-          const district = json.results[0].address_components[2].short_name;
-          const city = json.results[0].address_components[3].short_name;
-          const state = json.results[0].address_components[4].short_name;
-          const country = json.results[0].address_components[5].short_name;
-          // for address display
-          let display = district;
-          const addr = {
-            name: name,
-            district: district,
-            city: city,
-            state: state,
-            country: country,
-            display: display
+      if (multiLang) {
+        let otherLang = 'en';
+        switch (language) {
+          case 'ko':
+            otherLang = 'en';
+            break;
+          case 'en':
+            otherLang = 'ko';
+          default:
+            break;
+        }
+        const queryParams = `latlng=${region.latitude},${region.longitude}&language=${otherLang}&key=${GEOCODING_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?${queryParams}`;
+        let response, data;
+        try {
+          response = await fetch(url);
+          console.log('geocoding fetching response', response);
+        } catch(error) {
+          throw {
+            code: Geocoder.Errors.FETCHING,
+            message: "Error while fetching. Check your network",
+            origin: error
           };
-          findUsersDifferentLanguage({ district: addr.district, userId });
-        })
-        .catch(error => console.warn(error));
+        }
+        // parse data
+        try {
+          data = await response.json();
+          console.log('geocoding data', data);
+        } catch(error) {
+          throw {
+            code: Geocoder.Errors.PARSING,
+            message : "Error while parsing response's body into JSON. The response is in the error's 'origin' field. Try to parse it yourself.",
+				    origin : response,
+          };
+        }
+        if (data.status === 'OK') {
+          const district = data.results[0].address_components[2].short_name;
+          findUsers({ district: district, userId, multiLang: true });
+        }
       } // end of multipleLang
     })
     .catch(error => console.warn(error));  
@@ -205,10 +210,22 @@ const UsersScreen = ({ navigation }) => {
             onMapReady={() => setMapMargin(0)}
           >
           </MapView>
-          <View style={{ marginTop: 20 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
-              <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('UsersScreen.location')}</Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
+          <View style={{ marginVertical: 10 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('UsersScreen.location')}</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
+              </View>
+                <CheckBox
+                  containerStyle={{ marginLeft: 'auto', marginVertical: 0, paddingVertical: 0, 
+                    backgroundColor: 'white', borderWidth: 0 }}
+                  title={t('UsersScreen.multiLang')}
+                  textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+                  iconRight
+                  size={20}
+                  checked={multiLang}
+                  onPress={() => { setMultiLang(!multiLang) }}
+                />
             </View>
           </View>
         </View>  
@@ -234,8 +251,8 @@ const UsersScreen = ({ navigation }) => {
             onMapReady={() => setMapMargin(0)}
           >
           </MapView>
-          <View style={{ marginTop: 20 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 20 }}>
+          <View style={{ marginVertical: 10 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
               <Text style={{ fontSize: 20 }}>{t('UsersScreen.location')}</Text>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
             </View>
@@ -246,7 +263,7 @@ const UsersScreen = ({ navigation }) => {
   };
 
   const renderItem = ({item}) => (
-    <Card containerStyle={{ marginHorizontal: 10, paddingHorizontal: 0, paddingVertical: 0 }}>
+    <Card containerStyle={{ marginHorizontal: 15, paddingHorizontal: 0, paddingVertical: 0 }}>
     <ListItem
       leftAvatar={
         <View>
@@ -312,8 +329,15 @@ const UsersScreen = ({ navigation }) => {
   );
 
   const renderUserList = () => {
+    if (state.userList.length == 0) {
+      return ( 
+        <View style={{ marginTop: 50 }}>
+          <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>{t('UsersScreen.noresult')}</Text>
+        </View>
+      );
+    }
     return (
-      <ScrollView style={{ height: 280 }}>
+      <ScrollView style={{ height: 280, backgroundColor: 'lightgrey' }}>
         <FlatList
           keyExtractor={this.keyExtractor}
           data={state.userList}

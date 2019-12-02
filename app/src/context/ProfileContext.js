@@ -131,12 +131,15 @@ const profileReducer = (state, action) => {
 //// actions
 // find nearby users
 const findUsers = dispatch => {
-  return async ({ district, userId }) => {
+  return async ({ district, userId, multiLang }) => {
     console.log('dispatch find users', district, userId);
-    // delete userlist
-    dispatch({
-      type: 'delete_user_list',
-    });
+    if (!multiLang) {
+      // delete userlist
+      dispatch({
+        type: 'delete_user_list',
+      });
+    }
+    
     const usersRef = firebase.firestore().collection('users');
     // @todo consider the multi languages. need to find both en and ko regions
     // react-native-firebase v5 does not support array-contains-any
@@ -144,9 +147,7 @@ const findUsers = dispatch => {
     .then(async snapshot => {
       snapshot.forEach(async doc => {             
         // exclude the self when searching
-//        if (doc.id !== userId) {
-          // @test
-          if (1) {
+        if (doc.id !== userId) {
           //// get data from subcollection
           // get skill
           getSkillsLocations({ userId: doc.id })
@@ -189,9 +190,7 @@ const findUsersDifferentLanguage = dispatch => {
     .then(async snapshot => {
       snapshot.forEach(async doc => {             
         // exclude the self when searching
-//        if (doc.id !== userId) {
-          // @test
-          if (1) {
+        if (doc.id !== userId) {
           //// get data from subcollection
           // get skill
           getSkillsLocations({ userId: doc.id })

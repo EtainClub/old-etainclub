@@ -129,6 +129,8 @@
       "location": "Region: ",
       "permissionFail": "Permission denied",
       "permissionFailText": "Location permission is needed to verify the location",
+      "noresult": "No Results",
+      "multiLang": "include other languages",
     },
     "ChatScreen": {
       "header": "Chat",
