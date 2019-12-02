@@ -213,14 +213,14 @@ const UsersScreen = ({ navigation }) => {
           <View style={{ marginVertical: 10 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-                <Text style={{ paddingLeft: 5, fontSize: 20 }}>{t('UsersScreen.location')}</Text>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
+                <Text style={{ paddingLeft: 5, fontSize: 16 }}>{t('UsersScreen.location')}</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{address.display}</Text>
               </View>
                 <CheckBox
                   containerStyle={{ marginLeft: 'auto', marginVertical: 0, paddingVertical: 0, 
                     backgroundColor: 'white', borderWidth: 0 }}
                   title={t('UsersScreen.multiLang')}
-                  textStyle={{ fontSize: 16, fontWeight: 'bold' }}
+                  textStyle={{ fontSize: 14, fontWeight: 'bold' }}
                   iconRight
                   size={20}
                   checked={multiLang}
@@ -252,9 +252,21 @@ const UsersScreen = ({ navigation }) => {
           >
           </MapView>
           <View style={{ marginVertical: 10 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-              <Text style={{ fontSize: 20 }}>{t('UsersScreen.location')}</Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address.display}</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                <Text style={{ paddingLeft: 5, fontSize: 16 }}>{t('UsersScreen.location')}</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{address.display}</Text>
+              </View>
+                <CheckBox
+                  containerStyle={{ marginLeft: 'auto', marginVertical: 0, paddingVertical: 0, 
+                    backgroundColor: 'white', borderWidth: 0 }}
+                  title={t('UsersScreen.multiLang')}
+                  textStyle={{ fontSize: 14, fontWeight: 'bold' }}
+                  iconRight
+                  size={20}
+                  checked={multiLang}
+                  onPress={() => { setMultiLang(!multiLang) }}
+                />
             </View>
           </View>
         </View>
@@ -321,7 +333,6 @@ const UsersScreen = ({ navigation }) => {
               }
             </View>
           </View>
-
         </View>
       }      
     />
@@ -337,13 +348,15 @@ const UsersScreen = ({ navigation }) => {
       );
     }
     return (
-      <ScrollView style={{ height: 280, backgroundColor: 'lightgrey' }}>
-        <FlatList
-          keyExtractor={this.keyExtractor}
-          data={state.userList}
-          renderItem={renderItem}
-        />
-      </ScrollView>
+      <View style={{ height: 300, backgroundColor: 'lightgrey' }}>
+        <ScrollView>
+          <FlatList
+            keyExtractor={this.keyExtractor}
+            data={state.userList}
+            renderItem={renderItem}
+          />
+        </ScrollView>
+      </View>
     );
   };
 
