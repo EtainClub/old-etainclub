@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, StyleSheet, Platform, FlatList, Alert, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, FlatList, Alert } from 'react-native';
+import { NavigationEvents, SafeAreaView } from 'react-navigation';
 import firebase from 'react-native-firebase'; 
 import { Button, Text, Card, ListItem, Avatar, CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -206,7 +207,7 @@ const UsersScreen = ({ navigation }) => {
             mapType="standard"
             loadingEnabled
             showsUserLocation
-            initialRegion={region}
+            region={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onMapReady={() => setMapMargin(0)}
@@ -241,12 +242,7 @@ const UsersScreen = ({ navigation }) => {
             mapType="standard"
             loadingEnabled
             showsUserLocation
-            region={{
-              latitude: latitude,
-              longitude: longitude,
-              latitudeDelta: latitudeDelta,
-              longitudeDelta: longitudeDelta
-            }}
+            region={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
@@ -295,10 +291,10 @@ const UsersScreen = ({ navigation }) => {
             <Icon name='gift' size={20} color={'#353535'}/>
             <View>
               {
-                item.skills.map((skill) => {
+                item.skills.map((skill, id) => {
                   if (skill.name !== '') {
                     return (
-                      <Text style={{ marginLeft: 6 }}>{skill.name}</Text>
+                      <Text key={id} style={{ marginLeft: 6 }}>{skill.name}</Text>
                     );
                   }
                 }) 
@@ -325,10 +321,10 @@ const UsersScreen = ({ navigation }) => {
             <Icon name='map-marker' size={20} color={'#353535'}/>
             <View>
               {
-                item.locations.map((location) => {
+                item.locations.map((location, id) => {
                   if (location.name !== '') {
                     return (
-                      <Text style={{ marginLeft: 10 }}>{location.name}</Text>
+                      <Text key={id} style={{ marginLeft: 10 }}>{location.name}</Text>
                     );
                   }
                 }) 
@@ -351,23 +347,23 @@ const UsersScreen = ({ navigation }) => {
       );
     }
     return (
-      <View style={{ height: 300, backgroundColor: 'lightgrey' }}>
-        <ScrollView>
-          <FlatList
-            keyExtractor={this.keyExtractor}
-            data={state.userList}
-            renderItem={renderItem}
-          />
-        </ScrollView>
-      </View>
+      <ScrollView 
+        style={{ flexGrow: 1, backgroundColor: 'lightgrey' }}
+      >
+        <FlatList
+          keyExtractor={item => item.userId}
+          data={state.userList}
+          renderItem={renderItem}
+        />
+      </ScrollView>
     );
   };
 
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1 }}>
       {showMap()}
       {renderUserList()}
-    </View>
+    </SafeAreaView>
   );
 }
 
