@@ -24,17 +24,20 @@ import { Provider as ProfileProvider } from './src/context/ProfileContext';
 import { Provider as ChatProvider } from './src/context/ChatContext';
 import Navigator from './src/Navigator';
 import NavigationService from './src/NavigationService';
+import i18next from 'i18next';
 YellowBox.ignoreWarnings(['Require cycle']);
 
 export default () => {
-
   // setup language
   const { t } = useTranslation();
 
   const AppContainer = Navigator;
 
+//  let preferredLang;
   // use effect
   useEffect(() => {
+    // get lang
+//    getLanguage();
     // check permission
     checkPermission();
 
@@ -105,6 +108,11 @@ export default () => {
       //messageListener();
     };
   }, []);
+
+  //const getLanguage = async () => {
+  //  preferredLang = await AsyncStorage.getItem('language');
+  //  console.log('prefered lang', preferredLang);
+  //};
 
   // check push notification permission
   const checkPermission = async () => {
@@ -200,6 +208,10 @@ export default () => {
     }
   };
 
+  const translation = (scope, options) => {
+    return i18next.t(scope, { locale: 'en', ...options });
+  };
+
   return (
     <ChatProvider>
       <ProfileProvider>
@@ -208,6 +220,9 @@ export default () => {
             <AuthProvider>
               <AppContainer
                 ref={navigationRef => {NavigationService.setTopLevelNavigator(navigationRef);}}
+                screenProps={{ 
+                  t: translation
+                }}
               />
             </AuthProvider>
           </AskProvider>

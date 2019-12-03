@@ -37,9 +37,10 @@ const LocationScreen = ({ navigation }) => {
     // get current latitude and longitude
     const watchId = Geolocation.watchPosition(
       pos => {
-//        setLatitude(pos.coords.latitude);
-//        setLongitude(pos.coords.longitude);
+        setLatitude(pos.coords.latitude);
+        setLongitude(pos.coords.longitude);
         // @test
+        /*
         const INIT_REGION = {
           latitude: 37.25949,
           latitudeDelta: 0.01,
@@ -48,9 +49,9 @@ const LocationScreen = ({ navigation }) => {
         };
         setLatitude(INIT_REGION.latitude);
         setLongitude(INIT_REGION.longitude);
-
         console.log('latitude', latitude);
         console.log('longitude', longitude);
+        */
       },
       error => setError(error.message)
     );

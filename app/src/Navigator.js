@@ -23,14 +23,6 @@ import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
 import UsersScreen from './screens/UsersScreen';
 
-//const preferredLang = AsyncStorage.getItem('language');
-
-//i18next.changeLanguage('ko');
-//let preferredLang = AsyncStorage.getItem('language');
-const language = i18next.language;
-console.log('[navigator] lang', language);
-//console.log('[navigator] preferred lang', preferredLang );
-
 const askFlow = createStackNavigator(
   {
     AskMain: AskScreen,
@@ -40,8 +32,9 @@ const askFlow = createStackNavigator(
     headerLayoutPreset: 'center',
   },
 );
-askFlow.navigationOptions = {
-  tabBarLabel: i18next.t('askTab'),
+askFlow.navigationOptions = ({ screenProps: { t } }) => ({
+  tabBarLabel: t('askTab'),
+
   /*
   tabBarIcon: <Icon2 name="hands-helping" size={20} />,
   tabBarOptions: {
@@ -53,7 +46,7 @@ askFlow.navigationOptions = {
       padding: 0,
     },
   },*/
-};
+});
 
 const chatFlow = createStackNavigator(
   {
@@ -62,9 +55,9 @@ const chatFlow = createStackNavigator(
   },
   {headerLayoutPreset: 'center'},
 );
-chatFlow.navigationOptions = {
-  tabBarLabel: i18next.t('chatTab'),
-};
+chatFlow.navigationOptions = ({ screenProps: { t } }) => ({
+  tabBarLabel: t('chatTab'),
+});
 
 const profileFlow = createStackNavigator(
   {
@@ -76,9 +69,9 @@ const profileFlow = createStackNavigator(
   },
   {headerLayoutPreset: 'center'},
 );
-profileFlow.navigationOptions = {
-  tabBarLabel: i18next.t('userTab'),
-};
+profileFlow.navigationOptions = ({ screenProps: { t } }) => ({
+  tabBarLabel: t('userTab'),
+});
 
 const settingFlow = createStackNavigator(
   {
@@ -86,9 +79,9 @@ const settingFlow = createStackNavigator(
   },
   {headerLayoutPreset: 'center'},
 );
-settingFlow.navigationOptions = {
-  tabBarLabel: i18next.t('settingTab'),
-};
+settingFlow.navigationOptions = ({ screenProps: { t } }) => ({
+  tabBarLabel: t('settingTab'),
+});
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
