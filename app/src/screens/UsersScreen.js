@@ -21,7 +21,7 @@ const UsersScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const language = i18next.language;
   // use context
-  const { state, findUsers, findUsersDifferentLanguage } = useContext(ProfileContext);
+  const { state, findUsers } = useContext(ProfileContext);
   // use state
 
   const INIT_REGION = {
@@ -35,7 +35,7 @@ const UsersScreen = ({ navigation }) => {
   const [mapMargin, setMapMargin] = useState(1);
   const [error, setError] = useState('');
   const [address, setAddress] = useState('');
-  const [multiLang, setMultiLang] = useState(false);
+  const [multiLang, setMultiLang] = useState(null);
 
   // use effect
   useEffect(() => {
@@ -62,7 +62,9 @@ const UsersScreen = ({ navigation }) => {
 
   useEffect(() => {
     console.log('[useEffect] multi Language?', multiLang);
-    onRegionChangeComplete();
+    if (multiLang !== null) {
+      onRegionChangeComplete();
+    }
   }, [multiLang]);
 
   const initGeocoding = () => {
@@ -340,6 +342,7 @@ const UsersScreen = ({ navigation }) => {
   );
 
   const renderUserList = () => {
+    console.log('state.userlist.length', state.userList.length);
     if (state.userList.length == 0) {
       return ( 
         <View style={{ marginTop: 50 }}>

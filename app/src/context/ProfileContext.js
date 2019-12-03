@@ -179,49 +179,6 @@ const findUsers = dispatch => {
   }
 };
 
-// find nearby users using different language
-const findUsersDifferentLanguage = dispatch => {
-  return async ({ district, userId }) => {
-    console.log('dispatch find users using different language', district, userId);
-    const usersRef = firebase.firestore().collection('users');
-    // @todo consider the multi languages. need to find both en and ko regions
-    // react-native-firebase v5 does not support array-contains-any
-    await usersRef.where('regions', 'array-contains', district).get()
-    .then(async snapshot => {
-      snapshot.forEach(async doc => {             
-        // exclude the self when searching
-        if (doc.id !== userId) {
-          //// get data from subcollection
-          // get skill
-          getSkillsLocations({ userId: doc.id })
-          .then(userData => {
-            console.log('[findUsersDifferentLanguage] user data', userData);              
-            dispatch({
-              type: 'update_user_list',
-              payload: {
-                userId: doc.id,
-                avatar: doc.data().avatarUrl,
-                name: doc.data().name,
-                skills: userData.skills,
-                locations: userData.locations,
-                got: doc.data().askCount,
-                helped: doc.data().helpCount,
-                votes: doc.data().votes  
-              }
-            });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        }
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-};
-
 // get skills and locations from db
 const getSkillsLocations = async ({ userId }) => {
   // user ref
@@ -584,7 +541,7 @@ export const { Provider, Context } = createDataContext(
     updateUserInfoState, updateAccount, updateAvatarState,
     updateSkill, updateLocation, verifyLocation, updateProfileInfo,
     updateSkills, updateSkillsDB, updateLocations, deleteLocation,
-    findUsers, findUsersDifferentLanguage
+    findUsers,
   },
   { 
     userInfo: {}, 
