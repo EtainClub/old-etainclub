@@ -207,7 +207,7 @@ const UsersScreen = ({ navigation }) => {
             mapType="standard"
             loadingEnabled
             showsUserLocation
-            region={region}
+            initialRegion={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onMapReady={() => setMapMargin(0)}
@@ -242,7 +242,7 @@ const UsersScreen = ({ navigation }) => {
             mapType="standard"
             loadingEnabled
             showsUserLocation
-            region={region}
+            initialRegion={region}
             onRegionChange={onRegionChange}
             onRegionChangeComplete={onRegionChangeComplete}
             onPress={e => onMapPress(e)}
