@@ -22,6 +22,7 @@ import ChatScreen from './screens/ChatScreen';
 import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
 import UsersScreen from './screens/UsersScreen';
+import LanguageScreen from './screens/LanguageScreen';
 
 const askFlow = createStackNavigator(
   {
@@ -76,6 +77,7 @@ profileFlow.navigationOptions = ({ screenProps: { t } }) => ({
 const settingFlow = createStackNavigator(
   {
     Settings: SettingScreen,
+    Language: LanguageScreen,
   },
   {headerLayoutPreset: 'center'},
 );

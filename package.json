@@ -1,6 +1,6 @@
 {
-  "name": "etainclub",
-  "version": "0.1.2",
+  "name": "helpus",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "start": "react-native start",

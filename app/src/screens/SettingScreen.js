@@ -44,6 +44,12 @@ const SettingScreen = ({ navigation }) => {
       icon: 'github',
       icon_url: 'https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-github-circular-48.png',
     },
+    {
+      title: t('SettingScreen.terms'),
+      url: 'https://etain.club/terms',
+      icon: 'github',
+      icon_url: 'https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-github-circular-48.png',
+    },
   ];
 
   const settingList = [
@@ -96,6 +102,8 @@ const SettingScreen = ({ navigation }) => {
         break;
       // lanungae
       case 1:
+          navigation.navigate('Language');
+          break;
           Alert.alert(
             t('SettingScreen.languageTitle'),
             t('SettingScreen.languageText'),
