@@ -5474,6 +5474,11 @@ react-native-dotenv@^0.2.0:
   dependencies:
     babel-plugin-dotenv "0.1.1"
 
+react-native-draggable-flatlist@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-1.1.9.tgz#b8f58122f639841c83aa1d913b2e3e9f9507bfe5"
+  integrity sha512-Hga/kEFc+Undx2Y1FzkozWHRWvRz7dJobl5Kg1+xmd9JABS8YIYZWKboSAPmiTHD3FrlVJGIw/mlK5JZP0rJfw==
+
 react-native-elements@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.1.tgz#03348f8519d6e76188cceb16f46f83f69e1fdda4"

@@ -188,6 +188,13 @@
       "others": "추가 언어",
       "all": "모든 언어",
       "korean": "한글",
+      "english": "English",
+      "add": "언어 추가"
+    },
+    "LanguageAddScreen": {
+      "header": "언어 추가",
+      "all": "모든 언어",
+      "korean": "한글",
       "english": "English"
     }
   }

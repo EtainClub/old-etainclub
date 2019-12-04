@@ -23,6 +23,7 @@ import ChatListScreen from './screens/ChatListScreen';
 import SettingScreen from './screens/SettingScreen';
 import UsersScreen from './screens/UsersScreen';
 import LanguageScreen from './screens/LanguageScreen';
+import LanguageAddScreen from './screens/LanguageAddScreen';
 
 const askFlow = createStackNavigator(
   {
@@ -78,6 +79,7 @@ const settingFlow = createStackNavigator(
   {
     Settings: SettingScreen,
     Language: LanguageScreen,
+    LanguageAdd: LanguageAddScreen,
   },
   {headerLayoutPreset: 'center'},
 );
