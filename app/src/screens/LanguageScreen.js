@@ -34,17 +34,25 @@ const LanguageScreen = ({ navigation }) => {
 
   // handling language data change
   useEffect(() => {
-    updateDB();
-  }, [codeData]);
+    // build codeData from languageData
+    let codeList = [];
+    for (let i=0; i<languageData.length; i++) {
+      codeList.push(languageData[i].code);
+    }
+    // update code data state
+    setCodeData(codeList);
+    // update db
+    updateDB(codeList);
+  }, [languageData]);
 
   // update language on db
-  const updateDB = () => {
+  const updateDB = (codeList) => {
     console.log('[updateDB]');
     // update only the language field
-    if (codeData.length > 0) {
-      console.log('[updateDB] codeData', codeData);
+    if (codeList.length > 0) {
+      console.log('[updateDB] codeData', codeList);
       userRef.update({
-        languages: codeData
+        languages: codeList
       });
     }
   };
@@ -53,7 +61,6 @@ const LanguageScreen = ({ navigation }) => {
   const getLanguages = async () => {
     console.log('[getLanguages]');
     let langList = [];
-    let codeList = [];
     userRef.get()
     .then(async snapshot => {
       if (snapshot.exists) {
@@ -65,25 +72,19 @@ const LanguageScreen = ({ navigation }) => {
             key: `item-${i}`,
             code: languages[i] 
           });
-          codeList.push(languages[i]);
         }
         // update language data state
         setLanguageData(langList);   
-        // update code data state
-        setCodeData(codeList);
       }
       else {
         langList.push({
           key: 'item-0',
           code: language
         });
-        codeList.push(language);
         // save the primary language in asyncstorage
         await AsyncStorage.setItem('language', language);
         // update language data state
         setLanguageData(langList);   
-        // update code data state
-        setCodeData(codeList);
       }
     })
     .catch(error => console.log(error));  
@@ -117,14 +118,14 @@ const LanguageScreen = ({ navigation }) => {
   };
 
   // update language list when move finishes
-  const onLanguageMoved = async ({ data, rowNumber }) => {
-    console.log('[updateLanguageData] before updating languagedata', languageData);
+  const onLanguageMoved = async ({ data }) => {
+    console.log('[onLanguageMoved] before updating languagedata', data);
     setLanguageData(data);
+    // change display language
+    i18next.changeLanguage(data[0].code);
     // update primary language in asyncstorage
-    if (rowNumber === 0) {
-      console.log('[updateLanguageData] update primary lang', data.code);
-      await AsyncStorage.setItem('language', data.code);
-    }
+    console.log('[onLanguageMoved] update primary lang', data[0].code);
+    await AsyncStorage.setItem('language', data[0].code);
   };
 
   // render language item
@@ -150,14 +151,14 @@ const LanguageScreen = ({ navigation }) => {
       <NavigationEvents
         onWillFocus={onWillFocus}
       />
-      <Text style={styles.listHeaderText}>{t('LanguageScreen.primary')}</Text>
+      <Text style={styles.listHeaderText}>{t('LanguageScreen.use')}</Text>
       <View style={{ height: 100 }}>
       <DraggableFlatList
         data={languageData}
         renderItem={renderItem}
         keyExtractor={(item, index) => `draggable-item-${item.key}`}
         scrollPercent={5}
-        onMoveEnd={({ data, to }) => onLanguageMoved( data, to )}
+        onMoveEnd={({ data }) => onLanguageMoved({ data })}
       />
       </View>
       <Button

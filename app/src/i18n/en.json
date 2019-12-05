@@ -168,11 +168,11 @@
       "setting": "Settings",
       "links": "Links",
       "app": "App Settings (permission, notification, etc)",
-      "language": "사용 언어 변경",
-      "languageTitle": "언어 설정",
-      "languageText": "언어를 선택하세요",
+      "language": "Languages",
+      "languageTitle": "Languages",
+      "languageText": "Select lanugage",
       "shareTitle": "Download App",
-      "version": "App Version 0.2.0",
+      "version": "App Version 0.2.1",
       "evaluate": "Evaluate App",
       "evaluationTitle": "App Evaluation",
       "evaluationText": "Coming soon",
@@ -182,6 +182,20 @@
       "deleteAccount": "Delete Account",
       "deleteTitle": "Delete Account",
       "deleteText": "Deleting account is done manually for now. Please contact the amdin."
+    },
+    "LanguageScreen": {
+      "header": "Language Setting",
+      "use": "Languages in Use",
+      "all": "All Languages",
+      "korean": "Korean",
+      "english": "English",
+      "add": "Add Language",
+    },
+    "LanguageAddScreen": {
+      "header": "Add Language",
+      "all": "All Languages",
+      "korean": "Korean",
+      "english": "English"
     }
   },
 }
