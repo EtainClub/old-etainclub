@@ -18,6 +18,10 @@ const LanguageScreen = ({ navigation }) => {
   const { t } = useTranslation();
   // primary language
   const language = i18next.language;
+  // get user doc
+  const { currentUser } = firebase.auth();
+  const userId = currentUser.uid;
+  const userRef = firebase.firestore().doc(`users/${userId}`);
 
   // use state
   const [languageData, setLanguageData] = useState([]); 
@@ -25,7 +29,7 @@ const LanguageScreen = ({ navigation }) => {
 
   // handling component mount 
   useEffect(() => {
-    setPrimaryLanguage();
+    getLanguages();
   }, []);
 
   // handling language data change
@@ -38,10 +42,6 @@ const LanguageScreen = ({ navigation }) => {
     console.log('[updateDB]');
     // update only the language field
     if (codeData.length > 0) {
-      // get user doc
-      const { currentUser } = firebase.auth();
-      const userId = currentUser.uid;
-      const userRef = firebase.firestore().doc(`users/${userId}`);
       console.log('[updateDB] codeData', codeData);
       userRef.update({
         languages: codeData
@@ -49,26 +49,44 @@ const LanguageScreen = ({ navigation }) => {
     }
   };
 
-  // primary language data
-  const setPrimaryLanguage = async () => {
-    console.log('[setPrimaryLanguage]');
-    const primaryLang = {
-      key: 'item-0',
-      code: language
-    };
-    // save the primary language in asyncstorage
-    await AsyncStorage.setItem('language', primaryLang.code);
-    // append an item to the list
-    setLanguageData(prevState => {
-      const newList = [...prevState, primaryLang];
-      return newList;
-    });   
-    // append only code 
-    setCodeData(prevState => {
-      const newList = [...prevState, primaryLang.code];
-      console.log('[setPrimaryLanguage] new code list', newList);
-      return newList;
-    });
+  // get language data from db
+  const getLanguages = async () => {
+    console.log('[getLanguages]');
+    let langList = [];
+    let codeList = [];
+    userRef.get()
+    .then(async snapshot => {
+      if (snapshot.exists) {
+        const languages = snapshot.data().languages;
+        console.log('[getLanguages] data', languages);
+        // build lists
+        for (let i=0; i<languages.length; i++) {
+          langList.push({
+            key: `item-${i}`,
+            code: languages[i] 
+          });
+          codeList.push(languages[i]);
+        }
+        // update language data state
+        setLanguageData(langList);   
+        // update code data state
+        setCodeData(codeList);
+      }
+      else {
+        langList.push({
+          key: 'item-0',
+          code: language
+        });
+        codeList.push(language);
+        // save the primary language in asyncstorage
+        await AsyncStorage.setItem('language', language);
+        // update language data state
+        setLanguageData(langList);   
+        // update code data state
+        setCodeData(codeList);
+      }
+    })
+    .catch(error => console.log(error));  
   };
 
   const onWillFocus = () => {
