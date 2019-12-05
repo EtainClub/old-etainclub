@@ -26,6 +26,7 @@ const LanguageScreen = ({ navigation }) => {
   // use state
   const [languageData, setLanguageData] = useState([]); 
   const [codeData, setCodeData] = useState([]); 
+  const [removeFlag, setRemoveFlag] = useState(false);
 
   // handling component mount 
   useEffect(() => {
@@ -139,9 +140,17 @@ const LanguageScreen = ({ navigation }) => {
         onLongPress={move}
         onPressOut={moveEnd}
       >
-        <Text style={{ fontSize: 20, fontWeight: 'bold', paddingHorizontal: 10 }}>
-          {index+1} {t(item.code)}
-        </Text>
+        {
+          removeFlag ? 
+            <View>          
+              <Icon></Icon>
+              <Text>{t(item.code)}</Text>          
+            </View>  
+          :
+            <Text style={{ fontSize: 20, fontWeight: 'bold', paddingHorizontal: 10 }}>
+            {index+1} {t(item.code)}
+            </Text>
+        }
       </TouchableOpacity>
     );
   };
@@ -180,7 +189,11 @@ const LanguageScreen = ({ navigation }) => {
   );
 };
 
-LanguageScreen.navigationOptions = () => {
+const onRemovePress = () => {
+//  setRemoveFlag(true);
+};
+
+LanguageScreen.navigationOptions = ({ navigation }) => {
   return {
     title: i18next.t('LanguageScreen.header'),
     headerStyle: {
@@ -191,6 +204,15 @@ LanguageScreen.navigationOptions = () => {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    headerRight: (
+      <TouchableOpacity
+        onPress={() => onRemovePress()}
+      >
+      <Text style={{ marginRight: 25, fontSize: 20, color: 'black' }}>
+        {i18next.t('remove')}
+      </Text>
+      </TouchableOpacity>
+    ),
   };
 };
 

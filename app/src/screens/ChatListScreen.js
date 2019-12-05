@@ -131,7 +131,7 @@ const ChatListScreen = ({navigation}) => {
   );
 };
 
-ChatListScreen.navigationOptions = ({navigation}) => {
+ChatListScreen.navigationOptions = ({ navigation }) => {
   return {
     title: i18next.t('ChatListScreen.header'),
     headerStyle: {
