@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, Linking, Alert, Share, TouchableOpacity } from 'react-native';
 import { NavigationEvents, SafeAreaView } from 'react-navigation';
 import { Text, Button, SearchBar, ListItem, Divider } from 'react-native-elements';
@@ -9,61 +9,107 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'react-native-firebase'; 
 // custom libraries
 import Spacer from '../components/Spacer';
-import { Context as AuthContext } from '../context/AuthContext';
-
 
 const LanguageScreen = ({ navigation }) => {
   // setup language
   const { t } = useTranslation();
   // primary language
   const language = i18next.language;
-  // primary language data
-  let primaryData;
-  switch (language) {
-    case 'ko':
-      primaryData = [{
-        key: 'item-0',
-        label: '한글',
-      }];
-      break;
-    case 'en':
-      primaryData = [{
-        key: 'item-0',
-        label: 'English',
-      }]; 
-      break;
-    default:
-      primaryData = [{
-        key: 'item-0',
-        label: 'English',
-      }];    
-      break;
-  }
 
   // use state
-  const [languageData, setLanguageData] = useState(primaryData); 
-  // others language list
-  let othersList = [];
-  // all language list
-  const languageList = [
-    t('LanguageScreen.korean'),
-    t('LanguageScreen.english'),
-  ];
+  const [languageData, setLanguageData] = useState([]); 
+  const [codeData, setCodeData] = useState([]); 
 
-  
-  const onLanguageChange = async (lang) => {
-    console.log('onLanguageChange', lang);
-    // save this into storage
-    await AsyncStorage.setItem('language', lang);
-    i18next.changeLanguage(lang);
+  // handling component mount 
+  useEffect(() => {
+    setPrimaryLanguage();
+  }, []);
+
+  // handling language data change
+  useEffect(() => {
+    updateDB();
+  }, [codeData]);
+
+  // update language on db
+  const updateDB = () => {
+    console.log('[updateDB]');
+    // update only the language field
+    if (codeData.length > 0) {
+      // get user doc
+      const { currentUser } = firebase.auth();
+      const userId = currentUser.uid;
+      const userRef = firebase.firestore().doc(`users/${userId}`);
+      console.log('[updateDB] codeData', codeData);
+      userRef.update({
+        languages: codeData
+      });
+    }
   };
 
-  const onLanguagePress = (index) => {
-    console.log('index', index);
+  // primary language data
+  const setPrimaryLanguage = async () => {
+    console.log('[setPrimaryLanguage]');
+    const primaryLang = {
+      key: 'item-0',
+      code: language
+    };
+    // save the primary language in asyncstorage
+    await AsyncStorage.setItem('language', primaryLang.code);
+    // append an item to the list
+    setLanguageData(prevState => {
+      const newList = [...prevState, primaryLang];
+      return newList;
+    });   
+    // append only code 
+    setCodeData(prevState => {
+      const newList = [...prevState, primaryLang.code];
+      console.log('[setPrimaryLanguage] new code list', newList);
+      return newList;
+    });
   };
 
+  const onWillFocus = () => {
+    console.log('[onWillFocus]');
+    // get navigation params
+    const selectedCode = navigation.getParam('selectedLang');
+    if (selectedCode) {
+      console.log('[onWillFocus] selectedCode', selectedCode);
+      // get length of current list
+      const len = languageData.length;
+      console.log('language length', len);
+      // append language
+      const newLang = {
+        key: `item-${len+1}`,
+        code: selectedCode
+      };  
+      // append an item to the list
+      setLanguageData(prevList => {
+        const newList = [...prevList, newLang];
+        return newList;
+      });       
+      // append only code 
+      setCodeData(prevState => {
+        const newList = [...prevState, selectedCode];
+        return newList;
+      });
+    }
+  };
+
+  // update language list when move finishes
+  const onLanguageMoved = async ({ data, rowNumber }) => {
+    console.log('[updateLanguageData] before updating languagedata', languageData);
+    setLanguageData(data);
+    // update primary language in asyncstorage
+    if (rowNumber === 0) {
+      console.log('[updateLanguageData] update primary lang', data.code);
+      await AsyncStorage.setItem('language', data.code);
+    }
+  };
+
+  // render language item
   const renderItem = ({ item, index, move, moveEnd, isActive }) => {
     return (
       <TouchableOpacity
@@ -75,7 +121,7 @@ const LanguageScreen = ({ navigation }) => {
         onPressOut={moveEnd}
       >
         <Text style={{ fontSize: 20, fontWeight: 'bold', paddingHorizontal: 10 }}>
-          {index+1} {item.label}
+          {index+1} {t(item.code)}
         </Text>
       </TouchableOpacity>
     );
@@ -83,6 +129,9 @@ const LanguageScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <NavigationEvents
+        onWillFocus={onWillFocus}
+      />
       <Text style={styles.listHeaderText}>{t('LanguageScreen.primary')}</Text>
       <View style={{ height: 100 }}>
       <DraggableFlatList
@@ -90,7 +139,7 @@ const LanguageScreen = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => `draggable-item-${item.key}`}
         scrollPercent={5}
-        onMoveEnd={ ({ data }) => setLanguageData(data)}
+        onMoveEnd={({ data, to }) => onLanguageMoved( data, to )}
       />
       </View>
       <Button
@@ -98,7 +147,7 @@ const LanguageScreen = ({ navigation }) => {
         buttonStyle={{ height: 50, margin: 20 }}
         titleStyle={{ fontSize: 24, fontWeight: 'bold' }}     
         title={t('LanguageScreen.add')}
-        onPress={() => navigation.navigate('LanguageAdd')}
+        onPress={() => navigation.navigate('LanguageAdd', { codeData })}
         icon={
           <Icon
             style={{ marginHorizontal: 5 }}
@@ -110,37 +159,6 @@ const LanguageScreen = ({ navigation }) => {
       />
     </SafeAreaView>
   );
-  /*
-  return (
-    <SafeAreaView>
-      <ScrollView>
-      <Spacer>
-        <Text style={styles.listHeaderText}>{t('LanguageScreen.primary')}</Text>
-        <ListItem
-          title={primaryLang}
-          bottomDivider
-        />
-        <Spacer>
-        <Text style={styles.listHeaderText}>{t('LanguageScreen.all')}</Text>
-        {
-          languageList.map((item, i) => (
-            <ListItem
-              key={i}
-              title={item}
-              onPress={() => onLanguagePress(i)}
-              rightIcon={
-                <Icon name='check' size={16} color='black' 
-                />
-              }        
-            />
-          ))
-        }
-        </Spacer>
-      </Spacer>  
-      </ScrollView>
-    </SafeAreaView>
-  );
-  */
 };
 
 LanguageScreen.navigationOptions = () => {

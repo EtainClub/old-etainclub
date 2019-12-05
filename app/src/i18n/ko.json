@@ -18,7 +18,9 @@
     "userTab": "사용자",
     "settingTab": "설정",
     "korean": "한글",
-    "english": "English",
+    "english": "영어",
+    "en": "영어",
+    "ko": "한글",
     "AppScreen": {
       "title": "도움 요청 알림",
       "message": "도움 요청 내용을 보시겠습니까?"
@@ -189,7 +191,7 @@
       "all": "모든 언어",
       "korean": "한글",
       "english": "English",
-      "add": "언어 추가"
+      "add": "언어 추가",
     },
     "LanguageAddScreen": {
       "header": "언어 추가",

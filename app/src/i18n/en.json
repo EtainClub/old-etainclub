@@ -17,8 +17,10 @@
     "chatTab": "Chats",
     "userTab": "User",
     "settingTab": "Settings",
-    "korean": "한글",
+    "korean": "Korean",
     "english": "English",
+    "en": "Egnlish",
+    "ko": "Korean",
     "AppScreen": {
       "title": "Help Wanted",
       "message": "Do you want to see the details?"

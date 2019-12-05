@@ -25,7 +25,7 @@ import { Provider as ChatProvider } from './src/context/ChatContext';
 import Navigator from './src/Navigator';
 import NavigationService from './src/NavigationService';
 import i18next from 'i18next';
-YellowBox.ignoreWarnings(['Require cycle']);
+YellowBox.ignoreWarnings(['Require cycle:']);
 
 export default () => {
   // setup language

@@ -17,47 +17,38 @@ import { Context as AuthContext } from '../context/AuthContext';
 const LanguageAddScreen = ({ navigation }) => {
   // setup language
   const { t } = useTranslation();
-  // primary language
-  const language = i18next.language;
-  // primary language data
-  let primaryData;
-  switch (language) {
-    case 'ko':
-      primaryData = [{
-        key: 'item-0',
-        label: '한글',
-      }];
-      break;
-    case 'en':
-      primaryData = [{
-        key: 'item-0',
-        label: 'English',
-      }]; 
-      break;
-    default:
-      primaryData = [{
-        key: 'item-0',
-        label: 'English',
-      }];    
-      break;
+
+  // get navigation params
+  const codeData = navigation.getParam('codeData');
+  // build language list to display
+  let allLanguages = [];
+  if (codeData) {
+    // english
+    if (!codeData.includes('en')) {
+      // append
+      allLanguages.push('en');
+    }
+    // korean
+    if (!codeData.includes('ko')) {
+      // append
+      allLanguages.push('ko');
+    }
   }
-
-  // use state
-  const [languageData, setLanguageData] = useState(primaryData); 
-  // others language list
-  let othersList = [];
-  // all language list
-  const languageList = [
-    t('LanguageAddScreen.korean'),
-    t('LanguageAddScreen.english'),
-  ];
-
   
-  const onLanguageChange = async (lang) => {
-    console.log('onLanguageChange', lang);
-    // save this into storage
-    await AsyncStorage.setItem('language', lang);
-    i18next.changeLanguage(lang);
+  const onLanguagePress = async (lang) => {
+    let langCode = 'en';
+    switch (lang) {
+      case 0:
+        langCode = 'en';
+        break;
+      case 1:
+        langCode = 'ko';
+        break;
+      default:
+        break;
+    }
+    // return to langugae screen
+    navigation.navigate('Language', { selectedLang: langCode });
   };
 
   return (
@@ -66,10 +57,10 @@ const LanguageAddScreen = ({ navigation }) => {
         <Spacer>
           <Text style={styles.listHeaderText}>{t('LanguageAddScreen.all')}</Text>
           {
-            languageList.map((item, i) => (
+            allLanguages.map((item, i) => (
               <ListItem
                 key={i}
-                title={item}
+                title={t(item)}
                 onPress={() => onLanguagePress(i)} 
               />
             ))
