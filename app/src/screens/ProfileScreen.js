@@ -348,25 +348,7 @@ const ProfileScreen = ({ navigation }) => {
           {showLocationList()}
         </Card>
 
-        <Spacer>
-          <View style={{ margin: 30 }}>
-            <Button
-              buttonStyle={{ height: 50 }}
-              titleStyle={{ fontSize: 24, fontWeight: 'bold' }}    
-              onPress={() => setShowModal(true)}
-              icon={
-                <Icon2
-                  style={{ marginHorizontal: 5 }}
-                  name="ethereum"
-                  size={30}
-                />
-              }
-              title={t('ProfileScreen.updateButton')}
-              disabled
-              loading={state.loading}
-            />
-          </View>
-        </Spacer>
+        
 
         <Overlay
           overlayStyle={styles.modal}
@@ -473,3 +455,27 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
+
+
+/*
+Smart Contract button
+       <Spacer>
+          <View style={{ margin: 30 }}>
+            <Button
+              buttonStyle={{ height: 50 }}
+              titleStyle={{ fontSize: 24, fontWeight: 'bold' }}    
+              onPress={() => setShowModal(true)}
+              icon={
+                <Icon2
+                  style={{ marginHorizontal: 5 }}
+                  name="ethereum"
+                  size={30}
+                />
+              }
+              title={t('ProfileScreen.updateButton')}
+              disabled
+              loading={state.loading}
+            />
+          </View>
+        </Spacer>
+*/
