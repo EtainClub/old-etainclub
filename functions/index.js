@@ -68,11 +68,17 @@ exports.sendMessage = functions.firestore
     };
 
     // send message to users who prefer the language of the message
-    users.where('languages', 'array-contains', language).get()
+    // users.where('languages', 'array-contains', language).get()
+    await users.get()
     .then(snapshot => {
       snapshot.forEach(doc => {
         console.log('doc id', doc.id);
         console.log('doc languages', doc.data().languages);
+        // do not send if the user does not prefer the language
+        if (!doc.data().languages.includes(language)) {
+          console.log('user does not incude the language', doc.data().languages);
+          return;
+        }
         // do not send notification to the sender
         if (doc.id !== sender) {
           // get the push token of a user

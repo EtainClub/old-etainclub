@@ -125,7 +125,7 @@ const signup = dispatch => {
 // sign in
 const signin = dispatch => {
   // use language
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return async ({email, password, navigation}) => {
     // start auth action
@@ -176,6 +176,7 @@ const signin = dispatch => {
                       helpCount: 0,
                       votes: 0,
                       regions: [],
+                      languages: [i18next.language]
                     })
                     .then(() => {
                       // create initial profile on firebase
