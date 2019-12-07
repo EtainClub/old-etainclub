@@ -18,6 +18,7 @@ const LanguageScreen = ({ navigation }) => {
   const { t } = useTranslation();
   // primary language
   const language = i18next.language;
+
   // get user doc
   const { currentUser } = firebase.auth();
   const userId = currentUser.uid;
@@ -52,6 +53,10 @@ const LanguageScreen = ({ navigation }) => {
     setCodeData(codeList);
     // update check state
     setLangChecks(checkList);
+    // update navigation param
+    navigation.setParams({
+      checks: checkList
+    });
     // update db
     updateDB(codeList);
   }, [languageData]);
@@ -84,19 +89,17 @@ const LanguageScreen = ({ navigation }) => {
             code: languages[i],
           });
         }
-        // update language data state
-        setLanguageData(langList);   
       }
       else {
         langList.push({
           key: 'item-0',
           code: language,
         });
-        // save the primary language in asyncstorage
-        await AsyncStorage.setItem('language', language);
-        // update language data state
-        setLanguageData(langList);   
       }
+      // update language data state
+      setLanguageData(langList);   
+      // save the primary language in asyncstorage
+      await AsyncStorage.setItem('language', language);
     })
     .catch(error => console.log(error));  
   };
@@ -187,8 +190,6 @@ const LanguageScreen = ({ navigation }) => {
   // @todo cannot access state, but set value to state is possible
   const onRemovePress = (checks) => {
     console.log('[onRemovePress] checks', checks);
-    setRemoveFlag(true);    
-    if (!checks) return;
     // get number of all languages
     const numLang = checks.length;
     // count the number of checked languages
@@ -197,8 +198,15 @@ const LanguageScreen = ({ navigation }) => {
       if (checks[i].checked)
         numChecked++;
     }
-    // sanity check
-    if (numLang == numChecked) {
+    console.log('[onRemovePress] numChecked', numChecked);
+    // return if not checked
+    if (numChecked == 0 && numLang != 1) 
+    {
+      setRemoveFlag(true);    
+      return;
+    }
+    // sanity check: cannot remove all languages
+    if (numLang == numChecked || numLang == 1) {
       Alert.alert(
         t('LanguageScreen.languageTitle'),
         t('LanguageScreen.languageError'),
@@ -209,6 +217,16 @@ const LanguageScreen = ({ navigation }) => {
       );
       // reset remove flag
       setRemoveFlag(false);
+      // update navigation param
+      let checkList = [];
+      for (let i=0; i<numLang; i++) {
+        checkList.push({ checked: false, code: checks[i].code });
+      }
+      navigation.setParams({
+        checks: checkList
+      });
+      // update check state
+      setLangChecks(checkList);
     } else {
       // open a modal
       Alert.alert(
@@ -223,27 +241,39 @@ const LanguageScreen = ({ navigation }) => {
   };
   
   // remove language
-  const onLangRemove = (checks) => {
+  const onLangRemove = async (checks) => {
     console.log('[onLangRemove]checks', checks);
     // build new languageData, then useEffect handles the db update
     let langList = [];
+    let checkList = [];
     for (let i=0; i<checks.length; i++) {
       // if not check, append the lang
       if (!checks[i].checked) {
         langList.push({
           key: `item-${i}`,
-          code: checks[i].code,
+          code: checks[i].code
         });
+        checkList.push({
+          checked: false,
+          code: checks[i].code
+        })
       }
     }
     // update languageData
     setLanguageData(langList);
     // reset remove flag
     setRemoveFlag(false);
-    // clear check
+    // clear navigation param
     navigation.setParams({
-      checks: null
+      checks: checkList
     });
+    // update display language if there is only one language left
+    if (langList.length == 1) {
+      // save the primary language in asyncstorage
+      await AsyncStorage.setItem('language', langList[0].code);
+      // change display language
+      i18next.changeLanguage(langList[0].code);
+    }
   };
 
   return (
@@ -284,6 +314,7 @@ const LanguageScreen = ({ navigation }) => {
 LanguageScreen.navigationOptions = ({ navigation }) => {
   const onRemovePress = navigation.getParam('onRemovePress');
   const checks = navigation.getParam('checks');
+  console.log('[navigationOptions] checks', checks);
 
   return {
     title: i18next.t('LanguageScreen.header'),

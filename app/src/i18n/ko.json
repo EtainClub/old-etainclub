@@ -193,7 +193,7 @@
       "language": "언어 설정",
       "languageTitle": "언어 삭제",
       "languageText": "선택한 언어를 삭제하시겠습니까?",
-      "languageError": "모든 언어를 삭제할 수 없습니다",
+      "languageError": "최소 하나의 언어가 있어야 합니다.",
     },
     "LanguageAddScreen": {
       "header": "언어 추가",
