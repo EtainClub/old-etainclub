@@ -31,7 +31,7 @@ i18next
   .init({
     fallbackLng: 'en',
     debug: true,
-    resources: {ko, en},
+    resources: { ko, en },
     react: {
       useSuspense: false
     }

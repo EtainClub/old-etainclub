@@ -77,7 +77,7 @@ const getAppStatus = dispatch => {
 // ask help
 const requestHelp = dispatch => {
   console.log('[requestHelp]');
-  return async ({message, navigation}) => {
+  return async ({ message, navigation }) => {
     // do not request if the message is empty
     if (message === '') {
       console.log('[Ask] message is empty');
@@ -91,15 +91,17 @@ const requestHelp = dispatch => {
     console.log('[requestHelp] before sending message');
 
     // initial request message becomes the first all the time
-    sendMessage({dispatch, message, navigation});
+    sendMessage({ dispatch, message, navigation });
   };
 };
 
 // send message
 const sendMessage = async ({dispatch, message, navigation}) => {
-  /// get user info
+  //// get user info
+  // get user language
+  const language = i18next.language;
   // get current user
-  const {currentUser} = firebase.auth();
+  const { currentUser } = firebase.auth();
   const userId = currentUser.uid;
   // get user info
   let userRef = firebase.firestore().doc(`users/${userId}`);
@@ -127,6 +129,7 @@ const sendMessage = async ({dispatch, message, navigation}) => {
     message,
     accepted: false,
     voted: false,
+    language
   })
   .then(async docRef => {
     console.log('case generated with doc id: ', docRef.id);
@@ -134,7 +137,7 @@ const sendMessage = async ({dispatch, message, navigation}) => {
     // update state
     dispatch({ 
       type: 'request_help',
-      payload: {caseId, message},
+      payload: { caseId, message },
     });
     //// set message
     // get case ref

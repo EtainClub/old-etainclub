@@ -1,7 +1,7 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import i18next from 'i18next';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import firebase from 'react-native-firebase';
 import createDataContext from './createDataContext';
 
@@ -61,7 +61,7 @@ const countHelpCases = async ({userId}) => {
 
 const acceptRequest = dispatch => {
   // use multi language
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return async ({caseId, navigation}) => {
     if (__DEV__) console.log('acceptRequest dispatch caseId', caseId);
@@ -124,8 +124,9 @@ const acceptRequest = dispatch => {
 
     // update the cases db with caseId
     // new approach: save helperid and time in case doc
+    // save the user language
     await caseRef
-      .update({accepted: true, helperId: userId, createdAt: new Date()})
+      .update({ accepted: true, helperId: userId, createdAt: new Date() })
       .then(async () => {
         // update state
         dispatch({
@@ -134,15 +135,15 @@ const acceptRequest = dispatch => {
         });
 
         // update helpcount of this user
-        countHelpCases({userId})
+        countHelpCases({ userId })
           .then(helpCount => {
             const userRef = firebase.firestore().doc(`users/${userId}`);
             // update the ask count of the current user
-            userRef.update({helpCount});
+            userRef.update({ helpCount });
           });
           if (__DEV__) console.log('[acceptRequest] updated the document');
           // navigate to chat screen with param to set user as helper
-          navigation.navigate('Chatting', {chatUserId: 2, caseId, helperId: userId});
+          navigation.navigate('Chatting', { chatUserId: 2, caseId, helperId: userId });
       })
       .catch(error => {
         if (__DEV__) console.log('[acceptRequest]failed to update the document, error:', error);
@@ -151,9 +152,9 @@ const acceptRequest = dispatch => {
           t('HelpScreen.updateFailureTitle'),
           t('HelpScreen.updateFailure'),
           [
-            {text: t('confirm')}
+            { text: t('confirm') }
           ],
-          {cancelable: true},
+          { cancelable: true },
         );
       });
   }
