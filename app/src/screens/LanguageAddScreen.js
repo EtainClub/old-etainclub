@@ -35,18 +35,8 @@ const LanguageAddScreen = ({ navigation }) => {
     }
   }
   
-  const onLanguagePress = async (lang) => {
-    let langCode = 'en';
-    switch (lang) {
-      case 0:
-        langCode = 'en';
-        break;
-      case 1:
-        langCode = 'ko';
-        break;
-      default:
-        break;
-    }
+  const onLanguagePress = async (langCode) => {
+    console.log('[onLanguagePress] allLang', allLanguages, langCode);
     // return to langugae screen
     navigation.navigate('Language', { selectedLang: langCode });
   };
@@ -61,7 +51,7 @@ const LanguageAddScreen = ({ navigation }) => {
               <ListItem
                 key={i}
                 title={t(item)}
-                onPress={() => onLanguagePress(i)} 
+                onPress={() => onLanguagePress(item)} 
               />
             ))
           }

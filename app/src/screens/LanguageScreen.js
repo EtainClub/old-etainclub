@@ -79,8 +79,8 @@ const LanguageScreen = ({ navigation }) => {
     let langList = [];
     userRef.get()
     .then(async snapshot => {
-      if (snapshot.exists) {
-        const languages = snapshot.data().languages;
+      const languages = snapshot.data().languages;
+      if (languages) {
         console.log('[getLanguages] data', languages);
         // build lists
         for (let i=0; i<languages.length; i++) {
@@ -129,6 +129,10 @@ const LanguageScreen = ({ navigation }) => {
         return newList;
       });
     }
+    // clear param
+    navigation.setParams({
+      selectedLang: null
+    });
   };
 
   // update language list when move finishes
