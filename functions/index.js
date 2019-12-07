@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const i18n = require('i18next');
+const i18next = require('i18next');
 
 /*
 var serviceAccount = require("path/to/serviceAccountKey.json");
@@ -30,9 +30,9 @@ exports.sendMessage = functions.firestore
     // get primary language
     const language = docData.language;
     console.log('user language', language);
-    /*
+    
     // setup language
-    i18n.init({
+    i18next.init({
       fallbackLng: language,
       debug: true, 
       resources: {
@@ -48,19 +48,19 @@ exports.sendMessage = functions.firestore
           },
         },
     });
-    */
+    
     // get users collection
     const users = admin.firestore().collection('users');
     // build push notification
     const payload = {
       notification: {
-//        title: i18n.t('header'),
-        title: "helpus",
+        title: i18next.t('header'),
+//        title: "helpus",
         body: docData.message
       },
       data:{
-//        title: i18n.t('header'),
-        title: "helpus",
+        title: i18next.t('header'),
+//        title: "helpus",
         body: docData.message,
         senderId: sender,
         caseId: caseId,

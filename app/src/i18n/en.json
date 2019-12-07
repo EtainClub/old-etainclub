@@ -186,7 +186,7 @@
       "deleteText": "Deleting account is done manually for now. Please contact the amdin."
     },
     "LanguageScreen": {
-      "header": "Language Setting",
+      "header": "Languages",
       "use": "Languages in Use",
       "all": "All Languages",
       "korean": "Korean",
