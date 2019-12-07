@@ -16,20 +16,18 @@ admin.initializeApp();
 // send push notification
 exports.sendMessage = functions.firestore
   .document('/cases/{caseId}').onCreate( async (snap, context) => {
-    // change includes changed data in firestore
-    console.log('snap: ', snap );
     // context includes params
-    console.log('context: ', context );
+    //console.log('context: ', context );
     // get the created document data
     const docData = snap.data();
-    console.log('created document data', docData);
+    //console.log('created document data', docData);
     // get user id from the context params
     const sender = docData.senderId;
     // get the case id
     const caseId = context.params.caseId;
     // get primary language
     const language = docData.language;
-    console.log('user language', language);
+    //console.log('user language', language);
     
     // setup language
     i18next.init({
@@ -55,12 +53,10 @@ exports.sendMessage = functions.firestore
     const payload = {
       notification: {
         title: i18next.t('header'),
-//        title: "helpus",
         body: docData.message
       },
       data:{
         title: i18next.t('header'),
-//        title: "helpus",
         body: docData.message,
         senderId: sender,
         caseId: caseId,

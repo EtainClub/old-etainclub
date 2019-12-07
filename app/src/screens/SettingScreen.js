@@ -54,8 +54,8 @@ const SettingScreen = ({ navigation }) => {
 
   const settingList = [
     {
-      title: t('SettingScreen.app'),
-      icon: 'howto'
+      title: t('SettingScreen.donotdisturb'),
+      icon: 'notification'
     },
     {
       title: t('SettingScreen.language'),
@@ -67,7 +67,8 @@ const SettingScreen = ({ navigation }) => {
       icon_url: 'https://cdn4.iconfinder.com/data/icons/43-social-media-line-icons/24/Share-48.png',
     },
     {
-      title: t('SettingScreen.version'),
+      title: t('SettingScreen.app'),
+      icon: 'howto'
     },
     {
       title: t('SettingScreen.evaluate'),
@@ -86,33 +87,15 @@ const SettingScreen = ({ navigation }) => {
     Linking.openURL(url);  
   };
   
-  const onLanguageChange = async (lang) => {
-    console.log('onLanguageChange', lang);
-    // save this into storage
-    await AsyncStorage.setItem('language', lang);
-    i18next.changeLanguage(lang);
-  };
-
   const onSettingPress = async (id) => {
     console.log('onItemPress id', id);
     switch (id) {
-      // app setting
+      // do not disturb
       case 0:
-        Linking.openSettings();
-        break;
+        break;        
       // lanungae
       case 1:
           navigation.navigate('Language');
-          break;
-          Alert.alert(
-            t('SettingScreen.languageTitle'),
-            t('SettingScreen.languageText'),
-            [
-              { text: t('korean'), onPress: () => onLanguageChange('ko') },
-              { text: t('english'), onPress: () => onLanguageChange('en') }
-            ],
-            {cancelable: true},
-          );  
         break;
       // share 
       case 2:
@@ -123,6 +106,7 @@ const SettingScreen = ({ navigation }) => {
         break;
       // app version
       case 3:
+        Linking.openSettings();
         break;
       // app evaluation
       case 4:
@@ -161,6 +145,8 @@ const SettingScreen = ({ navigation }) => {
     }
   };
 
+  const test = true;
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -184,12 +170,30 @@ const SettingScreen = ({ navigation }) => {
         <Text style={styles.listHeaderText}>{t('SettingScreen.setting')}</Text>
         {
           settingList.map((item, i) => (
-            <ListItem
-              key={i}
-              title={item.title}
-              chevron
-              onPress={() => onSettingPress(i)}
-            />
+            i === 0 ? 
+              <View>              
+                <ListItem
+                  key={i}
+                  title={item.title}
+                  switch
+                  onPress={() => onSettingPress(i)}
+                />
+                {
+                    test == true &&
+                    <ListItem
+                      key={i}
+                      title="time"
+                      onPress={() => onSettingPress(i)}
+                    />        
+                }
+              </View>
+              :
+              <ListItem
+                key={i}
+                title={item.title}
+                chevron
+                onPress={() => onSettingPress(i)}
+              />
           ))
         }
       </Spacer>  
