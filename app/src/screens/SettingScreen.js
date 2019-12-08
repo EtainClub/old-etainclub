@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Linking, Alert, Share } from 'react-native';
 import { NavigationEvents, SafeAreaView } from 'react-navigation';
 import { Text, SearchBar, ListItem, Divider } from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView from 'react-native-maps';
 import i18next from 'i18next';
@@ -83,6 +84,10 @@ const SettingScreen = ({ navigation }) => {
     },
   ];
 
+  //// states
+  // show do not disturb (DND) time list
+  const [showDND, setShowDND] = useState(false); 
+  const [showDNDClock, setShowDNDClock] = useState(false); 
   const onLinkPress = url => {
     Linking.openURL(url);  
   };
@@ -145,7 +150,23 @@ const SettingScreen = ({ navigation }) => {
     }
   };
 
-  const test = true;
+  const onDNDValueChange = (value) => {
+    console.log('[onDNDValueChange] value', value);
+    // update the state
+    setShowDND(value);
+  };
+
+  const onDNDTimePress = () => {
+    // show dialog
+    Alert.alert(
+      t('SettingScreen.dndTimeTitle'),
+      t('SettingScreen.dndTimeText'),
+      [
+        {text: t('confirm'), onPress: () => { setShowDNDClock(true) }}
+      ],
+      {cancelable: true},
+    );
+  };
 
   return (
     <SafeAreaView>
@@ -171,19 +192,22 @@ const SettingScreen = ({ navigation }) => {
         {
           settingList.map((item, i) => (
             i === 0 ? 
-              <View>              
+              <View key={i}>              
                 <ListItem
                   key={i}
                   title={item.title}
-                  switch
+                  switch={{ 
+                    value: showDND,
+                    onValueChange: (value) => onDNDValueChange(value)
+                  }}
                   onPress={() => onSettingPress(i)}
                 />
                 {
-                    test == true &&
+                    showDND &&
                     <ListItem
-                      key={i}
-                      title="time"
-                      onPress={() => onSettingPress(i)}
+                      key={i+100}
+                      title={"11:00 PM" + " " + "-" + " " + "08:00 AM"}
+                      onPress={() => onDNDTimePress(i)}
                     />        
                 }
               </View>
@@ -196,7 +220,16 @@ const SettingScreen = ({ navigation }) => {
               />
           ))
         }
-      </Spacer>  
+      </Spacer>
+        { showDNDClock && 
+          <DateTimePicker 
+            display="spinner"
+            value={ new Date() }
+            mode={'time'}
+            is24Hour={false}
+            display="default"
+            onChange={() => console.log('timepicker')} />
+        }  
       </ScrollView>
     </SafeAreaView>
   );

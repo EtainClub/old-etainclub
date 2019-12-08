@@ -170,6 +170,8 @@
       "setting": "설정",
       "links": "바로가기",
       "donotdisturb": "방해금지 시간설정",
+      "dndTimeTitle": "방해금지 시간",
+      "dndTimeText": "시작 시각을 누르고 이어서 종료 시각을 누르세요", 
       "language": "언어 설정",
       "shareTitle": "앱 다운로드",
       "app": "앱 설정",
