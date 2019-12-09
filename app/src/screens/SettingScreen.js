@@ -80,9 +80,12 @@ const SettingScreen = ({ navigation }) => {
   // flag: is it setting the start time? 
   const [startDND, setStartDND] = useState(true);
   const [updateDNDTime, setUpdateDNDTime] = useState(false); 
-  const [startDNDTime, setStartDNDTime] = useState(null);
-  const [endDNDTime, setEndDNDTime] = useState(null);
+//  const [startDNDTime, setStartDNDTime] = useState(null);
+//  const [endDNDTime, setEndDNDTime] = useState(null);
 
+  const [startDNDTime, setStartDNDTime] = useState({ show: false, time: null });
+  const [endDNDTime,   setEndDNDTime] = useState({ show: false, time: null });
+  
   // use effect
   useEffect(() => {
     // 
@@ -162,93 +165,79 @@ const SettingScreen = ({ navigation }) => {
 
   // show clock when a user clicks the time list item
   const onStartTimePress = () => {
-    setShowStartClock(true);
-    setShowEndClock(false);
-/*
-    // show dialog
-    Alert.alert(
-      t('SettingScreen.dndTimeTitle'),
-      t('SettingScreen.dndTimeText'),
-      [
-        // show clock
-        { text: t('confirm'), onPress: () => { console.log('onPress'); setShowDNDClock(true); } }
-      ],
-      { cancelable: true },
-    );
-*/
+    setStartDNDTime(prevState => {
+      const newStart = { show: true, time: prevState.time }
+      return  newStart;
+    });
+    setEndDNDTime(prevState => {
+      const newEnd = { show: false, time: prevState.time }
+      return newEnd;
+    });
   };
 
   // show clock when a user clicks the time list item
   const onEndTimePress = () => {
-    setShowStartClock(false);
-    setShowEndClock(true);
+    setStartDNDTime(prevState => {
+      const newStart = { show: false, time: prevState.time }
+      return  newStart;
+    });
+    setEndDNDTime(prevState => {
+      const newEnd = { show: true, time: prevState.time }
+      return newEnd;
+    });
   };
 
   // when a user clicks ok or cancel button on clock
-  const onClockChange = (event) => {
+  const onStartClockChange = (event, date) => {
     console.log('[onClockChange] event', event);
     console.log('[onClockChange] startDND', startDND);
     // when a user cancels
     if (event.type === 'dismissed') {
-      // make the clock invisible
-      setShowDNDClock(false);
-      // reset start flag
-      setStartDND(true);
-      console.log('[onClockChange] user canceled');
       return;
     }
-
-    setShowDNDClock(false);
-    return;
-    //// user clicks ok
-    // is it start time?
-    if (startDND) {
-      // save the start time
-//      setStartDNDTime(event.nativeEvent.timestamp);
-      // set startDND to false
-      setStartDND(false);
-      // ???
-      setShowDNDClock(false);
-      console.log('[onClockChange] start time selected');
-      return;
-    } 
-    // save the end time
-//    setEndDNDTime(event.nativeEvent.timestamp);
-    // set startDND to true
-    setStartDND(true);
-    // make the clock invisible
-    setShowDNDClock(false);
-    console.log('[onClockChange] end time selected. showDNDClock', showDNDClock);
+    setStartDNDTime({ show: false, time: event.nativeEvent.timestamp });
   };
 
+  // when a user clicks ok or cancel button on clock
+  const onEndClockChange = (event, date) => {
+    console.log('[onClockChange] event', event);
+    console.log('[onClockChange] startDND', startDND);
+    // when a user cancels
+    if (event.type === 'dismissed') {
+      return;
+    }
+    setEndDNDTime({ show: false, time: event.nativeEvent.timestamp });
+  };
+  
   // show clock
   const renderStartClock = () => {
-    if (showStartClock) {
-      return (
-        <DateTimePicker 
-          display="spinner"
-          value={ new Date() }
-          mode={'time'}
-          is24Hour={false}
-          display="default"
-          onChange={(event) => {onClockChange(event)}} />
-      );
-    }
+    console.log('[renderStartClock]');
+    const show = startDNDTime.show;
+    return (
+      show &&
+      <DateTimePicker 
+        display="spinner"
+        value={ new Date() }
+        mode={'time'}
+        is24Hour={false}
+        display="default"
+        onChange={onStartClockChange} />
+    );
   }
 
   // show clock
   const renderEndClock = () => {
-    if (showEndClock) {
-      return (
-        <DateTimePicker 
-          display="spinner"
-          value={ new Date() }
-          mode={'time'}
-          is24Hour={false}
-          display="default"
-          onChange={(event) => {onClockChange(event)}} />
-      );
-    }
+    const show = endDNDTime.show;
+    return (
+      show &&
+      <DateTimePicker 
+        display="spinner"
+        value={ new Date() }
+        mode={'time'}
+        is24Hour={false}
+        display="default"
+        onChange={onEndClockChange} />
+    );
   }
 
   return (
@@ -289,14 +278,14 @@ const SettingScreen = ({ navigation }) => {
                     <View>
                     <ListItem
                       key={i+100}
-                      title={"Start: 11:00 PM"}
+                      title={"Start: 11:00 PM" + startDNDTime.time}
                       containerStyle={{ backgroundColor: 'orange' }}
                       chevron
                       onPress={() => onStartTimePress(i)}
                     />
                     <ListItem
                       key={i+101}
-                      title={"End: 08:00 AM"}
+                      title={"End: 08:00 AM" + endDNDTime.time}
                       containerStyle={{ backgroundColor: 'orange' }}
                       chevron
                       onPress={() => onEndTimePress(i)}
