@@ -205,6 +205,11 @@ const SettingScreen = ({ navigation }) => {
       userRef.update({
         dndTimes: times
       });
+    } else {
+      // update db when user unselect dnd time
+      userRef.update({
+        dndTimes: null
+      });
     }
   };
 
