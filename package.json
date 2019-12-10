@@ -13,6 +13,7 @@
     "@react-native-community/geolocation": "1.4.2",
     "i18next": "17.0.16",
     "moment": "2.24.0",
+    "moment-timezone": "^0.5.27",
     "react": "16.8.6",
     "react-i18next": "10.13.0",
     "react-native": "0.60.6",

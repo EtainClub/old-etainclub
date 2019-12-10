@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, Linking, Alert, Share } from 'react-native';
 import { NavigationEvents, SafeAreaView } from 'react-navigation';
 import { Text, SearchBar, ListItem, Divider } from 'react-native-elements';
+import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -65,35 +66,25 @@ const SettingScreen = ({ navigation }) => {
     },
   ];
 
+  /*
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
+  */
 
-  let count = 0;
+  //// initial values
+  const START_TIME = moment('01:00', 'HH:mm').format("hh:mm A");
+  const END_TIME = moment('08:00', 'HH:mm').format("hh:mm A");
 
   //// states
   // show do not disturb (DND) time list
   const [showDND, setShowDND] = useState(false); 
-  const [showDNDClock, setShowDNDClock] = useState(false); 
-  const [showStartClock, setShowStartClock] = useState(false); 
-  const [showEndClock, setShowEndClock] = useState(false); 
-
-  // flag: is it setting the start time? 
-  const [startDND, setStartDND] = useState(true);
-  const [updateDNDTime, setUpdateDNDTime] = useState(false); 
-//  const [startDNDTime, setStartDNDTime] = useState(null);
-//  const [endDNDTime, setEndDNDTime] = useState(null);
-
-  const [startDNDTime, setStartDNDTime] = useState({ show: false, time: null });
-  const [endDNDTime,   setEndDNDTime] = useState({ show: false, time: null });
+  const [startDNDTime, setStartDNDTime] = useState({ show: false, time: START_TIME });
+  const [endDNDTime,   setEndDNDTime] = useState({ show: false, time: END_TIME });
   
-  // use effect
-  useEffect(() => {
-    // 
-//    console.log('[useEffect] showDNDClock', showDNDClock);
-    // re-render
-//    updateState();
-  }, [showDNDClock]);
- 
+  const convertTime = timestamp => {
+    return moment(timestamp).format('hh:mm A');
+  };
+
   const onLinkPress = url => {
     Linking.openURL(url);  
   };
@@ -169,44 +160,43 @@ const SettingScreen = ({ navigation }) => {
       const newStart = { show: true, time: prevState.time }
       return  newStart;
     });
-    setEndDNDTime(prevState => {
-      const newEnd = { show: false, time: prevState.time }
-      return newEnd;
-    });
+//    setEndDNDTime(prevState => {
+//      const newEnd = { show: false, time: prevState.time }
+//      return newEnd;
+//    });
   };
 
   // show clock when a user clicks the time list item
   const onEndTimePress = () => {
-    setStartDNDTime(prevState => {
-      const newStart = { show: false, time: prevState.time }
-      return  newStart;
-    });
     setEndDNDTime(prevState => {
       const newEnd = { show: true, time: prevState.time }
       return newEnd;
     });
+
+//    setStartDNDTime(prevState => {
+//      const newStart = { show: false, time: prevState.time }
+//      return  newStart;
+//    });
   };
 
   // when a user clicks ok or cancel button on clock
   const onStartClockChange = (event, date) => {
-    console.log('[onClockChange] event', event);
-    console.log('[onClockChange] startDND', startDND);
     // when a user cancels
     if (event.type === 'dismissed') {
       return;
     }
-    setStartDNDTime({ show: false, time: event.nativeEvent.timestamp });
+    const time = convertTime(event.nativeEvent.timestamp);
+    setStartDNDTime({ show: false, time });
   };
 
   // when a user clicks ok or cancel button on clock
   const onEndClockChange = (event, date) => {
-    console.log('[onClockChange] event', event);
-    console.log('[onClockChange] startDND', startDND);
     // when a user cancels
     if (event.type === 'dismissed') {
       return;
     }
-    setEndDNDTime({ show: false, time: event.nativeEvent.timestamp });
+    const time = convertTime(event.nativeEvent.timestamp);
+    setEndDNDTime({ show: false, time });
   };
   
   // show clock
@@ -276,20 +266,20 @@ const SettingScreen = ({ navigation }) => {
                 {
                     showDND && 
                     <View>
-                    <ListItem
-                      key={i+100}
-                      title={"Start: 11:00 PM" + startDNDTime.time}
-                      containerStyle={{ backgroundColor: 'orange' }}
-                      chevron
-                      onPress={() => onStartTimePress(i)}
-                    />
-                    <ListItem
-                      key={i+101}
-                      title={"End: 08:00 AM" + endDNDTime.time}
-                      containerStyle={{ backgroundColor: 'orange' }}
-                      chevron
-                      onPress={() => onEndTimePress(i)}
-                    />        
+                      <ListItem
+                        key={i+100}
+                        title={t('SettingScreen.startDNDTime') + startDNDTime.time}
+                        containerStyle={{ backgroundColor: 'orange' }}
+                        chevron
+                        onPress={() => onStartTimePress(i)}
+                      />
+                      <ListItem
+                        key={i+101}
+                        title={t('SettingScreen.endDNDTime') + endDNDTime.time}
+                        containerStyle={{ backgroundColor: 'orange' }}
+                        chevron
+                        onPress={() => onEndTimePress(i)}
+                      />        
                     </View>
                 }
               </View>
