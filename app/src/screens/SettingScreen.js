@@ -81,6 +81,41 @@ const SettingScreen = ({ navigation }) => {
   const [startDNDTime, setStartDNDTime] = useState({ show: false, time: START_TIME });
   const [endDNDTime,   setEndDNDTime] = useState({ show: false, time: END_TIME });
   
+  // use effect
+  useEffect(() => {
+    // initialize settings
+    initSettings();
+  }, []);
+
+  const initSettings = async () => {
+    // get dnd time state from storage
+    const value = await AsyncStorage.getItem('DNDSetting');
+    // parse
+    const flag = JSON.parse(value);
+    // set the state 
+    setShowDND(flag);
+    // 
+    console.log('[initSettings] dnd storage value', flag);
+    // get time
+    if (flag) {
+      const start = await AsyncStorage.getItem('startDNDTime');
+      const end = await AsyncStorage.getItem('endDNDTime');
+      console.log('[initSettings] start', start);
+      console.log('[initSettings] end', end);
+      
+      // set the time
+      setStartDNDTime(prevState => {
+        const newStart = { show: false, time: start }
+        return  newStart;
+      });  
+      setEndDNDTime(prevState => {
+        const newStart = { show: false, time: end }
+        return  newStart;
+      });  
+    }
+  };
+
+  // convert the timestamp to time
   const convertTime = timestamp => {
     return moment(timestamp).format('hh:mm A');
   };
@@ -148,10 +183,17 @@ const SettingScreen = ({ navigation }) => {
   };
 
   // update swith state when a user clicks the DND time switch
-  const onDNDValueChange = (value) => {
+  const onDNDValueChange = async (value) => {
     console.log('[onDNDValueChange] value', value);
     // update the state
     setShowDND(value);
+    // save the flag in async storage
+    await AsyncStorage.setItem('DNDSetting', JSON.stringify(value));
+    // save the current time in async storage
+    if (value) {
+      await AsyncStorage.setItem('startDNDTime', startDNDTime.time);
+      await AsyncStorage.setItem('endDNDTime', endDNDTime.time);
+    }
   };
 
   // show clock when a user clicks the time list item
@@ -160,10 +202,6 @@ const SettingScreen = ({ navigation }) => {
       const newStart = { show: true, time: prevState.time }
       return  newStart;
     });
-//    setEndDNDTime(prevState => {
-//      const newEnd = { show: false, time: prevState.time }
-//      return newEnd;
-//    });
   };
 
   // show clock when a user clicks the time list item
@@ -172,31 +210,30 @@ const SettingScreen = ({ navigation }) => {
       const newEnd = { show: true, time: prevState.time }
       return newEnd;
     });
-
-//    setStartDNDTime(prevState => {
-//      const newStart = { show: false, time: prevState.time }
-//      return  newStart;
-//    });
   };
 
   // when a user clicks ok or cancel button on clock
-  const onStartClockChange = (event, date) => {
+  const onStartClockChange = async (event, date) => {
     // when a user cancels
     if (event.type === 'dismissed') {
       return;
     }
     const time = convertTime(event.nativeEvent.timestamp);
     setStartDNDTime({ show: false, time });
+    // save the time in storage
+    await AsyncStorage.setItem('startDNDTime', time);
   };
 
   // when a user clicks ok or cancel button on clock
-  const onEndClockChange = (event, date) => {
+  const onEndClockChange = async (event, date) => {
     // when a user cancels
     if (event.type === 'dismissed') {
       return;
     }
     const time = convertTime(event.nativeEvent.timestamp);
     setEndDNDTime({ show: false, time });
+    // save the time in storage
+    await AsyncStorage.setItem('endDNDTime', time);
   };
   
   // show clock
