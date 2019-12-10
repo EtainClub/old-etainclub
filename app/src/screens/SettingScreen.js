@@ -8,6 +8,7 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'react-native-firebase'; 
 // custom libraries
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -18,6 +19,12 @@ const SettingScreen = ({ navigation }) => {
   const { t } = useTranslation();
   // use auth context; state, action, default value
   const { signout } = useContext( AuthContext );
+  /*
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+  */
+
+  //// initial values
   // item list
   const linkList = [
     {
@@ -64,14 +71,12 @@ const SettingScreen = ({ navigation }) => {
     {
       title: t('SettingScreen.deleteAccount'),
     },
-  ];
-
-  /*
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-  */
-
-  //// initial values
+  ];  
+  // get user doc
+  const { currentUser } = firebase.auth();
+  const userId = currentUser.uid;
+  const userRef = firebase.firestore().doc(`users/${userId}`);
+  
   const START_TIME = moment('01:00', 'HH:mm').format("hh:mm A");
   const END_TIME = moment('08:00', 'HH:mm').format("hh:mm A");
 
@@ -193,6 +198,13 @@ const SettingScreen = ({ navigation }) => {
     if (value) {
       await AsyncStorage.setItem('startDNDTime', startDNDTime.time);
       await AsyncStorage.setItem('endDNDTime', endDNDTime.time);
+      //// update db
+      // concatenate the times
+      const times = [startDNDTime.time, endDNDTime.time];
+      // update
+      userRef.update({
+        dndTimes: times
+      });
     }
   };
 
@@ -222,6 +234,13 @@ const SettingScreen = ({ navigation }) => {
     setStartDNDTime({ show: false, time });
     // save the time in storage
     await AsyncStorage.setItem('startDNDTime', time);
+    //// update db
+    // concatenate the times
+    const times = [time, endDNDTime.time];
+    // update
+    userRef.update({
+      dndTimes: times
+    });
   };
 
   // when a user clicks ok or cancel button on clock
@@ -234,6 +253,13 @@ const SettingScreen = ({ navigation }) => {
     setEndDNDTime({ show: false, time });
     // save the time in storage
     await AsyncStorage.setItem('endDNDTime', time);
+        //// update db
+    // concatenate the times
+    const times = [startDNDTime.time, time];
+    // update
+    userRef.update({
+      dndTimes: times
+    });
   };
   
   // show clock
