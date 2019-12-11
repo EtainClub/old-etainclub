@@ -126,7 +126,7 @@ const acceptRequest = dispatch => {
     // new approach: save helperid and time in case doc
     // save the user language
     await caseRef
-      .update({ accepted: true, helperId: userId, createdAt: new Date() })
+      .update({ accepted: true, helperId: userId, acceptedAt: new Date() })
       .then(async () => {
         // update state
         dispatch({
@@ -143,7 +143,7 @@ const acceptRequest = dispatch => {
           });
           if (__DEV__) console.log('[acceptRequest] updated the document');
           // navigate to chat screen with param to set user as helper
-          navigation.navigate('Chatting', { chatUserId: 2, caseId, helperId: userId });
+          navigation.navigate('Chatting', { caseId, helperId: userId });
       })
       .catch(error => {
         if (__DEV__) console.log('[acceptRequest]failed to update the document, error:', error);

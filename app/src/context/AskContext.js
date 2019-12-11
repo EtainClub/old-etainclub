@@ -129,7 +129,8 @@ const sendMessage = async ({dispatch, message, navigation}) => {
     message,
     accepted: false,
     voted: false,
-    language
+    language,
+    createdAt: new Date()
   })
   .then(async docRef => {
     console.log('case generated with doc id: ', docRef.id);
