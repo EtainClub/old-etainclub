@@ -127,6 +127,10 @@ const sendMessage = async ({dispatch, message, navigation}) => {
   const date = new Date();
   // local time offset in hours from UTC+0
   const timeOffset = date.getTimezoneOffset();
+  // get hors and minutes
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  const messagingTime = hour*60 + minutes + timeOffset;
   // add a new document with auto generated doc id
   await casesRef.add({
     senderId: userId,
@@ -135,7 +139,7 @@ const sendMessage = async ({dispatch, message, navigation}) => {
     voted: false,
     language,
     createdAt: new Date(),
-    timeOffset
+    messagingTime
   })
   .then(async docRef => {
     console.log('case generated with doc id: ', docRef.id);

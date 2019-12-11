@@ -28,33 +28,9 @@ exports.sendMessage = functions.firestore
     const caseId = context.params.caseId;
     // get primary language
     const language = docData.language;
-    //// get utc time of message in minutes
-    const timestamp = docData.createdAt;
-    // get offset in minutes
-    const date = moment(timestamp);
-    const offset = timestamp.toDate().getTimezoneOffset();
-    console.log('offset', offset);
-    const offset2 = date.utcOffset;
-    console.log('offset2 from moment', offset2);
-
-    console.log('timestamp', timestamp);
-    console.log('date', date);
-
-    // get created date
-//    const timestamp = date.getTime();
-    // get hour and minutes    
-    const hour = date.hour();
-    const minutes = date.minutes();
-    // get time in minutes
-    const time = hour*60 + minutes + offset;
-    // get dnd times if exists
-
-    // @test
-    console.log('hour', hour);
-    console.log('minutes', minutes);
-    console.log('time', time);
-
-    
+    // get utc time of message in minutes
+    const messagingTime = docData.messagingTime;
+    console.log('messagingTime', messagingTime);
     // setup language
     i18next.init({
       fallbackLng: language,
@@ -120,7 +96,7 @@ exports.sendMessage = functions.firestore
           console.log('dndTime1', dndTime1);
           console.log('dndTime2', dndTime2);
           // send message if dnd is not set or the messaging time is outside dnd time zone
-          if (!dndTime1 || (time < dndTime1 && time > dndTime2)) {
+          if (!dndTime1 || messagingTime < dndTime1 || messagingTime > dndTime2) {
             // get the push token of a user
             pushToken = doc.data().pushToken;
             console.log('token, sending message', pushToken, payload);
@@ -130,7 +106,7 @@ exports.sendMessage = functions.firestore
               admin.messaging().sendToDevice(pushToken, payload);
             }
           } else {
-            console.log( 'time is in user dnd times', doc.id, time, dndTime1, dndTime2);
+            console.log( 'time is in user dnd times', doc.id, messagingTime, dndTime1, dndTime2);
           }
         } else {
           console.log( 'the sender is the same', doc.id, sender);
