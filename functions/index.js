@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const i18next = require('i18next');
+const moment = require('moment');
 
 /*
 var serviceAccount = require("path/to/serviceAccountKey.json");
@@ -27,9 +28,32 @@ exports.sendMessage = functions.firestore
     const caseId = context.params.caseId;
     // get primary language
     const language = docData.language;
+    //// get utc time of message in minutes
+    const timestamp = docData.createdAt;
+    // get offset in minutes
+    const date = moment(timestamp);
+    const offset = timestamp.toDate().getTimezoneOffset();
+    console.log('offset', offset);
+    const offset2 = date.utcOffset;
+    console.log('offset2 from moment', offset2);
+
+    console.log('timestamp', timestamp);
+    console.log('date', date);
+
     // get created date
-    const createdAt = docData.createdAt;
-    //console.log('user language', language);
+//    const timestamp = date.getTime();
+    // get hour and minutes    
+    const hour = date.hour();
+    const minutes = date.minutes();
+    // get time in minutes
+    const time = hour*60 + minutes + offset;
+    // get dnd times if exists
+
+    // @test
+    console.log('hour', hour);
+    console.log('minutes', minutes);
+    console.log('time', time);
+
     
     // setup language
     i18next.init({
@@ -79,13 +103,34 @@ exports.sendMessage = functions.firestore
         }
         // do not send notification to the sender
         if (doc.id !== sender) {
-          // get the push token of a user
-          pushToken = doc.data().pushToken;
-          console.log('token, sending message', pushToken, payload);
-          // send if push token exists
-          if (pushToken) {
-            // send notification trhough firebase cloud messaging (fcm)
-            admin.messaging().sendToDevice(pushToken, payload);
+          //// check do not disturb time of a user
+          let dndTime1 = null;
+          let dndTime2 = null;
+          // get dnd times if exist
+          if (doc.data().dndTimes) {
+            // ordering
+            if (doc.data().dndTimes[0] < doc.data().dndTimes[1]) {
+              dndTime1 = doc.data().dndTimes[0];
+              dndTime2 = doc.data().dndTimes[1];
+            } else {
+              dndTime1 = doc.data().dndTimes[1];
+              dndTime2 = doc.data().dndTimes[2];
+            }
+          }
+          console.log('dndTime1', dndTime1);
+          console.log('dndTime2', dndTime2);
+          // send message if dnd is not set or the messaging time is outside dnd time zone
+          if (!dndTime1 || (time < dndTime1 && time > dndTime2)) {
+            // get the push token of a user
+            pushToken = doc.data().pushToken;
+            console.log('token, sending message', pushToken, payload);
+            // send if push token exists
+            if (pushToken) {
+              // send notification trhough firebase cloud messaging (fcm)
+              admin.messaging().sendToDevice(pushToken, payload);
+            }
+          } else {
+            console.log( 'time is in user dnd times', doc.id, time, dndTime1, dndTime2);
           }
         } else {
           console.log( 'the sender is the same', doc.id, sender);

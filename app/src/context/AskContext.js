@@ -123,6 +123,10 @@ const sendMessage = async ({dispatch, message, navigation}) => {
   // get cases ref
   let casesRef = firebase.firestore().collection('cases');
   let caseId = null;
+  // messing time based on utc+0
+  const date = new Date();
+  // local time offset in hours from UTC+0
+  const timeOffset = date.getTimezoneOffset();
   // add a new document with auto generated doc id
   await casesRef.add({
     senderId: userId,
@@ -130,7 +134,8 @@ const sendMessage = async ({dispatch, message, navigation}) => {
     accepted: false,
     voted: false,
     language,
-    createdAt: new Date()
+    createdAt: new Date(),
+    timeOffset
   })
   .then(async docRef => {
     console.log('case generated with doc id: ', docRef.id);

@@ -83,7 +83,7 @@ const SettingScreen = ({ navigation }) => {
   // end date and time: 8AM
   const DATE2 = new Date(2019, 12, 12, 8, 0, 0);
   // local time offset in hours from UTC+0
-  const UTC_OFFSET_IN_HOUR = DATE1.getTimezoneOffset()/60;
+  const UTC_OFFSET_IN_MINUTES = DATE1.getTimezoneOffset();
   // get timestamp of the date1
   const START_TIME = DATE1.getTime();
   // get timestamp of the date2
@@ -102,6 +102,9 @@ const SettingScreen = ({ navigation }) => {
   }, []);
 
   const initSettings = async () => {
+
+    convertTimeToUTC0(END_TIME);
+
     // get dnd time state from storage
     const value = await AsyncStorage.getItem('DNDSetting');
     // parse
@@ -132,6 +135,16 @@ const SettingScreen = ({ navigation }) => {
   // convert the timestamp to time
   const convertTime = timestamp => {
     return moment(timestamp).format('hh:mm A');
+  };
+
+  // convert the timestamp to time in minutes based on UTC+0
+  const convertTimeToUTC0 = timestamp => {
+    // time in 2h hour format
+    const date = moment(timestamp);
+    const hour = date.hour();
+    const minutes = date.minutes();
+    const time = hour*60 + minutes + UTC_OFFSET_IN_MINUTES;
+    return time;
   };
 
   const onLinkPress = url => {
@@ -208,8 +221,11 @@ const SettingScreen = ({ navigation }) => {
       await AsyncStorage.setItem('startDNDTime', JSON.stringify(startDNDTime.time));
       await AsyncStorage.setItem('endDNDTime', JSON.stringify(endDNDTime.time));
       //// update db
+      // convert the timestamp to minutes based on UTC+0
+      const time1 = convertTimeToUTC0(startDNDTime.time);
+      const time2 = convertTimeToUTC0(endDNDTime.time);
       // concatenate the times
-      const times = [startDNDTime.time, endDNDTime.time];
+      const times = [time1, time2];
       // update
       userRef.update({
         dndTimes: times
@@ -245,13 +261,16 @@ const SettingScreen = ({ navigation }) => {
       return;
     }
 //    const time = convertTime(event.nativeEvent.timestamp);
-    const time = event.nativeEvent.timestamp;
-    setStartDNDTime({ show: false, time });
+    const timestamp = event.nativeEvent.timestamp;
+    setStartDNDTime({ show: false, time: timestamp });
     // save the time in storage
-    await AsyncStorage.setItem('startDNDTime', JSON.stringify(time));
+    await AsyncStorage.setItem('startDNDTime', JSON.stringify(timestamp));
     //// update db
-    // convert the time based on UTC 0 and concatenate the times 
-    const times = [time, endDNDTime.time];
+    // convert the time based on UTC 0 and concatenate the times
+    const time1 = convertTimeToUTC0(timestamp);
+    const time2 = convertTimeToUTC0(endDNDTime.time);
+    // concatenate the times
+    const times = [time1, time2];
     // update
     userRef.update({
       dndTimes: times
@@ -265,13 +284,16 @@ const SettingScreen = ({ navigation }) => {
       return;
     }
 //    const time = convertTime(event.nativeEvent.timestamp);
-    const time = event.nativeEvent.timestamp;
-    setEndDNDTime({ show: false, time });
+    const timestamp = event.nativeEvent.timestamp;
+    setEndDNDTime({ show: false, time: timestamp });
     // save the time in storage
-    await AsyncStorage.setItem('endDNDTime', JSON.stringify(time));
+    await AsyncStorage.setItem('endDNDTime', JSON.stringify(timestamp));
     //// update db
+    // convert the time based on UTC 0 and concatenate the times
+    const time1 = convertTimeToUTC0(startDNDTime.time);
+    const time2 = convertTimeToUTC0(timestamp);
     // concatenate the times
-    const times = [startDNDTime.time, time];
+    const times = [time1, time2];
     // update
     userRef.update({
       dndTimes: times
