@@ -77,8 +77,17 @@ const SettingScreen = ({ navigation }) => {
   const userId = currentUser.uid;
   const userRef = firebase.firestore().doc(`users/${userId}`);
   
-  const START_TIME = moment('01:00', 'HH:mm').format("hh:mm A");
-  const END_TIME = moment('08:00', 'HH:mm').format("hh:mm A");
+  //// times
+  // start date and time: 1AM
+  const DATE1 = new Date(2019, 12, 12, 1, 0, 0);
+  // end date and time: 8AM
+  const DATE2 = new Date(2019, 12, 12, 8, 0, 0);
+  // local time offset in hours from UTC+0
+  const UTC_OFFSET_IN_HOUR = DATE1.getTimezoneOffset()/60;
+  // get timestamp of the date1
+  const START_TIME = DATE1.getTime();
+  // get timestamp of the date2
+  const END_TIME = DATE2.getTime();
 
   //// states
   // show do not disturb (DND) time list
@@ -105,16 +114,16 @@ const SettingScreen = ({ navigation }) => {
     if (flag) {
       const start = await AsyncStorage.getItem('startDNDTime');
       const end = await AsyncStorage.getItem('endDNDTime');
-      console.log('[initSettings] start', start);
-      console.log('[initSettings] end', end);
+      console.log('[initSettings] start', JSON.parse(start));
+      console.log('[initSettings] end', JSON.parse(end));
       
       // set the time
       setStartDNDTime(prevState => {
-        const newStart = { show: false, time: start }
+        const newStart = { show: false, time: JSON.parse(start) }
         return  newStart;
       });  
       setEndDNDTime(prevState => {
-        const newStart = { show: false, time: end }
+        const newStart = { show: false, time: JSON.parse(end) }
         return  newStart;
       });  
     }
@@ -196,8 +205,8 @@ const SettingScreen = ({ navigation }) => {
     await AsyncStorage.setItem('DNDSetting', JSON.stringify(value));
     // save the current time in async storage
     if (value) {
-      await AsyncStorage.setItem('startDNDTime', startDNDTime.time);
-      await AsyncStorage.setItem('endDNDTime', endDNDTime.time);
+      await AsyncStorage.setItem('startDNDTime', JSON.stringify(startDNDTime.time));
+      await AsyncStorage.setItem('endDNDTime', JSON.stringify(endDNDTime.time));
       //// update db
       // concatenate the times
       const times = [startDNDTime.time, endDNDTime.time];
@@ -235,12 +244,13 @@ const SettingScreen = ({ navigation }) => {
     if (event.type === 'dismissed') {
       return;
     }
-    const time = convertTime(event.nativeEvent.timestamp);
+//    const time = convertTime(event.nativeEvent.timestamp);
+    const time = event.nativeEvent.timestamp;
     setStartDNDTime({ show: false, time });
     // save the time in storage
-    await AsyncStorage.setItem('startDNDTime', time);
+    await AsyncStorage.setItem('startDNDTime', JSON.stringify(time));
     //// update db
-    // concatenate the times
+    // convert the time based on UTC 0 and concatenate the times 
     const times = [time, endDNDTime.time];
     // update
     userRef.update({
@@ -254,11 +264,12 @@ const SettingScreen = ({ navigation }) => {
     if (event.type === 'dismissed') {
       return;
     }
-    const time = convertTime(event.nativeEvent.timestamp);
+//    const time = convertTime(event.nativeEvent.timestamp);
+    const time = event.nativeEvent.timestamp;
     setEndDNDTime({ show: false, time });
     // save the time in storage
-    await AsyncStorage.setItem('endDNDTime', time);
-        //// update db
+    await AsyncStorage.setItem('endDNDTime', JSON.stringify(time));
+    //// update db
     // concatenate the times
     const times = [startDNDTime.time, time];
     // update
@@ -336,14 +347,14 @@ const SettingScreen = ({ navigation }) => {
                     <View>
                       <ListItem
                         key={i+100}
-                        title={t('SettingScreen.startDNDTime') + startDNDTime.time}
+                        title={t('SettingScreen.startDNDTime') + convertTime(startDNDTime.time)}
                         containerStyle={{ backgroundColor: 'orange' }}
                         chevron
                         onPress={() => onStartTimePress(i)}
                       />
                       <ListItem
                         key={i+101}
-                        title={t('SettingScreen.endDNDTime') + endDNDTime.time}
+                        title={t('SettingScreen.endDNDTime') + convertTime(endDNDTime.time)}
                         containerStyle={{ backgroundColor: 'orange' }}
                         chevron
                         onPress={() => onEndTimePress(i)}

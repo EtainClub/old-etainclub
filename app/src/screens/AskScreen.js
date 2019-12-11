@@ -26,6 +26,13 @@ const AskScreen = ({navigation}) => {
   // use effect
   useEffect(() => {
     getAppStatus();
+
+    // @test
+    const date1 = new Date();
+    const timeoffset = date1.getTimezoneOffset()+30;
+    console.log('date1', date1);
+    console.log('timeoffset', timeoffset/60);
+
   }, []);
 
   const showRemoveIcon = () => {

@@ -27,6 +27,8 @@ exports.sendMessage = functions.firestore
     const caseId = context.params.caseId;
     // get primary language
     const language = docData.language;
+    // get created date
+    const createdAt = docData.createdAt;
     //console.log('user language', language);
     
     // setup language
